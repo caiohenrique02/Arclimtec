@@ -35,6 +35,21 @@ Paleta extraída da própria logo: `#24549C` (azul institucional), `#00A8F0` (ci
 python3 -m http.server 8081
 ```
 
+## Deploy (EasyPanel)
+
+O `Dockerfile` é o mesmo em todas as branches — nginx alpine servindo os estáticos, com gzip e cache de 30 dias nas imagens (`default.conf`).
+
+Um serviço por versão, todos apontando para este repo:
+
+| Serviço | Branch |
+|---|---|
+| `arclimtec-v1` | `v1-engenharia` |
+| `arclimtec-v2` | `v2-editorial` |
+| `arclimtec-v3` | `v3-impacto` |
+| `arclimtec-comp` (opcional) | `main` |
+
+Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Dockerfile`** (vazio também funciona, o padrão é `./Dockerfile`) e **porta 80**.
+
 ## A preencher antes de publicar
 
 Os campos entre colchetes no HTML aguardam informação do cliente:
