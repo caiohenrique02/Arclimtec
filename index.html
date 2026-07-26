@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arclimtec — 3 versões de landing page</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,sans-serif;background:#061426;color:#E8F0F8;
+    min-height:100vh;padding:60px 26px;line-height:1.6}
+  .bg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.18;
+    background-image:url("assets/bg-industrial.jpg"),linear-gradient(#1272C4,#1272C4);
+    background-size:cover,auto;background-position:center;background-blend-mode:luminosity}
+  .wrap{max-width:1080px;margin:0 auto}
+  img.logo{height:44px;margin-bottom:34px}
+  h1{font-size:34px;font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
+  p.sub{color:#93A9C2;margin-bottom:44px;max-width:70ch}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  a.card{display:block;padding:30px 26px;border:1px solid rgba(140,190,235,.2);border-radius:14px;
+    background:rgba(10,30,54,.6);color:inherit;text-decoration:none;transition:.25s}
+  a.card:hover{transform:translateY(-5px);border-color:#00A8F0;background:rgba(0,168,240,.09)}
+  .n{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#00A8F0;font-weight:600}
+  h2{font-size:23px;margin:10px 0 10px;font-weight:600}
+  .card p{font-size:15px;color:#A9C1D8}
+  ul{margin:14px 0 0 18px;font-size:14px;color:#8EA6BF}
+  footer{margin-top:44px;font-size:14px;color:#7D95AD}
+  @media (max-width:860px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <img class="logo" src="assets/logo-branca.png" alt="Arclimtec">
+  <h1>Três direções de design para a landing page</h1>
+  <p class="sub">Mesmo conteúdo, mesma estrutura de seções e o mesmo fundo fixo com as máquinas em monocromia azul. O que muda é a linguagem visual. Abra as três e me diga qual caminho seguir — ou o que misturar de cada.</p>
+  <div class="grid">
+    <a class="card" href="v1-engenharia.html">
+      <div class="n">Versão 1</div>
+      <h2>Engenharia</h2>
+      <p>Escuro, técnico e sóbrio. Vidro fosco, ciano luminoso e tipografia geométrica.</p>
+      <ul><li>Space Grotesk + Inter</li><li>Cards de vidro e grid de capacidades</li><li>Tom: fornecedor técnico confiável</li></ul>
+    </a>
+    <a class="card" href="v2-editorial.html">
+      <div class="n">Versão 2</div>
+      <h2>Editorial clara</h2>
+      <p>Claro, arejado e elegante. Serifa moderna, seções numeradas e muito respiro.</p>
+      <ul><li>Fraunces + Manrope</li><li>Galeria estilo revista e tabela de clientes</li><li>Tom: engenharia premium</li></ul>
+    </a>
+    <a class="card" href="v3-impacto.html">
+      <div class="n">Versão 3</div>
+      <h2>Impacto industrial</h2>
+      <p>Tipografia gigante condensada, blocos de cor chapada e carrossel de obras.</p>
+      <ul><li>Bebas Neue + Barlow</li><li>Letreiro rolante e blocos ciano/azul</li><li>Tom: força e presença</li></ul>
+    </a>
+  </div>
+  <footer>Servido localmente em <b>localhost:8081</b> · fotos e logo do próprio cliente</footer>
+</div>
+</body>
+</html>
