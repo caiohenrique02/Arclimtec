@@ -239,34 +239,40 @@
   .blk--inner{max-width:560px;margin:0 auto}
 
   /* ===== botão de WhatsApp que aparece na box ===== */
-  .zap-box{z-index:6;display:inline-flex;align-items:center;gap:9px;
-    font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:14px;letter-spacing:.1em;
-    text-transform:uppercase;padding:11px 17px;background:#25D366;color:#04231A;white-space:nowrap;
-    box-shadow:0 10px 26px -12px rgba(0,0,0,.8);
-    opacity:0;pointer-events:none;transition:opacity .25s}
-  .zap-box svg{width:17px;height:17px;fill:currentColor;flex:none}
+  /* discreto: contorno leve, some no fundo, e só aparece depois do clique */
+  .zap-box{z-index:6;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    border-radius:99px;border:1px solid rgba(37,211,102,.45);background:rgba(37,211,102,.12);
+    color:#63E7A0;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:12.5px;
+    letter-spacing:.08em;text-transform:uppercase;padding:8px 15px;white-space:nowrap;
+    opacity:0;pointer-events:none;transition:opacity .22s, background .22s, color .22s}
+  .zap-box svg{width:15px;height:15px;fill:currentColor;flex:none}
+  .zap-box:hover{background:#25D366;border-color:#25D366;color:#04231A}
+  .caixa-zap{cursor:pointer}
   .caixa-zap.aberto .zap-box{opacity:1;pointer-events:auto}
-  @media (hover:hover){ .caixa-zap:hover .zap-box{opacity:1;pointer-events:auto} }
-  /* dentro da solução azul o botão é branco e acompanha a própria caixa */
-  .prob__sol .zap-box{margin-top:16px;background:#fff;color:#04231A}
-  /* nas boxes que não podem crescer, o botão fica solto no canto — só o ícone,
-     pra não competir com o conteúdo do card */
-  .gc .zap-box,.card .zap-box{position:absolute;padding:10px;gap:0}
-  .gc .zap-box span,.card .zap-box span{display:none}
-  .gc .zap-box svg,.card .zap-box svg{width:19px;height:19px}
-  .gc .zap-box{top:14px;right:14px}
-  .card .zap-box{top:12px;right:12px}
-  .pair__f .zap-box{position:absolute;right:26px;top:50%;transform:translateY(-50%)}
-  /* botão fixo nos dois blocos grandes de serviço */
+  /* nos cards o botão é só o ícone, redondo, encostado no canto */
+  .gc .zap-box,.card .zap-box,.pair__f .zap-box{position:absolute;width:34px;height:34px;padding:0;gap:0}
+  .gc .zap-box span,.card .zap-box span,.pair__f .zap-box span{display:none}
+  .gc .zap-box{top:15px;right:15px}
+  .card .zap-box{top:12px;right:12px;background:rgba(4,18,31,.5);
+    border-color:rgba(255,255,255,.42);color:#fff}
+  .card .zap-box:hover{background:#25D366;border-color:#25D366;color:#04231A}
+  .pair__f .zap-box{right:74px;top:50%;margin-top:-17px}
+  /* dentro da solução azul o botão ganha o texto de volta, em contorno branco */
+  .prob__sol .zap-box{margin-top:16px;background:rgba(255,255,255,.14);
+    border-color:rgba(255,255,255,.65);color:#fff}
+  .prob__sol .zap-box:hover{background:#fff;border-color:#fff;color:#04231A}
+  /* nos dois blocos grandes de serviço o botão é fixo, no fim da lista */
   .blk--inner > span[data-zap]{display:block}
-  .blk .zap-box{opacity:1;pointer-events:auto;margin-top:28px}
-  .blk--cyan .zap-box{background:#04121F;color:#fff}
+  .blk .zap-box{opacity:1;pointer-events:auto;margin-top:26px}
+  .blk--cyan .zap-box{background:rgba(4,18,31,.12);border-color:rgba(4,18,31,.45);color:#04121F}
+  .blk--cyan .zap-box:hover{background:#04121F;border-color:#04121F;color:#fff}
 
   /* par problema -> solução */
   .pairs{display:grid;gap:3px;background:var(--line);margin-top:3px}
   .pair{display:grid;grid-template-columns:1fr 74px 1fr;align-items:stretch;gap:3px;background:var(--line)}
   .pair__q{background:rgba(30,11,4,.82);padding:26px 30px}
-  .pair__f{background:rgba(11,42,82,.88);padding:26px 206px 26px 30px;position:relative}
+  /* espaço à direita: o botão fica longe da borda pra não bater no termômetro fixo */
+  .pair__f{background:rgba(11,42,82,.88);padding:26px 126px 26px 30px;position:relative}
   .pair__q i,.pair__f i{font-style:normal;font-family:"Barlow Condensed",sans-serif;font-weight:700;
     font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:6px}
   .pair__q i{color:var(--quente)} .pair__f i{color:var(--frio)}
@@ -389,10 +395,10 @@
     /* problema e solução continuam lado a lado — a seta só faz sentido na horizontal */
     .pair{grid-template-columns:1fr 40px 1fr}
     .pair__q{padding:20px 15px}
-    .pair__f{padding:20px 15px 62px}
+    .pair__f{padding:20px 15px 60px}
     .pair b{font-size:22px}
     .pair p{font-size:14px}
-    .pair__f .zap-box{right:15px;bottom:15px;top:auto;transform:none}
+    .pair__f .zap-box{right:14px;bottom:14px;top:auto;margin-top:0}
     .pair__ar svg{width:20px;height:20px}
     .about__ph::after{inset:10px -10px -10px 10px}
   }
@@ -413,15 +419,8 @@
     .pair b{font-size:19px}
     .pair p{font-size:13px;line-height:1.45}
     .pair__ar svg{width:16px;height:16px}
-    /* em tela estreita o botão fica só com o ícone */
-    .zap-box{padding:10px 12px;gap:0}
-    .zap-box span{display:none}
-    .pair__f .zap-box{right:12px;bottom:12px}
+    .pair__f .zap-box{right:11px;bottom:11px;width:32px;height:32px}
     .prob__sol{padding:24px 20px}
-    .prob__sol .zap-box{padding:11px 17px;gap:9px}
-    .prob__sol .zap-box span{display:inline}
-    .blk .zap-box{padding:13px 20px;gap:9px}
-    .blk .zap-box span{display:inline}
   }
   @media (max-width:420px){
     .pair{grid-template-columns:1fr 24px 1fr}
