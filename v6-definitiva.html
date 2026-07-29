@@ -250,13 +250,12 @@
   .caixa-zap{cursor:pointer}
   .caixa-zap.aberto .zap-box{opacity:1;pointer-events:auto}
   /* nos cards o botão é só o ícone, redondo, encostado no canto */
-  .gc .zap-box,.card .zap-box,.pair__f .zap-box{position:absolute;width:34px;height:34px;padding:0;gap:0}
-  .gc .zap-box span,.card .zap-box span,.pair__f .zap-box span{display:none}
+  .gc .zap-box,.card .zap-box{position:absolute;width:34px;height:34px;padding:0;gap:0}
+  .gc .zap-box span,.card .zap-box span{display:none}
   .gc .zap-box{top:15px;right:15px}
   .card .zap-box{top:12px;right:12px;background:rgba(4,18,31,.5);
     border-color:rgba(255,255,255,.42);color:#fff}
   .card .zap-box:hover{background:#25D366;border-color:#25D366;color:#04231A}
-  .pair__f .zap-box{right:74px;top:50%;margin-top:-17px}
   /* dentro da solução azul o botão ganha o texto de volta, em contorno branco */
   .prob__sol .zap-box{margin-top:16px;background:rgba(255,255,255,.14);
     border-color:rgba(255,255,255,.65);color:#fff}
@@ -266,23 +265,6 @@
   .blk .zap-box{opacity:1;pointer-events:auto;margin-top:26px}
   .blk--cyan .zap-box{background:rgba(4,18,31,.12);border-color:rgba(4,18,31,.45);color:#04121F}
   .blk--cyan .zap-box:hover{background:#04121F;border-color:#04121F;color:#fff}
-
-  /* par problema -> solução */
-  .pairs{display:grid;gap:3px;background:var(--line);margin-top:3px}
-  .pair{display:grid;grid-template-columns:1fr 74px 1fr;align-items:stretch;gap:3px;background:var(--line)}
-  .pair__q{background:rgba(30,11,4,.82);padding:26px 30px}
-  /* espaço à direita: o botão fica longe da borda pra não bater no termômetro fixo */
-  .pair__f{background:rgba(11,42,82,.88);padding:26px 126px 26px 30px;position:relative}
-  .pair__q i,.pair__f i{font-style:normal;font-family:"Barlow Condensed",sans-serif;font-weight:700;
-    font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:6px}
-  .pair__q i{color:var(--quente)} .pair__f i{color:var(--frio)}
-  .pair b{font-family:"Bebas Neue",sans-serif;font-size:26px;line-height:1.05;display:block;margin-bottom:6px}
-  .pair p{font-size:15px;color:#B9C9D9;font-weight:300}
-  .pair__q p{color:#D4BBAD}
-  .pair__ar{background:rgba(6,27,54,.9);display:grid;place-items:center;position:relative;overflow:hidden}
-  .pair__ar svg{width:26px;height:26px;stroke:var(--frio);fill:none;stroke-width:2;
-    animation:nudge 1.9s ease-in-out infinite}
-  @keyframes nudge{0%,100%{transform:translateX(-5px);opacity:.55}50%{transform:translateX(5px);opacity:1}}
 
   /* ===== capacidades ===== */
   .grid-cap{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--line)}
@@ -392,14 +374,6 @@
     .sec__head{flex-direction:column;align-items:flex-start;gap:14px}
     .sec__head p{margin-left:0;text-align:left}
     .thermo{display:none}
-    /* problema e solução continuam lado a lado — a seta só faz sentido na horizontal */
-    .pair{grid-template-columns:1fr 40px 1fr}
-    .pair__q{padding:20px 15px}
-    .pair__f{padding:20px 15px 60px}
-    .pair b{font-size:22px}
-    .pair p{font-size:14px}
-    .pair__f .zap-box{right:14px;bottom:14px;top:auto;margin-top:0}
-    .pair__ar svg{width:20px;height:20px}
     .about__ph::after{inset:10px -10px -10px 10px}
   }
   @media (max-width:680px){
@@ -412,27 +386,11 @@
     .marq span{font-size:22px}
     .virada{padding:80px 0}
     .esquenta{min-height:0;padding:76px 0}
-    .pair{grid-template-columns:1fr 30px 1fr;gap:2px}
-    .pair__q{padding:16px 12px}
-    .pair__f{padding:16px 12px 56px}
-    .pair__q i,.pair__f i{font-size:11px;letter-spacing:.14em}
-    .pair b{font-size:19px}
-    .pair p{font-size:13px;line-height:1.45}
-    .pair__ar svg{width:16px;height:16px}
-    .pair__f .zap-box{right:11px;bottom:11px;width:32px;height:32px}
     .prob__sol{padding:24px 20px}
-  }
-  @media (max-width:420px){
-    .pair{grid-template-columns:1fr 24px 1fr}
-    .pair__q{padding:14px 10px}
-    .pair__f{padding:14px 10px 52px}
-    .pair b{font-size:17px}
-    .pair p{font-size:12.5px}
-    .pair__ar svg{width:14px;height:14px}
   }
   @media (prefers-reduced-motion:reduce){
     .rv{opacity:1;transform:none;transition:none}
-    .marq__in,.flake,.flow path,.esquenta .ar path,.pair__ar svg{animation:none}
+    .marq__in,.flake,.flow path,.esquenta .ar path{animation:none}
     .neve{display:none}
     html{scroll-behavior:auto}
   }
@@ -653,30 +611,6 @@
         </ul>
         <span data-zap="Olá! Queria um orçamento de ar-condicionado para minha casa / apartamento (instalação, manutenção ou higienização)."></span>
       </div>
-    </div>
-  </div>
-
-  <!-- de cada problema para a sua solução -->
-  <div class="pairs rv">
-    <div class="pair">
-      <div class="pair__q"><i>Quente</i><b>Parou no pico</b><p>A falha aparece na hora de maior movimento.</p></div>
-      <div class="pair__ar"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
-      <div class="pair__f" data-zap="Olá! O ar da minha empresa costuma falhar na hora de maior movimento. Queria falar sobre o plano preventivo."><i>Frio</i><b>Plano preventivo</b><p>Visitas periódicas com checklist e medição — a falha é encontrada antes de acontecer.</p></div>
-    </div>
-    <div class="pair">
-      <div class="pair__q"><i>Quente</i><b>A conta só sobe</b><p>Equipamento sujo trabalha dobrado o mês inteiro.</p></div>
-      <div class="pair__ar"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
-      <div class="pair__f" data-zap="Olá! Meu equipamento está sujo e trabalhando dobrado. Queria orçamento de limpeza, carga de gás e ajuste."><i>Frio</i><b>Limpeza, carga e ajuste</b><p>Serpentina, filtro e gás em ordem devolvem o rendimento de fábrica.</p></div>
-    </div>
-    <div class="pair">
-      <div class="pair__q"><i>Quente</i><b>Ar pesado</b><p>Cheiro, poeira e reclamação de quem passa o dia ali.</p></div>
-      <div class="pair__ar"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
-      <div class="pair__f" data-zap="Olá! Queria um orçamento de higienização de evaporadora, dutos e filtros."><i>Frio</i><b>Higienização técnica</b><p>Evaporadora, dutos e filtros limpos — qualidade do ar de volta.</p></div>
-    </div>
-    <div class="pair">
-      <div class="pair__q"><i>Quente</i><b>Sem PMOC, sem laudo</b><p>Uso coletivo sem plano documentado é risco legal.</p></div>
-      <div class="pair__ar"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
-      <div class="pair__f" data-zap="Olá! Preciso de um contrato de PMOC para o meu ambiente de uso coletivo. Como funciona?"><i>Frio</i><b>Contrato PMOC</b><p>Plano, execução e registro conforme a Lei 13.589/2018.</p></div>
     </div>
   </div>
 
@@ -943,7 +877,7 @@
     a.setAttribute('aria-label', 'Falar no WhatsApp sobre este assunto');
     alvo.appendChild(a);
 
-    const caixa = alvo.closest('.prob, .gc, .card, .pair, .blk') || alvo;
+    const caixa = alvo.closest('.prob, .gc, .card, .blk') || alvo;
     caixa.classList.add('caixa-zap');
     if(caixa.dataset.ligado) return;      /* uma box só precisa de um gatilho */
     caixa.dataset.ligado = '1';
