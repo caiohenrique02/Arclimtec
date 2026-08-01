@@ -16,11 +16,13 @@
      tela. Nada de cartão com sombra: aqui tudo é linha.
      ===================================================================== */
   :root{
-    --papel:#071A2F; --papel-2:#0A2340;
-    --grade:rgba(120,200,255,.075); --grade-forte:rgba(120,200,255,.15);
-    --linha:#8FDDFF; --linha-fina:rgba(143,221,255,.35);
-    --ciano:#00A8F0; --laranja:#FF6B1A;
-    --tinta:#DCEEFB; --tinta-soft:#7C9CBB;
+    /* prancha em papel claro: malha e traço no azul institucional da logo,
+       ciano como destaque e o laranja reservado ao calor */
+    --papel:#FBFDFF; --papel-2:#EFF6FD;
+    --grade:rgba(36,84,156,.085); --grade-forte:rgba(36,84,156,.17);
+    --linha:#24549C; --linha-fina:rgba(36,84,156,.30);
+    --ciano:#0079B8; --laranja:#D9500A;
+    --tinta:#0B2A52; --tinta-soft:#5A7A9C;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -36,7 +38,7 @@
       linear-gradient(90deg,var(--grade) 1px,transparent 1px);
     background-size:150px 150px,150px 150px,30px 30px,30px 30px}
   body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background:radial-gradient(120% 80% at 50% 0%,rgba(7,26,47,0) 20%,var(--papel) 88%)}
+    background:radial-gradient(120% 80% at 50% 0%,rgba(251,253,255,0) 18%,var(--papel) 92%)}
 
   .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
   a{color:inherit;text-decoration:none}
@@ -57,7 +59,7 @@
   .cab::after{content:"";position:absolute;left:22px;right:22px;height:0}
 
   /* -------------------------------------------------- topo */
-  header.barra{position:sticky;top:0;z-index:40;background:rgba(7,26,47,.86);
+  header.barra{position:sticky;top:0;z-index:40;background:rgba(251,253,255,.90);
     backdrop-filter:blur(9px);border-bottom:1px solid var(--linha-fina)}
   .barra__in{display:flex;align-items:center;gap:20px;height:62px}
   .barra__in img{height:26px}
@@ -73,11 +75,11 @@
     border:1px solid var(--linha);color:var(--linha);background:transparent;
     transition:background .18s,color .18s,box-shadow .18s}
   .bt svg{width:16px;height:16px;flex:none}
-  .bt:hover{background:var(--linha);color:var(--papel);box-shadow:4px 4px 0 rgba(143,221,255,.22)}
-  .bt--cheio{background:var(--ciano);border-color:var(--ciano);color:#04101F}
-  .bt--cheio:hover{background:var(--linha);border-color:var(--linha);color:#04101F}
+  .bt:hover{background:var(--linha);color:#fff;box-shadow:4px 4px 0 rgba(36,84,156,.20)}
+  .bt--cheio{background:var(--ciano);border-color:var(--ciano);color:#fff}
+  .bt--cheio:hover{background:var(--linha);border-color:var(--linha);color:#fff}
   .bt--quente{border-color:var(--laranja);color:var(--laranja)}
-  .bt--quente:hover{background:var(--laranja);color:#160702}
+  .bt--quente:hover{background:var(--laranja);color:#fff}
 
   /* -------------------------------------------------- capa */
   .capa{padding-top:56px}
@@ -99,8 +101,8 @@
   .desenho .risca{fill:none;stroke:var(--linha);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
   .desenho .risca--fina{stroke:var(--linha-fina);stroke-width:1}
   .desenho .risca--quente{stroke:var(--laranja)}
-  .desenho .risca--ciano{stroke:var(--ciano);stroke-width:2}
-  .desenho .hachura{fill:rgba(0,168,240,.07);stroke:none}
+  .desenho .risca--ciano{stroke:var(--ciano);stroke-width:2.2}
+  .desenho .hachura{fill:rgba(36,84,156,.055);stroke:none}
   .desenho text{font-family:"IBM Plex Mono",monospace;font-size:9px;fill:var(--tinta-soft);letter-spacing:.08em}
   /* setas de ar que circulam sem parar dentro do duto */
   .desenho .fluxo{fill:none;stroke:var(--ciano);stroke-width:2.4;stroke-linecap:round;
@@ -119,7 +121,7 @@
   .vist{width:100%;border:1px solid var(--linha-fina);border-bottom:none}
   .vist__lin{display:grid;grid-template-columns:auto 1fr;gap:0 16px;
     border-bottom:1px solid var(--linha-fina);padding:20px 18px;transition:background .2s}
-  .vist__lin:hover{background:rgba(0,168,240,.055)}
+  .vist__lin:hover{background:var(--papel-2)}
   .vist__cod{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--laranja);
     letter-spacing:.1em;padding-top:4px}
   .vist__tit{font-weight:600;font-size:18.5px}
@@ -168,7 +170,7 @@
     border-right:none;border-bottom:none}
   .simb > div{border-right:1px solid var(--linha-fina);border-bottom:1px solid var(--linha-fina);
     padding:22px 18px;transition:background .2s}
-  .simb > div:hover{background:rgba(0,168,240,.055)}
+  .simb > div:hover{background:var(--papel-2)}
   .simb svg{width:34px;height:34px;stroke:var(--linha);fill:none;stroke-width:1.3;margin-bottom:14px}
   .simb b{display:block;font-size:16.5px;font-weight:600;margin-bottom:2px}
   .simb span{font-size:13px;color:var(--tinta-soft)}
@@ -183,12 +185,12 @@
   .placa:hover{border-color:var(--linha)}
   .placa__img{position:relative;overflow:hidden}
   .placa__img img{width:100%;aspect-ratio:4/3;object-fit:cover;
-    filter:grayscale(.65) contrast(1.12) brightness(.92);transition:filter .4s,transform .6s}
-  .placa:hover .placa__img img{filter:grayscale(0) contrast(1.05) brightness(1);transform:scale(1.03)}
+    filter:grayscale(.55) contrast(1.06) brightness(1.04);transition:filter .4s,transform .6s}
+  .placa:hover .placa__img img{filter:grayscale(0) contrast(1.02);transform:scale(1.03)}
   .placa__img::after{content:"";position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(180deg,rgba(0,168,240,.22),rgba(7,26,47,.42));
+    background:linear-gradient(180deg,rgba(36,84,156,.30),rgba(0,121,184,.18));
     mix-blend-mode:multiply;transition:opacity .4s}
-  .placa:hover .placa__img::after{opacity:.25}
+  .placa:hover .placa__img::after{opacity:.15}
   /* marcas de canto, como o registro de uma prancha */
   .placa__img i{position:absolute;width:13px;height:13px;border:1px solid var(--linha);opacity:.75}
   .placa__img i:nth-child(1){top:8px;left:8px;border-right:none;border-bottom:none}
@@ -219,7 +221,8 @@
     border-right:none;border-bottom:none}
   .cli figure{border-right:1px solid var(--linha-fina);border-bottom:1px solid var(--linha-fina);
     padding:16px;display:flex;flex-direction:column;gap:10px}
-  .cli__chip{background:var(--tile,#fff);height:82px;display:grid;place-items:center;padding:12px}
+  .cli__chip{background:var(--tile,#fff);height:82px;display:grid;place-items:center;padding:12px;
+    border:1px solid var(--linha-fina)}
   .cli__chip img{max-height:56px;max-width:84%;object-fit:contain}
   .cli figcaption{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;
     text-transform:uppercase;color:var(--tinta-soft)}
@@ -244,7 +247,7 @@
 
   /* -------------------------------------------------- carimbo fixo */
   .carimbo{position:fixed;left:0;right:0;bottom:0;z-index:45;height:44px;display:flex;align-items:center;
-    gap:0;background:rgba(7,26,47,.93);backdrop-filter:blur(8px);border-top:1px solid var(--linha-fina);
+    gap:0;background:rgba(251,253,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--linha-fina);
     font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;color:var(--tinta-soft);
     text-transform:uppercase;overflow:hidden}
   .carimbo div{padding:0 16px;height:100%;display:flex;align-items:center;gap:8px;flex:none;
@@ -257,7 +260,7 @@
   /* mira de CAD acompanhando o mouse (só em ponteiro fino) */
   .mira{position:fixed;inset:0;z-index:35;pointer-events:none;opacity:0;transition:opacity .3s}
   .mira.on{opacity:1}
-  .mira span{position:absolute;background:rgba(143,221,255,.22)}
+  .mira span{position:absolute;background:rgba(36,84,156,.28)}
   .mira .mx{left:0;right:0;height:1px}
   .mira .my{top:0;bottom:0;width:1px}
   @media (pointer:coarse){.mira{display:none}}
@@ -269,11 +272,11 @@
   .rod .sp{margin-left:auto}
 
   .zap{position:fixed;right:16px;bottom:58px;z-index:50;width:52px;height:52px;
-    border:1px solid #25D366;background:rgba(37,211,102,.14);display:grid;place-items:center;
+    border:1px solid #25D366;background:rgba(37,211,102,.12);display:grid;place-items:center;
     transition:background .2s,transform .2s}
   .zap:hover{background:#25D366;transform:translateY(-2px)}
   .zap svg{width:26px;height:26px;fill:#25D366;transition:fill .2s}
-  .zap:hover svg{fill:#071A2F}
+  .zap:hover svg{fill:#fff}
 
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -288,7 +291,7 @@
 
 <header class="barra">
   <div class="folha barra__in">
-    <a href="#capa"><img src="assets/logo-branca.png" alt="Arclimtec"></a>
+    <a href="#capa"><img src="assets/logo.png" alt="Arclimtec"></a>
     <nav>
       <a href="#vistoria">02 · vistoria</a>
       <a href="#escopo">03 · escopo</a>
@@ -567,7 +570,7 @@
 
     <footer>
       <div class="rod">
-        <img src="assets/logo-branca.png" alt="Arclimtec">
+        <img src="assets/logo.png" alt="Arclimtec">
         <span>Soluções em climatização · Campina Grande/PB · desde 2012</span>
         <span class="sp">© 2026 Arclimtec — [Razão social / CNPJ]</span>
       </div>
