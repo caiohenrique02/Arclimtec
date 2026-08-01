@@ -2,9 +2,22 @@
 
 Landing page da **Arclimtec** (climatização industrial, empresarial e residencial). Site estático: só HTML/CSS/JS inline, sem build e sem servidor de aplicação.
 
-## Cinco direções de design
+## Versões em avaliação (o que está na `main`)
 
-O cliente pediu três versões bem diferentes entre si e, depois, mais duas em cima da V3 com a leitura térmica (laranja = o problema do ar quente, azul = a Arclimtec) e mais movimento. Cada uma vive numa branch própria, já como `index.html`, pronta para deploy:
+A `main` guarda só a versão escolhida e as posteriores, lado a lado, com um `index.html` que serve de página de comparação:
+
+| Arquivo | Versão | Linguagem visual |
+|---|---|---|
+| `v6-definitiva.html` | V6 Definitiva | Escura. Mistura aprovada: hero da V3, duto que esquenta na rolagem, termômetro 24° → 38° → 22° |
+| `v7-claro-a.html` | V7 Claro A — Editorial | A V6 recolorida para papel branco puro (`#FFFFFF`), texto azul-marinho, sem a foto no fundo fixo |
+| `v7-claro-b.html` | V7 Claro B — Técnico | Mesma recoloração em papel azul-gelo (`#F5F9FD`), contraste e linhas mais marcados |
+| `v8-minimal.html` | V8 Minimalista | Releitura enxuta: sem termômetro, cortina ou efeitos de rolagem; Bebas Neue + Barlow, mobile-first |
+
+As V7 A/B são geradas por `tools/gen_claro.py` a partir da V6 — só cores mudam, a estrutura é a mesma.
+
+### Direções anteriores (V1 a V5)
+
+Ficaram nas branches próprias, cada uma já como `index.html` pronta para deploy, e saíram da `main`:
 
 | Branch | Versão | Linguagem visual |
 |---|---|---|
@@ -13,8 +26,6 @@ O cliente pediu três versões bem diferentes entre si e, depois, mais duas em c
 | `v3-impacto` | Impacto industrial | Bebas Neue condensada, blocos de cor chapada, letreiro rolante, carrossel de obras |
 | `v4-termico` | Térmico | A página esfria conforme rola: laranja no topo, azul embaixo, termômetro fixo de 38° a 22° |
 | `v5-duelo` | Duelo | Hero com cortina arrastável quente/frio, cartas que viram problema→solução, contadores |
-
-A branch **`main`** guarda todas lado a lado (`v1-engenharia.html` … `v5-duelo.html`) e um `index.html` que serve de página de comparação.
 
 ## Estrutura da página (igual em todas)
 
@@ -50,6 +61,8 @@ Um serviço por versão, todos apontando para este repo:
 | `arclimtec-v3` | `v3-impacto` |
 | `arclimtec-v4` | `v4-termico` |
 | `arclimtec-v5` | `v5-duelo` |
+
+As V6, V7 A/B e V8 ainda não têm branch própria: ficam na `main`, acessíveis pelo `index.html` de comparação (`/v6-definitiva.html`, `/v7-claro-a.html`, `/v7-claro-b.html`, `/v8-minimal.html`).
 | `arclimtec-comp` (opcional) | `main` |
 
 Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Dockerfile`** (vazio também funciona, o padrão é `./Dockerfile`) e **porta 80**.

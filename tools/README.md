@@ -23,12 +23,20 @@ Publica uma versão em cada branch, já renomeada para `index.html` e com o `<ti
 python3 tools/publish_branches.py
 ```
 
-Cuidado: ele usa `git checkout -B`, ou seja, **recria** as branches a partir de `main`. Serviu para o primeiro empurrão das V1–V3. Para atualizar uma branch que já existe sem reescrever histórico, o caminho é outro:
+Cuidado: ele usa `git checkout -B`, ou seja, **recria** as branches a partir de `main`. Serviu para o primeiro empurrão das V1–V3.
+
+**Histórico, não roda mais como está**: os arquivos `v1-*` … `v5-*` saíram da `main` (vivem só nas branches de mesmo nome), então o script não acha mais o fonte. Para mexer numa dessas branches antigas, trabalhe direto nela:
 
 ```sh
-git checkout v3-impacto
-git checkout main -- v3-impacto.html        # traz a versão nova de main
-# renomear para index.html, ajustar o <title>, commitar
+git checkout v3-impacto     # a versão já é o index.html da branch
+```
+
+## `gen_claro.py`
+
+Gera `v7-claro-a.html` e `v7-claro-b.html` recolorindo a `v6-definitiva.html`. Só troca cores — estrutura, HTML e JS ficam idênticos, e o script aborta se algum trecho de CSS esperado não casar (proteção contra rodar em cima de uma V6 alterada).
+
+```sh
+python3 tools/gen_claro.py
 ```
 
 ## De onde vieram os assets
