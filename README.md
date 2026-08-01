@@ -12,8 +12,16 @@ A `main` guarda só a versão escolhida e as posteriores, lado a lado, com um `i
 | `v7-claro-a.html` | V7 Claro A — Editorial | A V6 recolorida para papel branco puro (`#FFFFFF`), texto azul-marinho, sem a foto no fundo fixo |
 | `v7-claro-b.html` | V7 Claro B — Técnico | Mesma recoloração em papel azul-gelo (`#F5F9FD`), contraste e linhas mais marcados |
 | `v8-minimal.html` | V8 Minimalista | Releitura enxuta: sem termômetro, cortina ou efeitos de rolagem; Bebas Neue + Barlow, mobile-first |
+| `v9-fluxo.html` | V9 Fluxo | A de mais movimento. Uma ideia por tela cheia, partículas de ar em canvas, fundo e cor comandados pela temperatura |
+| `v10-prancha.html` | V10 Prancha | Linguagem de projeto: papel quadriculado, cotas, carimbo fixo, desenho técnico que se traça na rolagem, IBM Plex Mono |
 
 As V7 A/B são geradas por `tools/gen_claro.py` a partir da V6 — só cores mudam, a estrutura é a mesma.
+
+### Como a V9 e a V10 funcionam
+
+**V9 Fluxo** — cada `<section>` declara `data-temp` (26° no hero, 38° nos problemas, 22° da virada em diante). O JS interpola entre os centros das seções e escreve `--h` (0 frio → 1 quente), que comanda o fundo, a cor de destaque, a direção das partículas e o termômetro lateral. Dois detalhes que custaram render para acertar: o fundo é **uma cor só** interpolada (cruzar um véu azul e um laranja com opacidade complementar dava um marrom morto no meio), e a virada de cor do destaque é **comprimida** numa faixa curta em torno de `--h` 0.5 — interpolar ciano→âmbar devagar passa por um verde feio.
+
+**V10 Prancha** — os desenhos usam `getTotalLength()` para medir cada traço e completá-los com `stroke-dashoffset` quando a prancha entra na tela. O carimbo do rodapé acompanha qual prancha está no meio da tela, e a mira de CAD só aparece em ponteiro fino (`pointer:fine`).
 
 ### Direções anteriores (V1 a V5)
 
@@ -62,7 +70,7 @@ Um serviço por versão, todos apontando para este repo:
 | `arclimtec-v4` | `v4-termico` |
 | `arclimtec-v5` | `v5-duelo` |
 
-As V6, V7 A/B e V8 ainda não têm branch própria: ficam na `main`, acessíveis pelo `index.html` de comparação (`/v6-definitiva.html`, `/v7-claro-a.html`, `/v7-claro-b.html`, `/v8-minimal.html`).
+Da V6 em diante nenhuma tem branch própria: ficam na `main`, acessíveis pelo `index.html` de comparação (`/v6-definitiva.html`, `/v7-claro-a.html`, `/v7-claro-b.html`, `/v8-minimal.html`, `/v9-fluxo.html`, `/v10-prancha.html`).
 | `arclimtec-comp` (opcional) | `main` |
 
 Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Dockerfile`** (vazio também funciona, o padrão é `./Dockerfile`) e **porta 80**.
