@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arclimtec — 5 versões de landing page</title>
+<title>Arclimtec — versões da landing page</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -16,6 +16,7 @@
   img.logo{height:44px;margin-bottom:34px}
   h1{font-size:34px;font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
   p.sub{color:#93A9C2;margin-bottom:44px;max-width:70ch}
+  p.sub code{font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#A9C1D8}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   a.card{display:block;padding:30px 26px;border:1px solid rgba(140,190,235,.2);border-radius:14px;
     background:rgba(10,30,54,.6);color:inherit;text-decoration:none;transition:.25s}
@@ -24,7 +25,10 @@
   h2{font-size:23px;margin:10px 0 10px;font-weight:600}
   .card p{font-size:15px;color:#A9C1D8}
   ul{margin:14px 0 0 18px;font-size:14px;color:#8EA6BF}
+  .swatch{display:flex;gap:6px;margin-top:16px}
+  .swatch i{width:22px;height:22px;border-radius:5px;border:1px solid rgba(255,255,255,.14)}
   footer{margin-top:44px;font-size:14px;color:#7D95AD}
+  footer b{color:#A9C1D8}
   @media (max-width:1080px){.grid{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:700px){.grid{grid-template-columns:1fr}}
 </style>
@@ -33,44 +37,50 @@
 <div class="bg"></div>
 <div class="wrap">
   <img class="logo" src="assets/logo-branca.png" alt="Arclimtec">
-  <h1>Cinco direções de design para a landing page</h1>
-  <p class="sub">Mesmo conteúdo e mesma estrutura de seções. As três primeiras variam a linguagem visual sobre o fundo fixo azul; a V4 e a V5 nascem da V3 e acrescentam a leitura térmica — <b style="color:#FF8A3D">ar quente laranja é o problema</b>, <b style="color:#00A8F0">ar frio azul é a Arclimtec</b> — com bem mais movimento.</p>
+  <h1>Versões em avaliação</h1>
+  <p class="sub">Mesmo conteúdo em todas, arrumado de jeitos diferentes. A <b>V6</b> é a definitiva escura já escolhida; a <b>V7</b> traz duas leituras claras dela; a <b>V8</b> é a releitura enxuta; a <b>V9</b> é a de mais movimento, com uma ideia por tela; a <b>V10</b> troca a linguagem de site pela de prancha de projeto. As duas últimas são claras, na paleta da logo, como a V7. As direções antigas (V1 a V5) continuam nas branches <code>v1-engenharia</code> … <code>v5-duelo</code>.</p>
   <div class="grid">
-    <a class="card" href="v1-engenharia.html">
-      <div class="n">Versão 1</div>
-      <h2>Engenharia</h2>
-      <p>Escuro, técnico e sóbrio. Vidro fosco, ciano luminoso e tipografia geométrica.</p>
-      <ul><li>Space Grotesk + Inter</li><li>Cards de vidro e grid de capacidades</li><li>Tom: fornecedor técnico confiável</li></ul>
-    </a>
-    <a class="card" href="v2-editorial.html">
-      <div class="n">Versão 2</div>
-      <h2>Editorial clara</h2>
-      <p>Claro, arejado e elegante. Serifa moderna, seções numeradas e muito respiro.</p>
-      <ul><li>Fraunces + Manrope</li><li>Galeria estilo revista e tabela de clientes</li><li>Tom: engenharia premium</li></ul>
-    </a>
-    <a class="card" href="v3-impacto.html">
-      <div class="n">Versão 3</div>
-      <h2>Impacto industrial</h2>
-      <p>Tipografia gigante condensada, blocos de cor chapada e carrossel de obras.</p>
-      <ul><li>Bebas Neue + Barlow</li><li>Letreiro rolante e blocos ciano/azul</li><li>Tom: força e presença</li></ul>
-    </a>
-    <a class="card" href="v4-termico.html">
-      <div class="n">Versão 4 · nova</div>
-      <h2>Térmico</h2>
-      <p>A página começa quente e vai esfriando conforme você rola. Termômetro fixo de 38° a 22°.</p>
-      <ul><li>Base da V3, laranja no topo e azul embaixo</li><li>Ondulação de calor, brasas subindo e flocos caindo</li><li>Seção de problemas → virada → soluções</li></ul>
-    </a>
-    <a class="card" href="v5-duelo.html">
-      <div class="n">Versão 5 · nova</div>
-      <h2>Duelo</h2>
-      <p>Hero dividido: arraste a cortina e veja o mesmo ambiente a 38° e a 22°.</p>
-      <ul><li>Cortina interativa quente ↔ frio</li><li>Cartas que viram: problema no laranja, solução no azul</li><li>Contadores animados e trilho de obras arrastável</li></ul>
-    </a>
     <a class="card" href="v6-definitiva.html" style="border-color:#00A8F0;background:rgba(0,168,240,.10)">
       <div class="n">Versão 6 · definitiva</div>
-      <h2>A mistura</h2>
-      <p>Hero da V3, transição nova em que o ar frio esquenta, e o melhor da V4 e da V5 no resto.</p>
+      <h2>A mistura (escura)</h2>
+      <p>Hero da V3, transição em que o ar frio esquenta, e o melhor da V4 e da V5 no resto.</p>
       <ul><li>Termômetro 24° → 38° → 22°</li><li>Duto que esquenta com a rolagem e as 3 causas</li><li>Logos reais dos clientes e dados de 2012 / +50 obras</li></ul>
+      <div class="swatch"><i style="background:#061B36"></i><i style="background:#24549C"></i><i style="background:#00A8F0"></i><i style="background:#FF6B1A"></i></div>
+    </a>
+    <a class="card" href="v7-claro-a.html">
+      <div class="n">Versão 7 A · nova</div>
+      <h2>Clara editorial</h2>
+      <p>A V6 inteira recolorida para fundo branco. Mesma estrutura e mesmos efeitos, só a paleta muda.</p>
+      <ul><li>Papel branco puro, texto azul-marinho</li><li>Sem a foto industrial no fundo fixo</li><li>Quente e frio preservados nos destaques</li></ul>
+      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#F3F8FD"></i><i style="background:#0B2A52"></i><i style="background:#00A8F0"></i></div>
+    </a>
+    <a class="card" href="v7-claro-b.html">
+      <div class="n">Versão 7 B · nova</div>
+      <h2>Clara técnica</h2>
+      <p>Mesma recoloração da V7 A, porém em papel levemente azulado — leitura mais fria e industrial.</p>
+      <ul><li>Fundo azul-gelo, contraste um pouco maior</li><li>Linhas e bordas mais marcadas</li><li>Alternativa direta à V7 A na escolha</li></ul>
+      <div class="swatch"><i style="background:#F5F9FD"></i><i style="background:#E3EFFB"></i><i style="background:#0B2740"></i><i style="background:#00A8F0"></i></div>
+    </a>
+    <a class="card" href="v8-minimal.html">
+      <div class="n">Versão 8 · nova</div>
+      <h2>Minimalista</h2>
+      <p>Releitura enxuta: sem termômetro, sem cortina e sem efeitos de rolagem. Mais leve e pensada primeiro no celular.</p>
+      <ul><li>Bebas Neue + Barlow sobre papel branco</li><li>Laranja só como acento, azul como base</li><li>Sete seções diretas, do hero ao contato</li></ul>
+      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#0B2A52"></i><i style="background:#F5600A"></i><i style="background:#00A8F0"></i></div>
+    </a>
+    <a class="card" href="v9-fluxo.html">
+      <div class="n">Versão 9 · nova</div>
+      <h2>Fluxo</h2>
+      <p>A de mais movimento, em papel claro. A página inteira é um termômetro: cada tela declara sua temperatura e o fundo, a cor e o ar em suspensão seguem a rolagem.</p>
+      <ul><li>Uma ideia por tela, sem grade de cartões</li><li>Papel azul-gelo no frio, creme no quente</li><li>Partículas que sobem quentes e descem frias</li></ul>
+      <div class="swatch"><i style="background:#F6FAFE"></i><i style="background:#24549C"></i><i style="background:#0079B8"></i><i style="background:#E2540A"></i></div>
+    </a>
+    <a class="card" href="v10-prancha.html">
+      <div class="n">Versão 10 · nova</div>
+      <h2>Prancha</h2>
+      <p>A mais diferente de todas: em vez de site, um jogo de pranchas de projeto em papel branco — malha quadriculada, cotas e carimbo.</p>
+      <ul><li>Desenho técnico que se traça na rolagem</li><li>Problemas viram relatório de vistoria</li><li>IBM Plex Mono, mira de CAD no ponteiro</li></ul>
+      <div class="swatch"><i style="background:#FBFDFF"></i><i style="background:#24549C"></i><i style="background:#0079B8"></i><i style="background:#D9500A"></i></div>
     </a>
   </div>
   <footer>Servido localmente em <b>localhost:8081</b> · fotos e logo do próprio cliente</footer>

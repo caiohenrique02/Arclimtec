@@ -2,9 +2,36 @@
 
 Landing page da **Arclimtec** (climatização industrial, empresarial e residencial). Site estático: só HTML/CSS/JS inline, sem build e sem servidor de aplicação.
 
-## Cinco direções de design
+## Versões em avaliação (o que está na `main`)
 
-O cliente pediu três versões bem diferentes entre si e, depois, mais duas em cima da V3 com a leitura térmica (laranja = o problema do ar quente, azul = a Arclimtec) e mais movimento. Cada uma vive numa branch própria, já como `index.html`, pronta para deploy:
+A `main` guarda só a versão escolhida e as posteriores, lado a lado, com um `index.html` que serve de página de comparação:
+
+| Arquivo | Versão | Linguagem visual |
+|---|---|---|
+| `v6-definitiva.html` | V6 Definitiva | Escura. Mistura aprovada: hero da V3, duto que esquenta na rolagem, termômetro 24° → 38° → 22° |
+| `v7-claro-a.html` | V7 Claro A — Editorial | A V6 recolorida para papel branco puro (`#FFFFFF`), texto azul-marinho, sem a foto no fundo fixo |
+| `v7-claro-b.html` | V7 Claro B — Técnico | Mesma recoloração em papel azul-gelo (`#F5F9FD`), contraste e linhas mais marcados |
+| `v8-minimal.html` | V8 Minimalista | Releitura enxuta: sem termômetro, cortina ou efeitos de rolagem; Bebas Neue + Barlow, mobile-first |
+| `v9-fluxo.html` | V9 Fluxo | Clara. A de mais movimento: uma ideia por tela cheia, partículas de ar em canvas, papel e cor comandados pela temperatura |
+| `v10-prancha.html` | V10 Prancha | Clara. Linguagem de projeto: papel quadriculado, cotas, carimbo fixo, desenho técnico que se traça na rolagem, IBM Plex Mono |
+
+As V7 A/B são geradas por `tools/gen_claro.py` a partir da V6 — só cores mudam, a estrutura é a mesma.
+
+### Como a V9 e a V10 funcionam
+
+**V9 Fluxo** — cada `<section>` declara `data-temp` (26° no hero, 38° nos problemas, 22° da virada em diante). O JS interpola entre os centros das seções e escreve `--h` (0 frio → 1 quente), que comanda o papel, a cor de destaque, a direção das partículas e o termômetro lateral. Três armadilhas que só apareceram no render:
+
+- o papel é **uma cor só** interpolada entre um par claro frio (azul-gelo) e um par claro quente (creme) — cruzar dois véus de opacidade complementar dava um tom morto no meio;
+- a virada de cor do destaque é **comprimida** numa faixa curta em torno de `--h` 0.5, porque interpolar ciano→âmbar devagar passa por um verde feio;
+- `background` ficou **fora** da `transition` dos botões: o fundo deles é `--mix`, e interpolar ciano→laranja em 0.2s fazia o botão piscar cinza na virada.
+
+Os tons de destaque são rebaixados em relação à marca (`#0079B8` no lugar do ciano `#00A8F0`, `#E2540A` no lugar do laranja `#FF6B1A`) porque as cores puras não têm contraste sobre papel branco.
+
+**V10 Prancha** — os desenhos usam `getTotalLength()` para medir cada traço e completá-los com `stroke-dashoffset` quando a prancha entra na tela. O carimbo do rodapé acompanha qual prancha está no meio da tela, e a mira de CAD só aparece em ponteiro fino (`pointer:fine`).
+
+### Direções anteriores (V1 a V5)
+
+Ficaram nas branches próprias, cada uma já como `index.html` pronta para deploy, e saíram da `main`:
 
 | Branch | Versão | Linguagem visual |
 |---|---|---|
@@ -13,8 +40,6 @@ O cliente pediu três versões bem diferentes entre si e, depois, mais duas em c
 | `v3-impacto` | Impacto industrial | Bebas Neue condensada, blocos de cor chapada, letreiro rolante, carrossel de obras |
 | `v4-termico` | Térmico | A página esfria conforme rola: laranja no topo, azul embaixo, termômetro fixo de 38° a 22° |
 | `v5-duelo` | Duelo | Hero com cortina arrastável quente/frio, cartas que viram problema→solução, contadores |
-
-A branch **`main`** guarda todas lado a lado (`v1-engenharia.html` … `v5-duelo.html`) e um `index.html` que serve de página de comparação.
 
 ## Estrutura da página (igual em todas)
 
@@ -51,6 +76,8 @@ Um serviço por versão, todos apontando para este repo:
 | `arclimtec-v4` | `v4-termico` |
 | `arclimtec-v5` | `v5-duelo` |
 | `arclimtec-comp` (opcional) | `main` |
+
+Da V6 em diante nenhuma versão tem branch própria: ficam na `main`, acessíveis pelo `index.html` de comparação (`/v6-definitiva.html`, `/v7-claro-a.html`, `/v7-claro-b.html`, `/v8-minimal.html`, `/v9-fluxo.html`, `/v10-prancha.html`).
 
 Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Dockerfile`** (vazio também funciona, o padrão é `./Dockerfile`) e **porta 80**.
 

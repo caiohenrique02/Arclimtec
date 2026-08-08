@@ -2,7 +2,7 @@ FROM nginx:alpine
 
 # Site 100% estático. Funciona igual em qualquer branch:
 # nas branches de versão existe só o index.html; em main vêm também
-# os arquivos v1-*/v2-*/v3-* e o index.html de comparação.
+# os arquivos v6-*/v7-*/v8-* e o index.html de comparação.
 COPY *.html /usr/share/nginx/html/
 COPY assets/ /usr/share/nginx/html/assets/
 
