@@ -14,8 +14,23 @@ A `main` guarda só a versão escolhida e as posteriores, lado a lado, com um `i
 | `v8-minimal.html` | V8 Minimalista | Releitura enxuta: sem termômetro, cortina ou efeitos de rolagem; Bebas Neue + Barlow, mobile-first |
 | `v9-fluxo.html` | V9 Fluxo | Clara. A de mais movimento: uma ideia por tela cheia, partículas de ar em canvas, papel e cor comandados pela temperatura |
 | `v10-prancha.html` | V10 Prancha | Clara. Linguagem de projeto: papel quadriculado, cotas, carimbo fixo, desenho técnico que se traça na rolagem, IBM Plex Mono |
+| `v11-capa-1.html` | V11 A — Capa Editorial | Clara, base V7 A. Responde ao pedido do cliente (04/08): capa dividida obra+planta, duto azul animado, 6 seções |
+| `v11-capa-2.html` | V11 B — Capa Técnico | Mesmas mudanças, base V7 B. Planta à esquerda, duto com flanges/rebites, nav e rodapé em azul escuro sólido |
+| `v11-capa-3.html` | V11 C — Capa Minimalista | Mesmas mudanças, base V8. Capa num cartão único arredondado, CTA laranja mantido |
 
 As V7 A/B são geradas por `tools/gen_claro.py` a partir da V6 — só cores mudam, a estrutura é a mesma.
+
+### O que a V11 muda (pedido do cliente por WhatsApp, 04/08)
+
+As três variações da V11 partem de bases diferentes (V7 A, V7 B e V8) mas aplicam a mesma lista de mudanças:
+
+- **Capa dividida**: metade esquerda é foto real da obra, metade direita é uma planta esquemática (rota de duto + difusores + cotas) desenhada em SVG — não existe still de planta real do cliente, então é um placeholder técnico fácil de trocar por uma planta escaneada de verdade.
+- **Duto de ar gelado** logo abaixo da capa, com o fluxo animado correndo da direita pra esquerda, e uma fileira de chips (Projeto · Instalação · Manutenção · PMOC · Laudo técnico) pra quem chega já ver o que a empresa faz.
+- **Logo maior** e mais azul-escuro em volta dela (chip de marca na nav, rodapé em `--azul-deep`/`--azul-night` sólido).
+- **Título do hero reduzido** a mais ou menos metade do tamanho anterior, abrindo espaço pra capa.
+- **Degradê entre seções**: cada `<section>` faz sua própria transição de cor pro tom da seção seguinte, em vez de cortes abruptos.
+- **Estrutura reduzida a 6 seções**: apresentação → o que a empresa trabalha → fotos dos equipamentos → quem somos → clientes → rodapé. Saíram a seção de problemas, a virada quente/frio, os letreiros, o Instagram e o contato separado — o contato foi incorporado ao rodapé.
+- **Higienização → Laudo Técnico** no grid de serviços (a mesma grade que aparece no print que o cliente mandou). Fora desse grid, "higienização" continua nas listas de serviço porque o pedido foi específico pra aquela peça.
 
 ### Como a V9 e a V10 funcionam
 
@@ -77,7 +92,7 @@ Um serviço por versão, todos apontando para este repo:
 | `arclimtec-v5` | `v5-duelo` |
 | `arclimtec-comp` (opcional) | `main` |
 
-Da V6 em diante nenhuma versão tem branch própria: ficam na `main`, acessíveis pelo `index.html` de comparação (`/v6-definitiva.html`, `/v7-claro-a.html`, `/v7-claro-b.html`, `/v8-minimal.html`, `/v9-fluxo.html`, `/v10-prancha.html`).
+Da V6 em diante nenhuma versão tem branch própria: ficam na `main`, acessíveis pelo `index.html` de comparação (`/v6-definitiva.html`, `/v7-claro-a.html`, `/v7-claro-b.html`, `/v8-minimal.html`, `/v9-fluxo.html`, `/v10-prancha.html`, `/v11-capa-1.html`, `/v11-capa-2.html`, `/v11-capa-3.html`).
 
 Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Dockerfile`** (vazio também funciona, o padrão é `./Dockerfile`) e **porta 80**.
 
