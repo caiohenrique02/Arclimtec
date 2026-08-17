@@ -81,7 +81,7 @@
   .nav__links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;
     background:currentColor;transition:width .25s}
   .nav__links a:hover::after{width:100%}
-  .nav .btn{padding:12px 22px;font-size:16px}
+  .nav .btn{padding:12px 22px;font-size:16px;margin-left:auto}
 
   /* ===== HERO — texto e capa (obra+planta) lado a lado, tudo já na primeira tela ===== */
   .hero{position:relative;padding:40px 0 64px;min-height:calc(100svh - 83px);display:flex;align-items:center}
@@ -232,6 +232,8 @@
   #empresa p{color:rgba(255,255,255,.75)}
   #empresa p b{color:#fff}
   .about__grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  /* grid tracks não encolhem sozinhos abaixo do conteúdo (max-width em ch/px) sem isto */
+  .hero__grid>*,.about__grid>*,.blk--inner>*,.foot__top>*{min-width:0}
   .about h2{font-size:clamp(38px,5.2vw,72px);margin:14px 0 20px}
   .about h2 span{color:var(--frio)}
   .about p{margin-bottom:16px;max-width:56ch;font-weight:300}
@@ -239,7 +241,7 @@
   .about__nums b{font-family:"Bebas Neue",sans-serif;font-size:42px;color:var(--frio-2);display:block;line-height:1}
   .about__nums span{font-size:13.5px;color:rgba(255,255,255,.68)}
   .about__logo{display:flex;align-items:center;justify-content:center}
-  .about__logo img{width:auto;max-width:340px;height:auto}
+  .about__logo img{width:100%;max-width:340px;height:auto}
 
   /* ===== clientes — sobre fundo escuro ===== */
   #clientes .sec__head h2{color:#fff}
@@ -306,6 +308,21 @@
     .grid-cap,.cli__grid{grid-template-columns:1fr}
     .about__nums{grid-template-columns:1fr}
     .blk ul{grid-template-columns:1fr}
+    .capa{height:240px}
+    .capa__obra span,.capa__tag{font-size:10.5px;letter-spacing:.09em}
+    .capa__obra span{left:14px;bottom:14px}
+    .capa__tag{right:14px;bottom:14px}
+    .capa__tag b{font-size:16px}
+    .capa__handle{width:40px}
+    .capa__handle i{width:36px;height:36px}
+    .capa__handle svg{width:14px;height:14px}
+  }
+  @media (max-width:420px){
+    .wrap{padding:0 18px}
+    .nav__in{gap:14px}
+    .nav__in img{height:36px}
+    .brand{gap:8px}
+    .nav .btn{padding:9px 14px;font-size:12.5px;letter-spacing:.06em}
   }
   @media (prefers-reduced-motion:reduce){
     .rv{opacity:1;transform:none;transition:none}
