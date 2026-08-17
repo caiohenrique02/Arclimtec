@@ -2,51 +2,49 @@
 
 Landing page da **Arclimtec** (climatização industrial, empresarial e residencial). Site estático: só HTML/CSS/JS inline, sem build e sem servidor de aplicação.
 
-## Versões em avaliação (o que está na `main`)
+## O que está na `main`
 
-A `main` guarda só a versão escolhida e as posteriores, lado a lado, com um `index.html` que serve de página de comparação:
+A `main` guarda só as duas versões finais, lado a lado, com um `index.html` que serve de página de comparação pro cliente:
 
 | Arquivo | Versão | Linguagem visual |
 |---|---|---|
-| `v6-definitiva.html` | V6 Definitiva | Escura. Mistura aprovada: hero da V3, duto que esquenta na rolagem, termômetro 24° → 38° → 22° |
-| `v7-claro-a.html` | V7 Claro A — Editorial | A V6 recolorida para papel branco puro (`#FFFFFF`), texto azul-marinho, sem a foto no fundo fixo |
-| `v7-claro-b.html` | V7 Claro B — Técnico | Mesma recoloração em papel azul-gelo (`#F5F9FD`), contraste e linhas mais marcados |
-| `v8-minimal.html` | V8 Minimalista | Releitura enxuta: sem termômetro, cortina ou efeitos de rolagem; Bebas Neue + Barlow, mobile-first |
-| `v9-fluxo.html` | V9 Fluxo | Clara. A de mais movimento: uma ideia por tela cheia, partículas de ar em canvas, papel e cor comandados pela temperatura |
-| `v10-prancha.html` | V10 Prancha | Clara. Linguagem de projeto: papel quadriculado, cotas, carimbo fixo, desenho técnico que se traça na rolagem, IBM Plex Mono |
-| `v11-capa-1.html` | V11 A — Capa Editorial | Clara, base V7 A. Responde ao pedido do cliente (04/08): capa dividida obra+planta, duto azul animado, 6 seções |
-| `v11-capa-2.html` | V11 B — Capa Técnico | Mesmas mudanças, base V7 B. Planta à esquerda, duto com flanges/rebites, nav e rodapé em azul escuro sólido |
-| `v11-capa-3.html` | V11 C — Capa Minimalista | Mesmas mudanças, base V8. Capa num cartão único arredondado, CTA laranja mantido |
+| `v12-continuo-b.html` | V12 B — Escura | Hero com texto e capa (obra+planta) lado a lado já na primeira tela; degradê contínuo do branco até o azul-marinho da marca; foto do galpão fixa e translúcida ao fundo |
+| `v12-continuo-c.html` | V12 C — Clara | Mesma estrutura da V12 B, recolorida pra ficar em tons claros do início ao fim — nenhuma seção escurece, nem o rodapé |
 
-As V7 A/B são geradas por `tools/gen_claro.py` a partir da V6 — só cores mudam, a estrutura é a mesma.
+Todas as versões anteriores (V1 a V12 A) foram aposentadas pra branches próprias — ver "Direções anteriores" mais abaixo.
 
-### O que a V11 muda (pedido do cliente por WhatsApp, 04/08)
+### O que a V12 B/C mudam (retificações do cliente por WhatsApp, 13–17/08)
 
-As três variações da V11 partem de bases diferentes (V7 A, V7 B e V8) mas aplicam a mesma lista de mudanças:
+Partem da V12 A (que por sua vez parte da V11 A) e aplicam, nessa ordem:
 
-- **Capa dividida**: metade esquerda é foto real da obra, metade direita é uma planta esquemática (rota de duto + difusores + cotas) desenhada em SVG — não existe still de planta real do cliente, então é um placeholder técnico fácil de trocar por uma planta escaneada de verdade.
-- **Duto de ar gelado** logo abaixo da capa, com o fluxo animado correndo da direita pra esquerda, e uma fileira de chips (Projeto · Instalação · Manutenção · PMOC · Laudo técnico) pra quem chega já ver o que a empresa faz.
-- **Logo maior** e mais azul-escuro em volta dela (chip de marca na nav, rodapé em `--azul-deep`/`--azul-night` sólido).
-- **Título do hero reduzido** a mais ou menos metade do tamanho anterior, abrindo espaço pra capa.
-- **Degradê entre seções**: cada `<section>` faz sua própria transição de cor pro tom da seção seguinte, em vez de cortes abruptos.
-- **Estrutura reduzida a 6 seções**: apresentação → o que a empresa trabalha → fotos dos equipamentos → quem somos → clientes → rodapé. Saíram a seção de problemas, a virada quente/frio, os letreiros, o Instagram e o contato separado — o contato foi incorporado ao rodapé.
-- **Higienização → Laudo Técnico** no grid de serviços (a mesma grade que aparece no print que o cliente mandou). Fora desse grid, "higienização" continua nas listas de serviço porque o pedido foi específico pra aquela peça.
+- **Hero reorganizado**: o texto de apresentação e a capa (foto da obra + planta do projeto) viraram uma única seção de duas colunas — a foto já aparece na primeira tela, sem precisar rolar. No celular a foto vem primeiro, o texto embaixo (`order:-1` no grid).
+- **Planta real**: o SVG placeholder da planta foi trocado por `assets/p-planta-projeto.jpg`, um desenho técnico (blueprint) da rede dutada gerado a pedido do cliente.
+- **Repaginação "Apple"**: cantos arredondados e sombras suaves em vez de bordas duras (capa, marquee, painel de serviços, cards, carrossel, clientes); botões com hover de elevação suave em vez do efeito "adesivo" deslocado; nav com borda fina em vez de faixa azul grossa.
+- **Blocos de serviço (industrial/doméstico) bem mais compactos**: texto de um lado, lista de 2 colunas do outro, em vez de empilhado — ficaram largos e curtos.
+- **Carrossel de fotos**: cards menores (3 por vez no desktop), e agora **anda sozinho** automaticamente, pausando quando o usuário interage.
+- **Quem somos**: logo grande trocada de branca pra colorida (mesma do topo), sem a caixa/glow que tinha antes.
+- **Rodapé**: botão de WhatsApp em verde (diferente do azul usado no resto do site).
+- **V12 B** mantém o degradê indo até `--azul-deep`/`--azul-night`, com a foto de fundo (`assets/p-dutos-galpao.jpg`) fixa (`position:fixed`, não rola nem se repete) e um overlay translúcido de transição longa por cima.
+- **V12 C** é a V12 B com o mesmo overlay só que preso em tons claros (branco → azul bem claro, nunca passa de `--frio`/`--azul`) — isso obrigou a rever todo texto/ícone que assumia fundo escuro (títulos de seção, números da empresa, legendas do carrossel, rodapé) pra usar tinta escura em vez de branca, e a logo do rodapé/"quem somos" virou a colorida (a branca sumiria num fundo claro).
 
-### Como a V9 e a V10 funcionam
+### O que a V12 A mudou (retificações do cliente por WhatsApp, 13/08)
 
-**V9 Fluxo** — cada `<section>` declara `data-temp` (26° no hero, 38° nos problemas, 22° da virada em diante). O JS interpola entre os centros das seções e escreve `--h` (0 frio → 1 quente), que comanda o papel, a cor de destaque, a direção das partículas e o termômetro lateral. Três armadilhas que só apareceram no render:
+Parte da V11 A (Capa Editorial) e aplicou:
 
-- o papel é **uma cor só** interpolada entre um par claro frio (azul-gelo) e um par claro quente (creme) — cruzar dois véus de opacidade complementar dava um tom morto no meio;
-- a virada de cor do destaque é **comprimida** numa faixa curta em torno de `--h` 0.5, porque interpolar ciano→âmbar devagar passa por um verde feio;
-- `background` ficou **fora** da `transition` dos botões: o fundo deles é `--mix`, e interpolar ciano→laranja em 0.2s fazia o botão piscar cinza na virada.
+- **Degradê único na página inteira**: o `body` recebe um só `linear-gradient` vertical — branco até ~12%, azul claro (`--frio-2`) no 1/4 da página, passando por `--azul` e chegando no azul mais escuro da marca (`--azul-deep`) na metade, mantido até o rodapé.
+- **Cano/marquee**: o duto em pílula da V11 foi trocado pelo cano azul da V6/V7, no fluxo contrário ao da V6.
+- **Carrossel de fotos 2 a 2**: setas e bolinhas, cada clique avança uma "página" de 2 fotos.
+- **Serviços em pilha**: industrial em cima (tamanho original), doméstico embaixo, reduzido.
+- **Logo em "quem somos"**: logo branca grande sobre um brilho radial sutil (V12 B/C substituíram por logo colorida sem glow).
+- **V12 B** (nessa época): camada de foto industrial translúcida acompanhando a altura inteira do documento, repetindo verticalmente.
 
-Os tons de destaque são rebaixados em relação à marca (`#0079B8` no lugar do ciano `#00A8F0`, `#E2540A` no lugar do laranja `#FF6B1A`) porque as cores puras não têm contraste sobre papel branco.
+### O que a V11 mudou (pedido do cliente por WhatsApp, 04/08)
 
-**V10 Prancha** — os desenhos usam `getTotalLength()` para medir cada traço e completá-los com `stroke-dashoffset` quando a prancha entra na tela. O carimbo do rodapé acompanha qual prancha está no meio da tela, e a mira de CAD só aparece em ponteiro fino (`pointer:fine`).
+As três variações partiam de bases diferentes (V7 A, V7 B e V8) mas aplicavam a mesma lista de mudanças: capa dividida obra+planta (planta em SVG placeholder), duto de ar animado com fileira de chips de serviço, logo maior, título do hero reduzido pela metade, degradê entre seções e estrutura reduzida a 6 seções (apresentação → serviços → fotos → quem somos → clientes → rodapé).
 
-### Direções anteriores (V1 a V5)
+### Direções anteriores (V1 a V12 A)
 
-Ficaram nas branches próprias, cada uma já como `index.html` pronta para deploy, e saíram da `main`:
+Todas aposentadas pra branches próprias, cada uma já como `index.html` pronta pra deploy, fora da `main`:
 
 | Branch | Versão | Linguagem visual |
 |---|---|---|
@@ -55,21 +53,33 @@ Ficaram nas branches próprias, cada uma já como `index.html` pronta para deplo
 | `v3-impacto` | Impacto industrial | Bebas Neue condensada, blocos de cor chapada, letreiro rolante, carrossel de obras |
 | `v4-termico` | Térmico | A página esfria conforme rola: laranja no topo, azul embaixo, termômetro fixo de 38° a 22° |
 | `v5-duelo` | Duelo | Hero com cortina arrastável quente/frio, cartas que viram problema→solução, contadores |
+| `v6-definitiva` | V6 Definitiva | Escura. Mistura aprovada: hero da V3, duto que esquenta na rolagem, termômetro 24° → 38° → 22° |
+| `v7-claro-a` | V7 Claro A — Editorial | A V6 recolorida para papel branco puro, texto azul-marinho |
+| `v7-claro-b` | V7 Claro B — Técnico | Mesma recoloração em papel azul-gelo, contraste mais marcado |
+| `v8-minimal` | V8 Minimalista | Releitura enxuta: sem termômetro, cortina ou efeitos de rolagem; mobile-first |
+| `v9-fluxo` | V9 Fluxo | A de mais movimento: uma ideia por tela cheia, papel e cor comandados pela temperatura |
+| `v10-prancha` | V10 Prancha | Linguagem de projeto: papel quadriculado, cotas, carimbo, desenho técnico que se traça na rolagem |
+| `v11-capa-1` | V11 A — Capa Editorial | Capa dividida obra+planta, duto azul animado, 6 seções |
+| `v11-capa-2` | V11 B — Capa Técnico | Planta à esquerda em estilo prancha, duto com flanges/rebites |
+| `v11-capa-3` | V11 C — Capa Minimalista | Capa num cartão único arredondado, CTA laranja |
+| `v12-continuo-a` | V12 A — Degradê contínuo | Base pra V12 B/C, sem a foto real na planta nem a repaginação "Apple" |
 
-## Estrutura da página (igual em todas)
+As V7 A/B foram geradas por `tools/gen_claro.py` a partir da V6 — só cores mudam, a estrutura é a mesma.
 
-Hero → serviços (bloco industrial/empresarial + bloco doméstico/residencial, cada um com manutenção **preventiva e corretiva**) → capacidades → projetos em destaque → a empresa → onde já prestou serviço → Instagram → contato.
+## Estrutura da página (igual nas duas versões atuais)
 
-Nas V1–V3 o fundo é fixo (não rola com a página): uma foto das máquinas em monocromia no azul da logo, translúcida, feita com `background-blend-mode: luminosity` — a foto entra por cima de um sólido azul, então a imagem contribui só a luminosidade e a cor vem da marca.
+Hero (texto + capa obra/planta) → cano/marquee → serviços (bloco industrial + bloco doméstico, cada um com manutenção **preventiva e corretiva**) → grade de 8 serviços → fotos dos equipamentos (carrossel automático) → quem somos → clientes → rodapé.
 
 ## Assets
 
-- `assets/logo.png` — logo com fundo transparente (gerada a partir do JPG original)
-- `assets/logo-branca.png` — versão branca, para fundos escuros
-- `assets/bg-industrial.jpg` — foto usada no fundo fixo
-- `assets/p-*.jpg` — fotos de obras, usadas em projetos em destaque
+- `assets/logo.png` — logo colorida com fundo transparente
+- `assets/logo-branca.png` — versão branca, para fundos escuros (usada na V12 B)
+- `assets/bg-industrial.jpg` — foto de fundo das direções antigas (V1–V3)
+- `assets/p-dutos-galpao.jpg` — foto de fundo fixa da V12 B/C e uma das fotos do carrossel
+- `assets/p-planta-projeto.jpg` — blueprint técnico da rede dutada, usado na capa do hero (V12 B/C)
+- `assets/p-*.jpg` — demais fotos de obras, usadas no carrossel de equipamentos
 
-Paleta extraída da própria logo: `#24549C` (azul institucional), `#00A8F0` (ciano), `#006CB4`.
+Paleta extraída da própria logo: `#24549C` (azul institucional), `#00A8F0` (ciano), `#48C6FF` (ciano claro).
 
 ## Rodar localmente
 
@@ -90,9 +100,9 @@ Um serviço por versão, todos apontando para este repo:
 | `arclimtec-v3` | `v3-impacto` |
 | `arclimtec-v4` | `v4-termico` |
 | `arclimtec-v5` | `v5-duelo` |
-| `arclimtec-comp` (opcional) | `main` |
+| `arclimtec-comp` (opcional) | `main` — comparação V12 B × V12 C |
 
-Da V6 em diante nenhuma versão tem branch própria: ficam na `main`, acessíveis pelo `index.html` de comparação (`/v6-definitiva.html`, `/v7-claro-a.html`, `/v7-claro-b.html`, `/v8-minimal.html`, `/v9-fluxo.html`, `/v10-prancha.html`, `/v11-capa-1.html`, `/v11-capa-2.html`, `/v11-capa-3.html`).
+As demais versões (`v6-definitiva` … `v12-continuo-a`) também têm branch própria, mesmo padrão, caso seja preciso reativar alguma pra deploy.
 
 Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Dockerfile`** (vazio também funciona, o padrão é `./Dockerfile`) e **porta 80**.
 
@@ -100,8 +110,6 @@ Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Do
 
 Os campos entre colchetes no HTML aguardam informação do cliente:
 
-- `[Cliente 01]`…`[Cliente 08]` — nomes na seção "onde já prestamos serviço" (confirmar autorização de uso de marca de terceiros)
-- `[X] anos` e `[X]+ obras` — tempo de mercado e volume de obras
-- `[e-mail comercial]` e `[Razão social / CNPJ]`
+- `[Razão social / CNPJ]` no rodapé
 - Confirmar se o WhatsApp é o **83 3099-8606** (é número fixo) ou um celular
 - Conferir as legendas técnicas das fotos de projetos

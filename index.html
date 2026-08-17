@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arclimtec — versões da landing page</title>
+<title>Arclimtec — comparação final</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -12,24 +12,22 @@
   .bg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.18;
     background-image:url("assets/bg-industrial.jpg"),linear-gradient(#1272C4,#1272C4);
     background-size:cover,auto;background-position:center;background-blend-mode:luminosity}
-  .wrap{max-width:1080px;margin:0 auto}
+  .wrap{max-width:900px;margin:0 auto}
   img.logo{height:44px;margin-bottom:34px}
   h1{font-size:34px;font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
   p.sub{color:#93A9C2;margin-bottom:44px;max-width:70ch}
-  p.sub code{font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#A9C1D8}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  a.card{display:block;padding:30px 26px;border:1px solid rgba(140,190,235,.2);border-radius:14px;
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  a.card{display:block;padding:34px 30px;border:1px solid rgba(140,190,235,.2);border-radius:16px;
     background:rgba(10,30,54,.6);color:inherit;text-decoration:none;transition:.25s}
   a.card:hover{transform:translateY(-5px);border-color:#00A8F0;background:rgba(0,168,240,.09)}
   .n{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#00A8F0;font-weight:600}
-  h2{font-size:23px;margin:10px 0 10px;font-weight:600}
+  h2{font-size:25px;margin:10px 0 10px;font-weight:600}
   .card p{font-size:15px;color:#A9C1D8}
   ul{margin:14px 0 0 18px;font-size:14px;color:#8EA6BF}
-  .swatch{display:flex;gap:6px;margin-top:16px}
+  .swatch{display:flex;gap:6px;margin-top:18px}
   .swatch i{width:22px;height:22px;border-radius:5px;border:1px solid rgba(255,255,255,.14)}
   footer{margin-top:44px;font-size:14px;color:#7D95AD}
   footer b{color:#A9C1D8}
-  @media (max-width:1080px){.grid{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:700px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -37,71 +35,22 @@
 <div class="bg"></div>
 <div class="wrap">
   <img class="logo" src="assets/logo-branca.png" alt="Arclimtec">
-  <h1>Versões em avaliação</h1>
-  <p class="sub">Mesmo conteúdo em todas, arrumado de jeitos diferentes. A <b>V6</b> é a definitiva escura já escolhida; a <b>V7</b> traz duas leituras claras dela; a <b>V8</b> é a releitura enxuta; a <b>V9</b> é a de mais movimento, com uma ideia por tela; a <b>V10</b> troca a linguagem de site pela de prancha de projeto; a <b>V11</b> (três variações) responde ao pedido de capa obra+planta, duto animado e reorganização em 6 seções. As direções antigas (V1 a V5) continuam nas branches <code>v1-engenharia</code> … <code>v5-duelo</code>.</p>
+  <h1>Duas versões pra comparar</h1>
+  <p class="sub">Mesmo conteúdo nas duas, arrumado em dois tons diferentes. A <b>V12 B</b> é a versão escura, com o degradê indo até o azul-marinho da marca; a <b>V12 C</b> é a mesma página num tom claro do início ao fim, sem nenhum trecho escuro. As versões anteriores (V6 a V12 A) continuam disponíveis, cada uma na sua própria branch do repositório.</p>
   <div class="grid">
-    <a class="card" href="v6-definitiva.html" style="border-color:#00A8F0;background:rgba(0,168,240,.10)">
-      <div class="n">Versão 6 · definitiva</div>
-      <h2>A mistura (escura)</h2>
-      <p>Hero da V3, transição em que o ar frio esquenta, e o melhor da V4 e da V5 no resto.</p>
-      <ul><li>Termômetro 24° → 38° → 22°</li><li>Duto que esquenta com a rolagem e as 3 causas</li><li>Logos reais dos clientes e dados de 2012 / +50 obras</li></ul>
-      <div class="swatch"><i style="background:#061B36"></i><i style="background:#24549C"></i><i style="background:#00A8F0"></i><i style="background:#FF6B1A"></i></div>
+    <a class="card" href="v12-continuo-b.html" style="border-color:#48C6FF;background:rgba(72,198,255,.08)">
+      <div class="n">V12 B</div>
+      <h2>Versão escura</h2>
+      <p>Hero com texto e a capa do projeto (obra + planta) lado a lado, já na primeira tela. Degradê contínuo do branco até o azul-escuro da marca, com a foto do galpão sempre visível ao fundo.</p>
+      <ul><li>Carrossel de fotos anda sozinho, 3 por vez</li><li>Logo colorida em "quem somos"</li><li>Botão de WhatsApp do rodapé em verde</li></ul>
+      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#48C6FF"></i><i style="background:#24549C"></i><i style="background:#0B2A52"></i></div>
     </a>
-    <a class="card" href="v7-claro-a.html">
-      <div class="n">Versão 7 A · nova</div>
-      <h2>Clara editorial</h2>
-      <p>A V6 inteira recolorida para fundo branco. Mesma estrutura e mesmos efeitos, só a paleta muda.</p>
-      <ul><li>Papel branco puro, texto azul-marinho</li><li>Sem a foto industrial no fundo fixo</li><li>Quente e frio preservados nos destaques</li></ul>
-      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#F3F8FD"></i><i style="background:#0B2A52"></i><i style="background:#00A8F0"></i></div>
-    </a>
-    <a class="card" href="v7-claro-b.html">
-      <div class="n">Versão 7 B · nova</div>
-      <h2>Clara técnica</h2>
-      <p>Mesma recoloração da V7 A, porém em papel levemente azulado — leitura mais fria e industrial.</p>
-      <ul><li>Fundo azul-gelo, contraste um pouco maior</li><li>Linhas e bordas mais marcadas</li><li>Alternativa direta à V7 A na escolha</li></ul>
-      <div class="swatch"><i style="background:#F5F9FD"></i><i style="background:#E3EFFB"></i><i style="background:#0B2740"></i><i style="background:#00A8F0"></i></div>
-    </a>
-    <a class="card" href="v8-minimal.html">
-      <div class="n">Versão 8 · nova</div>
-      <h2>Minimalista</h2>
-      <p>Releitura enxuta: sem termômetro, sem cortina e sem efeitos de rolagem. Mais leve e pensada primeiro no celular.</p>
-      <ul><li>Bebas Neue + Barlow sobre papel branco</li><li>Laranja só como acento, azul como base</li><li>Sete seções diretas, do hero ao contato</li></ul>
-      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#0B2A52"></i><i style="background:#F5600A"></i><i style="background:#00A8F0"></i></div>
-    </a>
-    <a class="card" href="v9-fluxo.html">
-      <div class="n">Versão 9 · nova</div>
-      <h2>Fluxo</h2>
-      <p>A de mais movimento, em papel claro. A página inteira é um termômetro: cada tela declara sua temperatura e o fundo, a cor e o ar em suspensão seguem a rolagem.</p>
-      <ul><li>Uma ideia por tela, sem grade de cartões</li><li>Papel azul-gelo no frio, creme no quente</li><li>Partículas que sobem quentes e descem frias</li></ul>
-      <div class="swatch"><i style="background:#F6FAFE"></i><i style="background:#24549C"></i><i style="background:#0079B8"></i><i style="background:#E2540A"></i></div>
-    </a>
-    <a class="card" href="v10-prancha.html">
-      <div class="n">Versão 10 · nova</div>
-      <h2>Prancha</h2>
-      <p>A mais diferente de todas: em vez de site, um jogo de pranchas de projeto em papel branco — malha quadriculada, cotas e carimbo.</p>
-      <ul><li>Desenho técnico que se traça na rolagem</li><li>Problemas viram relatório de vistoria</li><li>IBM Plex Mono, mira de CAD no ponteiro</li></ul>
-      <div class="swatch"><i style="background:#FBFDFF"></i><i style="background:#24549C"></i><i style="background:#0079B8"></i><i style="background:#D9500A"></i></div>
-    </a>
-    <a class="card" href="v11-capa-1.html" style="border-color:#48C6FF;background:rgba(0,168,240,.06)">
-      <div class="n">Versão 11 A · pedido do cliente</div>
-      <h2>Capa — Editorial</h2>
-      <p>Capa dividida (foto da obra + planta esquemática), duto azul animado logo abaixo e página reorganizada em 6 seções. Base V7 Claro A.</p>
-      <ul><li>Título do hero reduzido pela metade</li><li>Degradê de cor entre todas as seções</li><li>Higienização trocada por Laudo Técnico</li></ul>
-      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#F3F8FD"></i><i style="background:#0B2A52"></i><i style="background:#00A8F0"></i></div>
-    </a>
-    <a class="card" href="v11-capa-2.html" style="border-color:#48C6FF;background:rgba(0,168,240,.06)">
-      <div class="n">Versão 11 B · pedido do cliente</div>
-      <h2>Capa — Técnico industrial</h2>
-      <p>Mesmas mudanças da V11 A, com planta à esquerda em estilo prancha e duto com flanges e rebites. Base V7 Claro B.</p>
-      <ul><li>Nav e rodapé em azul escuro sólido</li><li>Cartões com cantos de registro (blueprint)</li><li>Chips de contato em grade mono</li></ul>
-      <div class="swatch"><i style="background:#F5F9FD"></i><i style="background:#061B36"></i><i style="background:#0B2A52"></i><i style="background:#48C6FF"></i></div>
-    </a>
-    <a class="card" href="v11-capa-3.html" style="border-color:#48C6FF;background:rgba(0,168,240,.06)">
-      <div class="n">Versão 11 C · pedido do cliente</div>
-      <h2>Capa — Minimalista premium</h2>
-      <p>Mesmas mudanças, num cartão único de capa com cantos arredondados e seções de serviço num bloco azul-escuro contínuo. Base V8 Minimalista.</p>
-      <ul><li>Duto em pílula suave</li><li>Cartões arredondados, mais espaço em branco</li><li>CTA laranja mantido como na V8</li></ul>
-      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#F4F8FC"></i><i style="background:#0B2A52"></i><i style="background:#F5600A"></i></div>
+    <a class="card" href="v12-continuo-c.html" style="border-color:#48C6FF;background:rgba(72,198,255,.08)">
+      <div class="n">V12 C</div>
+      <h2>Versão clara</h2>
+      <p>Estrutura idêntica à V12 B, mas em tons claros da marca do início ao fim — nenhuma seção escurece, nem o rodapé. Mesma foto de fundo, bem mais discreta.</p>
+      <ul><li>Mesmo hero, serviços, carrossel e logo da V12 B</li><li>Rodapé, cards e textos revistos pro fundo claro</li><li>Contraste testado em todas as seções</li></ul>
+      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#E0F2FF"></i><i style="background:#48C6FF"></i><i style="background:#24549C"></i></div>
     </a>
   </div>
   <footer>Servido localmente em <b>localhost:8081</b> · fotos e logo do próprio cliente</footer>
