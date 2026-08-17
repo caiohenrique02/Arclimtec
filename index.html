@@ -3,108 +3,648 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arclimtec — versões da landing page</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Arclimtec — Soluções em Climatização | Industrial, empresarial e residencial</title>
+<meta name="description" content="Climatização industrial e residencial em Campina Grande/PB desde 2012. Projeto, instalação, manutenção preventiva e corretiva, PMOC, VRF e rede dutada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* =====================================================================
+     V9 FLUXO — a página inteira é um termômetro.
+     Cada tela declara sua temperatura em data-temp; o scroll interpola
+     entre elas e alimenta --h (0 = 22° frio, 1 = 38° quente), que comanda
+     cor de destaque, véus de fundo e a direção das partículas de ar.
+     Uma ideia por tela: nada de grade com seis cartões.
+     ===================================================================== */
+  :root{
+    /* paleta clara, tirada da logo: azul institucional, ciano e o laranja
+       do calor. Os tons de destaque são rebaixados o suficiente para ter
+       contraste sobre papel — o ciano puro #00A8F0 fica ilegível no branco. */
+    --azul:#24549C; --azul-deep:#0B2A52;
+    --frio:#0079B8; --frio-2:#00A8F0;
+    --quente:#E2540A; --quente-2:#FF6B1A;
+    --h:0;                    /* 0 frio · 1 quente — escrito pelo JS */
+    --mix:#0079B8;            /* cor de destaque interpolada */
+    --papel:#F6FAFE;
+    --tinta:#0B2A52; --tinta-soft:#5A7A9C;
+    --line:rgba(11,42,82,.13);
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:Inter,system-ui,sans-serif;background:#061426;color:#E8F0F8;
-    min-height:100vh;padding:60px 26px;line-height:1.6}
-  .bg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.18;
-    background-image:url("assets/bg-industrial.jpg"),linear-gradient(#1272C4,#1272C4);
-    background-size:cover,auto;background-position:center;background-blend-mode:luminosity}
-  .wrap{max-width:1080px;margin:0 auto}
-  img.logo{height:44px;margin-bottom:34px}
-  h1{font-size:34px;font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
-  p.sub{color:#93A9C2;margin-bottom:44px;max-width:70ch}
-  p.sub code{font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#A9C1D8}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  a.card{display:block;padding:30px 26px;border:1px solid rgba(140,190,235,.2);border-radius:14px;
-    background:rgba(10,30,54,.6);color:inherit;text-decoration:none;transition:.25s}
-  a.card:hover{transform:translateY(-5px);border-color:#00A8F0;background:rgba(0,168,240,.09)}
-  .n{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#00A8F0;font-weight:600}
-  h2{font-size:23px;margin:10px 0 10px;font-weight:600}
-  .card p{font-size:15px;color:#A9C1D8}
-  ul{margin:14px 0 0 18px;font-size:14px;color:#8EA6BF}
-  .swatch{display:flex;gap:6px;margin-top:16px}
-  .swatch i{width:22px;height:22px;border-radius:5px;border:1px solid rgba(255,255,255,.14)}
-  footer{margin-top:44px;font-size:14px;color:#7D95AD}
-  footer b{color:#A9C1D8}
-  @media (max-width:1080px){.grid{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:700px){.grid{grid-template-columns:1fr}}
+  html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--papel);color:var(--tinta);
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,.disp{font-family:Sora,system-ui,sans-serif;line-height:1.02;letter-spacing:-.03em;font-weight:800}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  b{font-weight:600}
+
+  /* ---------------------------------------------------- fundo em camadas */
+  .fundo{position:fixed;inset:0;z-index:-5;pointer-events:none}
+  /* Papel que muda de temperatura: um azul-gelo quando frio, um creme
+     alaranjado quando quente. As duas pontas são claras, então o meio do
+     caminho não suja — foi o que derrubou a versão de dois véus escuros. */
+  .fundo__cor{position:absolute;inset:0;
+    background:radial-gradient(125% 95% at 50% 0%,var(--bg1,#E3F0FB) 0%,var(--bg2,#F8FCFF) 70%)}
+  canvas#ar{position:fixed;inset:0;z-index:-3;pointer-events:none}
+  /* correntes de ar: linhas que nunca param de escorrer, mesmo parado */
+  .correntes{position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.32}
+  .correntes path{fill:none;stroke:var(--mix);stroke-width:1.2;stroke-dasharray:16 320;
+    opacity:.55;animation:escorre 9s linear infinite}
+  .correntes path:nth-child(2){animation-duration:13s;animation-delay:-3s;opacity:.35}
+  .correntes path:nth-child(3){animation-duration:17s;animation-delay:-7s;opacity:.28}
+  .correntes path:nth-child(4){animation-duration:11s;animation-delay:-5s;opacity:.22}
+  @keyframes escorre{from{stroke-dashoffset:1200}to{stroke-dashoffset:-1200}}
+
+  /* ---------------------------------------------------- estrutura de tela */
+  .wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 24px}
+  .tela{min-height:100svh;display:flex;align-items:center;padding:92px 0 72px;
+    scroll-snap-align:center;position:relative}
+  .tela--alta{scroll-snap-align:start;min-height:auto;padding:96px 0}
+
+  /* revelação: cada tela entra sozinha. Escondido só quando o JS está de pé
+     (classe .js) — sem script, a página aparece inteira em vez de em branco */
+  .js .rv{opacity:0;transform:translateY(34px);filter:blur(6px);
+    transition:opacity .85s cubic-bezier(.2,.7,.3,1),transform .85s cubic-bezier(.2,.7,.3,1),filter .85s}
+  .js .rv.in{opacity:1;transform:none;filter:none}
+  .rv--d1{transition-delay:.10s} .rv--d2{transition-delay:.20s} .rv--d3{transition-delay:.30s}
+
+  .selo{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--mix);margin-bottom:22px}
+  .selo::before{content:"";width:30px;height:2px;background:var(--mix);flex:none}
+
+  /* `background` fora da transição de propósito: o fundo do botão é --mix, e
+     interpolar ciano→laranja em 0.2s fazia o botão piscar cinza na virada */
+  .btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:16px;
+    padding:16px 30px;border-radius:100px;border:1.5px solid transparent;
+    transition:transform .2s,box-shadow .2s,border-color .2s,color .2s}
+  .btn svg{width:19px;height:19px;flex:none}
+  .btn--cheio{background:var(--mix);color:#fff}
+  .btn--cheio:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px var(--mix)}
+  .btn--vazio{border-color:rgba(11,42,82,.28);color:var(--tinta)}
+  .btn--vazio:hover{border-color:var(--mix);color:var(--mix);transform:translateY(-3px)}
+
+  /* ---------------------------------------------------- barra fixa do topo */
+  header.topo{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:18px;
+    padding:16px 24px;transition:background .4s,backdrop-filter .4s,border-color .4s;
+    border-bottom:1px solid transparent}
+  header.topo.solto{background:rgba(255,255,255,.82);backdrop-filter:blur(10px);border-bottom-color:var(--line)}
+  header.topo img{height:30px}
+  header.topo .btn{margin-left:auto;padding:11px 20px;font-size:14.5px}
+
+  /* ---------------------------------------------------- termômetro lateral */
+  .term{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:30;
+    display:none;flex-direction:column;align-items:center;gap:12px;pointer-events:none}
+  .term__n{font-family:Sora,sans-serif;font-weight:700;font-size:19px;color:var(--mix);
+    font-variant-numeric:tabular-nums}
+  .term__bar{width:4px;height:210px;border-radius:100px;position:relative;
+    background:linear-gradient(180deg,var(--quente),#FFC83C 45%,var(--frio))}
+  .term__dot{position:absolute;left:50%;width:14px;height:14px;border-radius:50%;
+    background:var(--mix);border:2px solid #fff;
+    transform:translate(-50%,-50%);top:calc(100% - var(--h) * 100%);
+    transition:top .25s linear;box-shadow:0 0 0 3px rgba(11,42,82,.10)}
+  .term__lb{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--tinta-soft);
+    writing-mode:vertical-rl}
+  @media (min-width:1080px){.term{display:flex}}
+
+  /* ---------------------------------------------------- hero */
+  .hero h1{font-size:clamp(44px,8.4vw,104px);max-width:15ch;color:var(--azul-deep)}
+  .hero h1 em{font-style:normal;color:var(--quente)}
+  .hero h1 i{font-style:normal;color:var(--frio)}
+  .hero__lead{font-size:clamp(17px,2vw,21px);color:var(--tinta-soft);max-width:46ch;
+    margin:30px 0 38px;font-weight:300}
+  .hero__cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero__rolar{position:absolute;left:24px;bottom:34px;display:flex;align-items:center;gap:12px;
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--tinta-soft)}
+  .hero__rolar span{display:block;width:52px;height:1px;background:var(--line);position:relative;overflow:hidden}
+  .hero__rolar span::after{content:"";position:absolute;inset:0;background:var(--mix);
+    animation:corre 2.4s ease-in-out infinite}
+  @keyframes corre{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+  /* tremor de calor sobre o hero — multiply, porque screen sobre papel
+     branco não produz nada */
+  .haze{position:absolute;inset:0;pointer-events:none;opacity:calc(var(--h) * .55);mix-blend-mode:multiply;
+    background:repeating-linear-gradient(0deg,rgba(226,84,10,.07) 0 2px,transparent 2px 7px);
+    animation:tremor 5.5s ease-in-out infinite}
+  @keyframes tremor{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(-7px) scaleY(1.02)}}
+
+  /* ---------------------------------------------------- telas de número */
+  .grau{display:flex;align-items:baseline;gap:6px;font-family:Sora,sans-serif;font-weight:800;
+    font-size:clamp(96px,26vw,290px);line-height:.82;letter-spacing:-.055em;color:var(--azul-deep)}
+  .grau small{font-size:.3em;font-weight:600;letter-spacing:-.02em}
+  .grau--q{color:var(--quente)}
+  .grau--f{color:var(--frio)}
+  .tela__frase{font-size:clamp(24px,4.2vw,50px);font-family:Sora,sans-serif;font-weight:700;
+    letter-spacing:-.03em;line-height:1.1;max-width:19ch;margin-top:26px;color:var(--azul-deep)}
+  .tela__nota{color:var(--tinta-soft);max-width:44ch;margin-top:20px;font-weight:300;font-size:17.5px}
+
+  /* ---------------------------------------------------- problema (1 por tela) */
+  .prob{display:grid;grid-template-columns:1fr;gap:34px;align-items:center;width:100%}
+  /* contornado em neutro, não em --mix: no quente o laranja sumia no fundo */
+  .prob__n{font-family:Sora,sans-serif;font-weight:800;font-size:clamp(60px,13vw,150px);
+    line-height:.8;color:transparent;-webkit-text-stroke:1.6px rgba(11,42,82,.24);
+    letter-spacing:-.05em}
+  .prob h2{font-size:clamp(30px,5.4vw,62px);margin:14px 0 16px;max-width:16ch;color:var(--azul-deep)}
+  .prob p{color:var(--tinta-soft);font-size:18.5px;font-weight:300;max-width:42ch;margin-bottom:26px}
+  .prob__foto{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+  .prob__foto img{width:100%;aspect-ratio:4/3;object-fit:cover;
+    filter:saturate(calc(.85 + var(--h) * .45)) contrast(1.04);transform:scale(1.02)}
+  .prob__foto::after{content:"";position:absolute;inset:0;mix-blend-mode:multiply;
+    background:linear-gradient(180deg,transparent 40%,rgba(226,84,10,calc(var(--h) * .26)))}
+  @media (min-width:900px){
+    .prob{grid-template-columns:1.05fr .95fr;gap:60px}
+    .prob--inv .prob__foto{order:-1}
+  }
+
+  /* ---------------------------------------------------- a virada */
+  .virada{text-align:center;width:100%}
+  .virada h2{font-size:clamp(32px,6.4vw,78px);max-width:16ch;margin:0 auto;color:var(--azul-deep)}
+  .virada__duto{width:100%;max-width:760px;margin:44px auto 0;height:120px}
+  .virada__duto path.tubo{fill:none;stroke:rgba(11,42,82,.10);stroke-width:20;stroke-linecap:round}
+  .virada__duto path.jato{fill:none;stroke:var(--mix);stroke-width:5;stroke-linecap:round;
+    stroke-dasharray:26 200;animation:escorre 3.2s linear infinite}
+  .virada__duto path.jato:nth-of-type(3){animation-delay:-1.1s;opacity:.6}
+  .virada__duto path.jato:nth-of-type(4){animation-delay:-2.2s;opacity:.35}
+
+  /* ---------------------------------------------------- serviços: 1 bloco por tela */
+  .serv{width:100%;display:grid;grid-template-columns:1fr;gap:38px;align-items:center}
+  .serv h2{font-size:clamp(32px,6vw,70px);max-width:13ch;margin:10px 0 18px;color:var(--azul-deep)}
+  .serv__lead{color:var(--tinta-soft);font-size:18.5px;font-weight:300;max-width:40ch;margin-bottom:30px}
+  .serv__itens{list-style:none;display:flex;flex-direction:column;gap:2px}
+  .serv__itens li{padding:20px 0;border-top:1px solid var(--line);display:flex;gap:16px;align-items:baseline}
+  .serv__itens li:last-child{border-bottom:1px solid var(--line)}
+  .serv__itens i{font-style:normal;font-family:Sora,sans-serif;font-weight:700;font-size:13px;
+    color:var(--mix);flex:none;width:26px}
+  .serv__itens b{font-weight:600;display:block;font-size:19px}
+  .serv__itens span{color:var(--tinta-soft);font-size:15.5px;font-weight:300}
+  .serv .btn{margin-top:30px}
+  @media (min-width:900px){.serv{grid-template-columns:.95fr 1.05fr;gap:64px}}
+
+  /* ---------------------------------------------------- obras: esteira */
+  .esteira{overflow:hidden;width:100%;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .esteira__in{display:flex;gap:16px;width:max-content;animation:desliza 44s linear infinite}
+  .esteira:hover .esteira__in{animation-play-state:paused}
+  .esteira figure{width:min(78vw,400px);flex:none;border-radius:16px;overflow:hidden;
+    border:1px solid var(--line);background:#fff}
+  .esteira img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .esteira figcaption{padding:16px 18px}
+  .esteira figcaption i{font-style:normal;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--mix);display:block;margin-bottom:5px}
+  .esteira figcaption b{font-size:18px;font-weight:600;display:block}
+  @keyframes desliza{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------------------------------------------------- números */
+  .nums{display:grid;grid-template-columns:1fr;gap:44px;width:100%;text-align:center}
+  .num b{font-family:Sora,sans-serif;font-weight:800;font-size:clamp(62px,13vw,140px);
+    line-height:.85;letter-spacing:-.05em;display:block;color:var(--mix);font-variant-numeric:tabular-nums}
+  .num span{display:block;margin-top:12px;color:var(--tinta-soft);font-size:15px;
+    letter-spacing:.12em;text-transform:uppercase}
+  @media (min-width:760px){.nums{grid-template-columns:repeat(3,1fr)}}
+
+  /* ---------------------------------------------------- clientes */
+  .logos{overflow:hidden;width:100%;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .logos__in{display:flex;gap:14px;width:max-content;animation:desliza 38s linear infinite}
+  .logos:hover .logos__in{animation-play-state:paused}
+  /* `> div`, e não `div`: sem o filho direto o próprio trilho virava um
+     quadro de 184px e engolia a fila inteira de logos */
+  .logos__in > div{flex:none;width:184px;height:104px;border-radius:12px;background:var(--tile,#fff);
+    border:1px solid var(--line);display:grid;place-items:center;padding:16px}
+  .logos img{max-height:66px;max-width:82%;object-fit:contain}
+
+  /* ---------------------------------------------------- contato */
+  .contato{text-align:center;width:100%}
+  .contato h2{font-size:clamp(36px,7.4vw,92px);max-width:14ch;margin:0 auto 22px;color:var(--azul-deep)}
+  .contato p{color:var(--tinta-soft);max-width:46ch;margin:0 auto 36px;font-weight:300;font-size:18.5px}
+  .contato__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .contato__info{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:46px;
+    padding-top:26px;border-top:1px solid var(--line);font-size:15px;color:var(--tinta-soft)}
+  .contato__info span{display:flex;align-items:center;gap:8px}
+  .contato__info svg{width:17px;height:17px;stroke:var(--mix);fill:none;stroke-width:1.6}
+
+  footer{padding:26px 0 34px;border-top:1px solid var(--line)}
+  .rodape{display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--tinta-soft)}
+  .rodape img{height:24px}
+  .rodape .sp{margin-left:auto}
+
+  .zap{position:fixed;right:18px;bottom:18px;z-index:50;width:56px;height:56px;border-radius:50%;
+    background:#25D366;display:grid;place-items:center;box-shadow:0 12px 26px -10px rgba(37,211,102,.8);
+    transition:transform .18s}
+  .zap:hover{transform:scale(1.07)}
+  .zap svg{width:29px;height:29px;fill:#fff}
+  @media (min-width:1080px){.zap{right:70px}}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;scroll-snap-type:none}
+    .js .rv{opacity:1;transform:none;filter:none;transition:none}
+    .correntes path,.esteira__in,.logos__in,.haze,.hero__rolar span::after,.virada__duto path.jato{animation:none}
+    canvas#ar{display:none}
+  }
 </style>
 </head>
 <body>
-<div class="bg"></div>
-<div class="wrap">
-  <img class="logo" src="assets/logo-branca.png" alt="Arclimtec">
-  <h1>Versões em avaliação</h1>
-  <p class="sub">Mesmo conteúdo em todas, arrumado de jeitos diferentes. A <b>V6</b> é a definitiva escura já escolhida; a <b>V7</b> traz duas leituras claras dela; a <b>V8</b> é a releitura enxuta; a <b>V9</b> é a de mais movimento, com uma ideia por tela; a <b>V10</b> troca a linguagem de site pela de prancha de projeto; a <b>V11</b> (três variações) responde ao pedido de capa obra+planta, duto animado e reorganização em 6 seções. As direções antigas (V1 a V5) continuam nas branches <code>v1-engenharia</code> … <code>v5-duelo</code>.</p>
-  <div class="grid">
-    <a class="card" href="v6-definitiva.html" style="border-color:#00A8F0;background:rgba(0,168,240,.10)">
-      <div class="n">Versão 6 · definitiva</div>
-      <h2>A mistura (escura)</h2>
-      <p>Hero da V3, transição em que o ar frio esquenta, e o melhor da V4 e da V5 no resto.</p>
-      <ul><li>Termômetro 24° → 38° → 22°</li><li>Duto que esquenta com a rolagem e as 3 causas</li><li>Logos reais dos clientes e dados de 2012 / +50 obras</li></ul>
-      <div class="swatch"><i style="background:#061B36"></i><i style="background:#24549C"></i><i style="background:#00A8F0"></i><i style="background:#FF6B1A"></i></div>
-    </a>
-    <a class="card" href="v7-claro-a.html">
-      <div class="n">Versão 7 A · nova</div>
-      <h2>Clara editorial</h2>
-      <p>A V6 inteira recolorida para fundo branco. Mesma estrutura e mesmos efeitos, só a paleta muda.</p>
-      <ul><li>Papel branco puro, texto azul-marinho</li><li>Sem a foto industrial no fundo fixo</li><li>Quente e frio preservados nos destaques</li></ul>
-      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#F3F8FD"></i><i style="background:#0B2A52"></i><i style="background:#00A8F0"></i></div>
-    </a>
-    <a class="card" href="v7-claro-b.html">
-      <div class="n">Versão 7 B · nova</div>
-      <h2>Clara técnica</h2>
-      <p>Mesma recoloração da V7 A, porém em papel levemente azulado — leitura mais fria e industrial.</p>
-      <ul><li>Fundo azul-gelo, contraste um pouco maior</li><li>Linhas e bordas mais marcadas</li><li>Alternativa direta à V7 A na escolha</li></ul>
-      <div class="swatch"><i style="background:#F5F9FD"></i><i style="background:#E3EFFB"></i><i style="background:#0B2740"></i><i style="background:#00A8F0"></i></div>
-    </a>
-    <a class="card" href="v8-minimal.html">
-      <div class="n">Versão 8 · nova</div>
-      <h2>Minimalista</h2>
-      <p>Releitura enxuta: sem termômetro, sem cortina e sem efeitos de rolagem. Mais leve e pensada primeiro no celular.</p>
-      <ul><li>Bebas Neue + Barlow sobre papel branco</li><li>Laranja só como acento, azul como base</li><li>Sete seções diretas, do hero ao contato</li></ul>
-      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#0B2A52"></i><i style="background:#F5600A"></i><i style="background:#00A8F0"></i></div>
-    </a>
-    <a class="card" href="v9-fluxo.html">
-      <div class="n">Versão 9 · nova</div>
-      <h2>Fluxo</h2>
-      <p>A de mais movimento, em papel claro. A página inteira é um termômetro: cada tela declara sua temperatura e o fundo, a cor e o ar em suspensão seguem a rolagem.</p>
-      <ul><li>Uma ideia por tela, sem grade de cartões</li><li>Papel azul-gelo no frio, creme no quente</li><li>Partículas que sobem quentes e descem frias</li></ul>
-      <div class="swatch"><i style="background:#F6FAFE"></i><i style="background:#24549C"></i><i style="background:#0079B8"></i><i style="background:#E2540A"></i></div>
-    </a>
-    <a class="card" href="v10-prancha.html">
-      <div class="n">Versão 10 · nova</div>
-      <h2>Prancha</h2>
-      <p>A mais diferente de todas: em vez de site, um jogo de pranchas de projeto em papel branco — malha quadriculada, cotas e carimbo.</p>
-      <ul><li>Desenho técnico que se traça na rolagem</li><li>Problemas viram relatório de vistoria</li><li>IBM Plex Mono, mira de CAD no ponteiro</li></ul>
-      <div class="swatch"><i style="background:#FBFDFF"></i><i style="background:#24549C"></i><i style="background:#0079B8"></i><i style="background:#D9500A"></i></div>
-    </a>
-    <a class="card" href="v11-capa-1.html" style="border-color:#48C6FF;background:rgba(0,168,240,.06)">
-      <div class="n">Versão 11 A · pedido do cliente</div>
-      <h2>Capa — Editorial</h2>
-      <p>Capa dividida (foto da obra + planta esquemática), duto azul animado logo abaixo e página reorganizada em 6 seções. Base V7 Claro A.</p>
-      <ul><li>Título do hero reduzido pela metade</li><li>Degradê de cor entre todas as seções</li><li>Higienização trocada por Laudo Técnico</li></ul>
-      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#F3F8FD"></i><i style="background:#0B2A52"></i><i style="background:#00A8F0"></i></div>
-    </a>
-    <a class="card" href="v11-capa-2.html" style="border-color:#48C6FF;background:rgba(0,168,240,.06)">
-      <div class="n">Versão 11 B · pedido do cliente</div>
-      <h2>Capa — Técnico industrial</h2>
-      <p>Mesmas mudanças da V11 A, com planta à esquerda em estilo prancha e duto com flanges e rebites. Base V7 Claro B.</p>
-      <ul><li>Nav e rodapé em azul escuro sólido</li><li>Cartões com cantos de registro (blueprint)</li><li>Chips de contato em grade mono</li></ul>
-      <div class="swatch"><i style="background:#F5F9FD"></i><i style="background:#061B36"></i><i style="background:#0B2A52"></i><i style="background:#48C6FF"></i></div>
-    </a>
-    <a class="card" href="v11-capa-3.html" style="border-color:#48C6FF;background:rgba(0,168,240,.06)">
-      <div class="n">Versão 11 C · pedido do cliente</div>
-      <h2>Capa — Minimalista premium</h2>
-      <p>Mesmas mudanças, num cartão único de capa com cantos arredondados e seções de serviço num bloco azul-escuro contínuo. Base V8 Minimalista.</p>
-      <ul><li>Duto em pílula suave</li><li>Cartões arredondados, mais espaço em branco</li><li>CTA laranja mantido como na V8</li></ul>
-      <div class="swatch"><i style="background:#FFFFFF"></i><i style="background:#F4F8FC"></i><i style="background:#0B2A52"></i><i style="background:#F5600A"></i></div>
-    </a>
-  </div>
-  <footer>Servido localmente em <b>localhost:8081</b> · fotos e logo do próprio cliente</footer>
+
+<div class="fundo">
+  <div class="fundo__cor"></div>
 </div>
+<svg class="correntes" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M-100 150 C 200 90, 420 210, 700 140 S 1120 90, 1300 160"/>
+  <path d="M-100 330 C 240 260, 460 400, 720 320 S 1140 270, 1300 340"/>
+  <path d="M-100 520 C 220 450, 480 600, 740 510 S 1150 460, 1300 540"/>
+  <path d="M-100 690 C 260 630, 500 760, 760 680 S 1160 640, 1300 700"/>
+</svg>
+<canvas id="ar" aria-hidden="true"></canvas>
+
+<header class="topo" id="topo">
+  <a href="#top"><img src="assets/logo.png" alt="Arclimtec"></a>
+  <a class="btn btn--cheio" href="https://wa.me/558330998606" target="_blank" rel="noopener">Orçamento</a>
+</header>
+
+<aside class="term" aria-hidden="true">
+  <div class="term__n" id="termN">26°</div>
+  <div class="term__bar"><div class="term__dot"></div></div>
+  <div class="term__lb">temperatura da página</div>
+</aside>
+
+<!-- ============================================================ 01 · HERO -->
+<section class="tela hero" id="top" data-temp="26">
+  <div class="haze"></div>
+  <div class="wrap">
+    <div class="selo rv">Climatização industrial e residencial · desde 2012</div>
+    <h1 class="rv rv--d1">O ar trabalha o dia inteiro. <em>A favor</em> ou <i>contra</i> você.</h1>
+    <p class="hero__lead rv rv--d2">Projeto, instalação e manutenção de sistemas de grande capacidade em Campina Grande e região. E o split da sua casa, com o mesmo rigor.</p>
+    <div class="hero__cta rv rv--d3">
+      <a class="btn btn--cheio" href="https://wa.me/558330998606" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.5 0-1.1 0-3.3-1.1s-3.6-3.6-3.7-3.8c-.2-.3-.9-1.3-.9-2.4s.6-1.7.8-1.9c.2-.2.4-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.1.3.6 1.1 1.3 1.7.9.8 1.6 1.1 1.9 1.2.2.1.4 0 .5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.4.5s0 .8-.1 1.1z"/></svg>
+        Falar agora
+      </a>
+      <a class="btn btn--vazio" href="#obras">Ver obras</a>
+    </div>
+  </div>
+  <div class="hero__rolar">role <span></span></div>
+</section>
+
+<!-- ============================================================ 02 · CALOR -->
+<section class="tela" data-temp="38">
+  <div class="wrap">
+    <div class="grau grau--q rv">38<small>°C</small></div>
+    <h2 class="tela__frase rv rv--d1">É a temperatura de um sistema que ninguém olha há um ano.</h2>
+    <p class="tela__nota rv rv--d2">Três coisas acontecem, sempre nessa ordem.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 03 · PROBLEMA 01 -->
+<section class="tela" data-temp="38">
+  <div class="wrap prob">
+    <div>
+      <div class="prob__n rv">01</div>
+      <h2 class="rv rv--d1">A conta de luz sobe antes de qualquer aviso.</h2>
+      <p class="rv rv--d2">Filtro sujo, serpentina saturada e gás fora de carga: o equipamento passa a trabalhar dobrado para entregar o mesmo frio.</p>
+      <a class="btn btn--vazio rv rv--d3" data-zap="Olá! Minha conta de luz subiu e acho que o ar-condicionado está consumindo mais do que devia. Podem avaliar?">Falar sobre isso</a>
+    </div>
+    <figure class="prob__foto rv rv--d2"><img src="assets/p-condensadoras-laje.jpg" alt="Condensadoras instaladas em laje" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- ============================================================ 04 · PROBLEMA 02 -->
+<section class="tela" data-temp="37">
+  <div class="wrap prob prob--inv">
+    <div>
+      <div class="prob__n rv">02</div>
+      <h2 class="rv rv--d1">O ar fica pesado e todo mundo sente.</h2>
+      <p class="rv rv--d2">Cheiro, poeira e reclamação no balcão. Quase sempre é higienização atrasada — e, em ambiente de uso coletivo, é também exposição legal sem PMOC.</p>
+      <a class="btn btn--vazio rv rv--d3" data-zap="Olá! O ar do meu ambiente está pesado, com cheiro e poeira. Queria um orçamento de higienização e saber sobre PMOC.">Falar sobre isso</a>
+    </div>
+    <figure class="prob__foto rv rv--d2"><img src="assets/p-casa-de-maquinas.jpg" alt="Casa de máquinas de climatização" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- ============================================================ 05 · PROBLEMA 03 -->
+<section class="tela" data-temp="38">
+  <div class="wrap prob">
+    <div>
+      <div class="prob__n rv">03</div>
+      <h2 class="rv rv--d1">Aí ele para. No pico do movimento.</h2>
+      <p class="rv rv--d2">Sem plano preventivo e sem histórico do equipamento, cada mês vem um técnico diferente e o mesmo defeito sempre volta.</p>
+      <a class="btn btn--vazio rv rv--d3" data-zap="Olá! Meu ar-condicionado já parou no meio do movimento e não temos plano de manutenção. Queria falar sobre a preventiva da Arclimtec.">Falar sobre isso</a>
+    </div>
+    <figure class="prob__foto rv rv--d2"><img src="assets/p-dutos-galpao-2.jpg" alt="Rede de dutos em galpão" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- ============================================================ 06 · A VIRADA -->
+<section class="tela" data-temp="29">
+  <div class="wrap virada">
+    <div class="selo rv" style="justify-content:center">A virada</div>
+    <h2 class="rv rv--d1">A gente entra exatamente aqui.</h2>
+    <svg class="virada__duto rv rv--d2" viewBox="0 0 760 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <path class="tubo" d="M30 60 H 300 Q 380 60 380 30 Q 380 60 460 60 H 730"/>
+      <path class="jato" d="M30 60 H 300 Q 380 60 380 30 Q 380 60 460 60 H 730"/>
+      <path class="jato" d="M30 60 H 300 Q 380 60 380 30 Q 380 60 460 60 H 730"/>
+      <path class="jato" d="M30 60 H 300 Q 380 60 380 30 Q 380 60 460 60 H 730"/>
+    </svg>
+    <p class="tela__nota rv rv--d3" style="margin:26px auto 0;text-align:center">Dimensionar antes de instalar, medir antes de entregar, documentar depois de manter.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 07 · FRIO -->
+<section class="tela" data-temp="22">
+  <div class="wrap">
+    <div class="grau grau--f rv">22<small>°C</small></div>
+    <h2 class="tela__frase rv rv--d1">É a temperatura de um sistema que tem dono.</h2>
+    <p class="tela__nota rv rv--d2">Equipe própria: o mesmo time que projeta, instala e volta na manutenção.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 08 · INDUSTRIAL -->
+<section class="tela" data-temp="22" id="servicos">
+  <div class="wrap serv">
+    <div>
+      <div class="selo rv">Industrial &amp; empresarial</div>
+      <h2 class="rv rv--d1">Onde parar não é opção.</h2>
+      <p class="serv__lead rv rv--d2">Indústria, galpão, shopping, supermercado, hospital, escola e prédio corporativo.</p>
+      <a class="btn btn--cheio rv rv--d3" data-zap="Olá! Sou responsável por uma empresa e preciso de climatização de grande capacidade (projeto, instalação ou manutenção). Podem me atender?">Falar no WhatsApp</a>
+    </div>
+    <ul class="serv__itens rv rv--d2">
+      <li><i>01</i><div><b>Grande capacidade</b><span>VRF, self-contained, rooftop e rede dutada</span></div></li>
+      <li><i>02</i><div><b>Ventilação e exaustão</b><span>Renovação de ar em ambiente industrial</span></div></li>
+      <li><i>03</i><div><b>Contrato PMOC</b><span>Manutenção documentada, Lei 13.589</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ 09 · RESIDENCIAL -->
+<section class="tela" data-temp="22">
+  <div class="wrap serv">
+    <div>
+      <div class="selo rv">Doméstico &amp; residencial</div>
+      <h2 class="rv rv--d1">Conforto em casa, sem gambiarra.</h2>
+      <p class="serv__lead rv rv--d2">Casas, apartamentos e escritórios — instalação limpa e ar saudável.</p>
+      <a class="btn btn--vazio rv rv--d3" data-zap="Olá! Queria um orçamento de ar-condicionado para minha casa / apartamento (instalação, manutenção ou higienização).">Falar no WhatsApp</a>
+    </div>
+    <ul class="serv__itens rv rv--d2">
+      <li><i>01</i><div><b>Instalação</b><span>Split hi-wall, cassete e piso-teto, com BTU dimensionado</span></div></li>
+      <li><i>02</i><div><b>Manutenção</b><span>Preventiva e corretiva, com medição de instrumento</span></div></li>
+      <li><i>03</i><div><b>Higienização</b><span>Evaporadora, dutos e filtros</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ 10 · OBRAS -->
+<section class="tela tela--alta" data-temp="22" id="obras">
+  <div style="width:100%">
+    <div class="wrap" style="margin-bottom:40px">
+      <div class="selo rv">Obras</div>
+      <h2 class="rv rv--d1" style="font-size:clamp(30px,5.4vw,62px);max-width:16ch">Do duto no galpão ao cassete no forro.</h2>
+    </div>
+    <div class="esteira rv rv--d2">
+      <div class="esteira__in" id="esteira">
+        <figure><img src="assets/p-rede-dutada-obra.jpg" alt="Rede dutada isolada em obra de grande área" loading="lazy"><figcaption><i>Rede dutada</i><b>Obra de grande área</b></figcaption></figure>
+        <figure><img src="assets/p-carrier-laje.jpg" alt="Bateria de condensadoras em laje técnica" loading="lazy"><figcaption><i>Grande capacidade</i><b>Bateria de condensadoras</b></figcaption></figure>
+        <figure><img src="assets/p-vrf-hitachi.jpg" alt="Unidade externa em passarela técnica" loading="lazy"><figcaption><i>Sistema VRF</i><b>Passarela técnica</b></figcaption></figure>
+        <figure><img src="assets/p-selfcontained.jpg" alt="Self-contained em cobertura" loading="lazy"><figcaption><i>Self-contained</i><b>Cobertura</b></figcaption></figure>
+        <figure><img src="assets/p-cassete-apartamento.jpg" alt="Cassete embutido em apartamento" loading="lazy"><figcaption><i>Residencial</i><b>Cassete em apartamento</b></figcaption></figure>
+        <figure><img src="assets/p-dutos-galpao.jpg" alt="Rede dutada em galpão industrial" loading="lazy"><figcaption><i>Rede dutada</i><b>Galpão industrial</b></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 11 · NÚMEROS -->
+<section class="tela" data-temp="22" id="empresa">
+  <div class="wrap">
+    <div class="selo rv" style="justify-content:center;width:100%">A empresa</div>
+    <div class="nums">
+      <div class="num rv"><b data-conta="2012" data-cru="1">2012</b><span>no mercado desde</span></div>
+      <div class="num rv rv--d1"><b data-conta="50" data-prefixo="+">+50</b><span>projetos entregues</span></div>
+      <div class="num rv rv--d2"><b>PB+</b><span>Paraíba e região</span></div>
+    </div>
+    <p class="tela__nota rv rv--d3" style="margin:44px auto 0;text-align:center;max-width:52ch">
+      Climatização tratada como engenharia, em Campina Grande — indústrias, redes comerciais, saúde e residências.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ 12 · CLIENTES -->
+<section class="tela tela--alta" data-temp="22">
+  <div style="width:100%">
+    <div class="wrap" style="margin-bottom:36px">
+      <div class="selo rv">Onde já estivemos</div>
+      <h2 class="rv rv--d1" style="font-size:clamp(28px,4.6vw,52px);max-width:18ch">Energia, indústria, saúde e varejo.</h2>
+    </div>
+    <div class="logos rv rv--d2">
+      <div class="logos__in" id="logos">
+        <div style="--tile:#fff"><img src="assets/clientes/c-borborema.jpg" alt="Borborema Energética S.A." loading="lazy"></div>
+        <div style="--tile:#0001FC"><img src="assets/clientes/c-axia.jpg" alt="Axia Energia" loading="lazy"></div>
+        <div style="--tile:#F4F4F6"><img src="assets/clientes/c-pernambuco3.jpg" alt="Pernambuco III" loading="lazy"></div>
+        <div style="--tile:#fff"><img src="assets/clientes/c-thermomatic.jpg" alt="Thermomatic" loading="lazy"></div>
+        <div style="--tile:#fff"><img src="assets/clientes/c-imago.jpg" alt="Imago — Diagnóstico por Imagem" loading="lazy"></div>
+        <div style="--tile:#000"><img src="assets/clientes/c-smartfit.jpg" alt="Smart Fit" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 13 · CONTATO -->
+<section class="tela" data-temp="22" id="contato">
+  <div class="wrap contato">
+    <div class="selo rv" style="justify-content:center">Fale conosco</div>
+    <h2 class="rv rv--d1">Do ar pesado para o ar fresco.</h2>
+    <p class="rv rv--d2">Manda a planta, a conta de luz ou só a dúvida. A gente avalia, dimensiona e devolve orçamento com escopo claro.</p>
+    <div class="contato__btns rv rv--d3">
+      <a class="btn btn--cheio" href="https://wa.me/558330998606" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.5 0-1.1 0-3.3-1.1s-3.6-3.6-3.7-3.8c-.2-.3-.9-1.3-.9-2.4s.6-1.7.8-1.9c.2-.2.4-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.1.3.6 1.1 1.3 1.7.9.8 1.6 1.1 1.9 1.2.2.1.4 0 .5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.4.5s0 .8-.1 1.1z"/></svg>
+        WhatsApp
+      </a>
+      <a class="btn btn--vazio" href="tel:+558330998606">83 3099-8606</a>
+    </div>
+    <div class="contato__info rv rv--d3">
+      <span><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><a href="mailto:[email]">[e-mail comercial]</a></span>
+      <span><svg viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Campina Grande · Paraíba</span>
+      <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg><a href="https://instagram.com/arclimtec" target="_blank" rel="noopener">@arclimtec</a></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap rodape">
+    <img src="assets/logo.png" alt="Arclimtec">
+    <span>Soluções em climatização · Campina Grande/PB · desde 2012</span>
+    <span class="sp">© 2026 Arclimtec — [Razão social / CNPJ]</span>
+  </div>
+</footer>
+
+<a class="zap" href="https://wa.me/558330998606" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.5 0-1.1 0-3.3-1.1s-3.6-3.6-3.7-3.8c-.2-.3-.9-1.3-.9-2.4s.6-1.7.8-1.9c.2-.2.4-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.1.3.6 1.1 1.3 1.7.9.8 1.6 1.1 1.9 1.2.2.1.4 0 .5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.4.5s0 .8-.1 1.1z"/></svg>
+</a>
+
+<script>
+(function(){
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  root.classList.add('js');
+  const QUENTE = 38, FRIO = 22;
+  const trava = v => Math.min(1, Math.max(0, v));
+
+  /* ---- cor de destaque: ciano -> âmbar -> laranja.
+         Interpolar ciano->laranja direto em RGB passaria por um cinza morto,
+         e ciano->âmbar passa por um verde feio — por isso a virada de cor é
+         comprimida numa faixa curta em torno do meio (ver `hs` abaixo):
+         fora dela o destaque é ciano puro ou laranja puro. */
+  const PARADAS = [[0,121,184],[214,146,20],[226,84,10]];
+  const entre = (a,b,f) => a.map((c,i)=>Math.round(c + (b[i]-c)*f));
+  /* fundo: par de cores escuras por extremo, interpoladas direto (no escuro
+     o meio do caminho não incomoda) */
+  const BG_FRIO = [[223,239,251],[248,252,255]], BG_QUENTE = [[255,231,214],[255,250,246]];
+  function mistura(h){
+    const k = trava(h) * (PARADAS.length - 1);
+    const i = Math.min(PARADAS.length - 2, Math.floor(k)), f = k - i;
+    const a = PARADAS[i], b = PARADAS[i+1];
+    return a.map((c,j)=>Math.round(c + (b[j]-c)*f));
+  }
+  const emCSS = t => 'rgb(' + t.join(' ') + ')';
+
+  /* ---- temperatura da página: interpola entre os data-temp das telas,
+         usando o centro de cada uma como ponto de controle. */
+  const telas = [...document.querySelectorAll('section[data-temp]')];
+  let pontos = [];
+  function remede(){
+    pontos = telas.map(s=>{
+      const r = s.getBoundingClientRect();
+      return { t:+s.dataset.temp, c: r.top + scrollY + r.height/2 };
+    });
+  }
+  function tempAgora(){
+    if(!pontos.length) return 30;
+    const meio = scrollY + innerHeight/2;
+    if(meio <= pontos[0].c) return pontos[0].t;
+    for(let i=0;i<pontos.length-1;i++){
+      if(meio <= pontos[i+1].c){
+        const vao = pontos[i+1].c - pontos[i].c || 1;
+        const f = (meio - pontos[i].c) / vao;
+        return pontos[i].t + (pontos[i+1].t - pontos[i].t) * f;
+      }
+    }
+    return pontos[pontos.length-1].t;
+  }
+
+  let calor = .5, corAgora = [0,168,240];
+  const termN = document.getElementById('termN');
+  const topo = document.getElementById('topo');
+  let pedido = false;
+  function atualiza(){
+    pedido = false;
+    const t = tempAgora();
+    calor = trava((t - FRIO) / (QUENTE - FRIO));
+    /* virada de cor comprimida: ciano até 0.42, laranja a partir de 0.58 */
+    corAgora = mistura(trava((calor - .42) / .16));
+    root.style.setProperty('--h', calor.toFixed(3));
+    root.style.setProperty('--mix', emCSS(corAgora));
+    root.style.setProperty('--bg1', emCSS(entre(BG_FRIO[0], BG_QUENTE[0], calor)));
+    root.style.setProperty('--bg2', emCSS(entre(BG_FRIO[1], BG_QUENTE[1], calor)));
+    termN.textContent = Math.round(t) + '°';
+    topo.classList.toggle('solto', scrollY > 40);
+  }
+  addEventListener('scroll', ()=>{ if(!pedido){ pedido = true; requestAnimationFrame(atualiza); } }, {passive:true});
+  addEventListener('resize', ()=>{ remede(); atualiza(); }, {passive:true});
+  addEventListener('load', ()=>{ remede(); atualiza(); });
+  remede(); atualiza();
+
+  /* ---- revelação das telas (sem IntersectionObserver, mostra tudo de uma vez) */
+  const temIO = 'IntersectionObserver' in window;
+  if(!temIO){
+    document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+  } else {
+    const olho = new IntersectionObserver(es=>{
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); olho.unobserve(e.target); } });
+    }, {threshold:.18, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.rv').forEach(el=>olho.observe(el));
+    /* rede de segurança: se por algum motivo o observer não disparar,
+       nada de seção em branco */
+    setTimeout(()=>document.querySelectorAll('.rv:not(.in)').forEach(el=>{
+      if(el.getBoundingClientRect().top < innerHeight) el.classList.add('in');
+    }), 2500);
+  }
+
+  /* ---- números que sobem quando entram na tela */
+  function sobe(el){
+    const alvo = +el.dataset.conta, pre = el.dataset.prefixo || '';
+    const cru = el.dataset.cru === '1';            /* ano: começa perto, sem separador */
+    if(reduz){ el.textContent = pre + alvo; return; }
+    const de = cru ? alvo - 24 : 0, dur = 1100, t0 = performance.now();
+    (function passo(t){
+      const f = trava((t - t0) / dur), e2 = 1 - Math.pow(1 - f, 3);
+      el.textContent = pre + Math.round(de + (alvo - de) * e2);
+      if(f < 1) requestAnimationFrame(passo);
+    })(t0);
+  }
+  if(temIO){
+    const conta = new IntersectionObserver(es=>{
+      es.forEach(e=>{ if(e.isIntersecting){ conta.unobserve(e.target); sobe(e.target); } });
+    }, {threshold:.5});
+    document.querySelectorAll('[data-conta]').forEach(el=>conta.observe(el));
+  }
+
+  /* ---- esteiras: duplica o conteúdo pra emenda ficar invisível no loop */
+  if(!reduz){
+    ['esteira','logos'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.innerHTML += el.innerHTML;
+    });
+  }
+
+  /* ---- partículas de ar: sobem quentes e alaranjadas, descem frias e cianas */
+  const cv = document.getElementById('ar');
+  if(cv && !reduz){
+    const ctx = cv.getContext('2d');
+    let L = 0, A = 0, dpr = 1, bichos = [];
+    function dimensiona(){
+      dpr = Math.min(2, devicePixelRatio || 1);
+      L = innerWidth; A = innerHeight;
+      cv.width = L * dpr; cv.height = A * dpr;
+      cv.style.width = L + 'px'; cv.style.height = A + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = L < 700 ? 34 : L < 1200 ? 58 : 84;
+      bichos = Array.from({length:n}, ()=>({
+        x: Math.random() * L, y: Math.random() * A,
+        r: .7 + Math.random() * 2.3,
+        v: .18 + Math.random() * .55,
+        fase: Math.random() * 6.283,
+        amp: .25 + Math.random() * .9
+      }));
+    }
+    dimensiona();
+    addEventListener('resize', dimensiona, {passive:true});
+
+    (function pinta(t){
+      ctx.clearRect(0, 0, L, A);
+      /* quente sobe, frio desce devagar; a deriva lateral nunca zera */
+      const sobe = -1.55 * calor + .42 * (1 - calor);
+      const cor = corAgora;                          /* mesma cor de destaque da página */
+      for(const p of bichos){
+        p.y += sobe * p.v;
+        p.x += Math.sin(t * .0007 + p.fase) * .45 * p.amp + .12 * (1 - calor);
+        if(p.y < -12) p.y = A + 12;
+        if(p.y > A + 12) p.y = -12;
+        if(p.x < -12) p.x = L + 12;
+        if(p.x > L + 12) p.x = -12;
+        const alto = p.r * (1 + calor * 1.9);        /* quente vira risco vertical */
+        ctx.globalAlpha = .16 + .3 * (1 - Math.abs(.5 - calor));
+        ctx.fillStyle = 'rgb(' + cor.join(',') + ')';
+        ctx.beginPath();
+        ctx.ellipse(p.x, p.y, p.r, alto, 0, 0, 6.283);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(pinta);
+    })(0);
+  }
+
+  /* ---- WhatsApp com a frase do bloco que a pessoa abriu */
+  const ZAP = '558330998606';
+  document.querySelectorAll('[data-zap]').forEach(el=>{
+    el.href = 'https://wa.me/' + ZAP + '?text=' + encodeURIComponent(el.dataset.zap);
+    el.target = '_blank';
+    el.rel = 'noopener';
+  });
+})();
+</script>
 </body>
 </html>
