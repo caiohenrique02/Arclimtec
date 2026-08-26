@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+<!-- GERADO por tools/gera_capas.py a partir do index.html da branch
+     v13-capa-b. Nao edite este arquivo a mao: mexa no site na branch da
+     versao e rode o gerador de novo. -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arclimtec — Climatização Industrial e Residencial em Campina Grande/PB</title>
+<title>Arclimtec — escolha da capa</title>
 <meta name="description" content="Climatização que move negócios. Arclimtec: projeto, instalação, rede dutada, sistema VRF, ventilação e exaustão, manutenção preventiva e corretiva, PMOC e laudo técnico. Campina Grande/PB, com experiência no mercado desde 2012.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -423,6 +426,67 @@
     .ic-graph{stroke-dashoffset:0}
   }
 </style>
+
+<style>
+  /* ===== tela de escolha da capa — só nesta prévia, não vai pro site ===== */
+  .esc{position:fixed;inset:0;z-index:200;display:flex;align-items:flex-start;justify-content:center;
+    padding:32px 20px;overflow:auto;background:rgba(255,255,255,.93);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .esc[hidden]{display:none}
+  .esc__in{width:100%;max-width:940px;margin:auto;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .esc__logo{width:186px;height:auto;margin-bottom:10px}
+  .esc__eyebrow{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:13px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--frio)}
+  .esc__h{font-family:"Bebas Neue",sans-serif;font-size:clamp(30px,4.4vw,46px);line-height:1.04;
+    letter-spacing:.01em;color:var(--ink);text-align:center;text-wrap:balance}
+  .esc__lead{font-size:16.5px;font-weight:300;color:var(--ink-soft);text-align:center;
+    max-width:56ch;margin-bottom:14px}
+  .esc__cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;width:100%}
+  .esc__c{appearance:none;cursor:pointer;text-align:left;padding:0;overflow:hidden;
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
+    box-shadow:var(--shadow-1);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+  .esc__c:hover{transform:translateY(-4px);border-color:var(--frio);box-shadow:var(--shadow-2)}
+  .esc__c:focus-visible{outline:2px solid var(--azul);outline-offset:3px}
+  .esc__prev{display:flex;height:200px;background:#fff;border-bottom:1px solid var(--line)}
+  .esc__prev i{display:block;background:#fff center/contain no-repeat}
+  .esc__prev i:first-child{flex:0 0 52%;border-right:1px solid var(--line)}
+  .esc__prev i:last-child{flex:1}
+  .esc__txt{display:block;padding:18px 22px 22px}
+  .esc__n{display:block;font-family:"Bebas Neue",sans-serif;font-size:26px;letter-spacing:.02em;color:var(--ink)}
+  .esc__l{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:13px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--frio);margin-top:2px}
+  .esc__s{display:block;font-size:14.5px;font-weight:300;line-height:1.5;color:var(--ink-soft);margin-top:9px}
+  .esc__pe{font-size:13.5px;color:var(--ink-soft);margin-top:16px}
+  html.esc-aberta{overflow:hidden}
+
+  /* ===== barra da capa em uso, com volta pra tela de escolha ===== */
+  .ab{position:fixed;left:18px;bottom:18px;z-index:60;display:flex;align-items:center;gap:10px;
+    padding:8px 10px 8px 15px;border-radius:999px;background:var(--paper);
+    border:1px solid var(--line);box-shadow:var(--shadow-1),0 18px 40px -24px rgba(11,42,82,.45)}
+  .ab[hidden]{display:none}
+  .ab__q{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:14px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+  .ab__b{appearance:none;border:1px solid var(--line);cursor:pointer;border-radius:999px;
+    padding:7px 14px;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:13.5px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper-2);
+    white-space:nowrap;transition:background .18s ease,color .18s ease,border-color .18s ease}
+  .ab__b:hover{background:var(--frio);border-color:var(--frio);color:#fff}
+  .ab__b:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+
+  @media (max-width:760px){
+    .esc__cards{grid-template-columns:1fr}
+    .esc__prev{height:170px}
+    .esc__logo{width:150px}
+  }
+  @media (max-width:640px){
+    .ab{left:12px;right:78px;bottom:14px;justify-content:center;padding:7px 10px} /* deixa o botao do WhatsApp livre */
+    .ab__q{font-size:13px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .esc__c,.ab__b{transition:none}
+    .esc__c:hover{transform:none}
+  }
+</style>
 </head>
 <body>
 <div class="bg-photo" aria-hidden="true"></div>
@@ -464,11 +528,11 @@
 
     <div class="capa rv" id="capaSlider">
       <figure class="capa__obra">
-        <img src="assets/p-dutos-galpao.jpg" alt="Rede dutada galvanizada instalada em galpão industrial">
+        <img src="assets/p-capa-predio-render.jpg" alt="Render isométrico de um edifício empresarial com o sistema de ar-condicionado por inteiro: condensadoras na cobertura, prumadas e rede dutada nos pavimentos">
         <span>Rede dutada industrial</span>
       </figure>
       <div class="capa__planta">
-        <img src="assets/p-planta-projeto.jpg" alt="Desenho técnico de projeto de rede dutada">
+        <img src="assets/p-capa-predio-tecnico.jpg" alt="Mesmo edifício em desenho técnico isométrico, com as linhas frigorígenas e a rede dutada em azul e vermelho sobre o traçado da estrutura">
         <div class="capa__tag">Planta<b>Projeto técnico</b></div>
       </div>
       <div class="capa__handle" tabindex="0" role="slider" aria-label="Arraste pra ver a foto da obra ou a planta por inteiro" aria-valuemin="12" aria-valuemax="88" aria-valuenow="56">
@@ -848,6 +912,102 @@
     if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
   }),{threshold:.08});
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+})();
+</script>
+
+<div class="esc" id="esc" role="dialog" aria-modal="true" aria-labelledby="escH">
+  <div class="esc__in">
+    <img class="esc__logo" id="escLogo" src="assets/logo.png" alt="Arclimtec">
+    <span class="esc__eyebrow">Proposta de capa</span>
+    <h2 class="esc__h" id="escH">Duas capas pro topo do site.<br>Abra a que quiser ver.</h2>
+    <p class="esc__lead">O prédio da esquerda é o mesmo nas duas. O que muda é a imagem que
+      aparece quando o divisor da capa é arrastado.</p>
+    <div class="esc__cards">
+      <button class="esc__c" type="button" data-capa="a">
+        <span class="esc__prev" aria-hidden="true">
+          <i style="background-image:url('assets/p-capa-predio-render.jpg')"></i>
+          <i style="background-image:url('assets/p-capa-planta-baixa.jpg')"></i>
+        </span>
+        <span class="esc__txt">
+          <span class="esc__n">Capa A</span>
+          <span class="esc__l">Planta baixa do pavimento</span>
+          <span class="esc__s">Arrastar o divisor troca a fachada pela planta: as evaporadoras e o traçado das linhas frigorígenas sala por sala.</span>
+        </span>
+      </button>
+      <button class="esc__c" type="button" data-capa="b">
+        <span class="esc__prev" aria-hidden="true">
+          <i style="background-image:url('assets/p-capa-predio-render.jpg')"></i>
+          <i style="background-image:url('assets/p-capa-predio-tecnico.jpg')"></i>
+        </span>
+        <span class="esc__txt">
+          <span class="esc__n">Capa B</span>
+          <span class="esc__l">O prédio em desenho técnico</span>
+          <span class="esc__s">É o mesmo prédio dos dois lados. Arrastar o divisor é um raio-X: sai a fachada, entra a tubulação.</span>
+        </span>
+      </button>
+    </div>
+    <p class="esc__pe">Depois de abrir, a barra no canto de baixo troca de capa sem precisar voltar aqui.</p>
+  </div>
+</div>
+
+<div class="ab" id="ab" role="group" aria-label="Capa em uso" hidden>
+  <span class="ab__q" id="abQ">Capa</span>
+  <button class="ab__b" type="button" id="abTroca">Ver a outra</button>
+  <button class="ab__b" type="button" id="abVolta">As duas</button>
+</div>
+
+<script>
+(function(){
+  var CAPAS = {a:{img:"assets/p-capa-planta-baixa.jpg",alt:"Planta baixa de pavimento com as evaporadoras e o traçado das linhas frigorígenas em azul e vermelho",nome:"Capa A",linha:"Planta baixa do pavimento"},b:{img:"assets/p-capa-predio-tecnico.jpg",alt:"Mesmo edifício em desenho técnico isométrico, com as linhas frigorígenas e a rede dutada em azul e vermelho sobre o traçado da estrutura",nome:"Capa B",linha:"O prédio em desenho técnico"}};
+  var ORDEM = ["a","b"];
+  var img = document.querySelector('.capa__planta img');
+  var esc = document.getElementById('esc');
+  var ab  = document.getElementById('ab');
+  var q   = document.getElementById('abQ');
+  var troca = document.getElementById('abTroca');
+  var volta = document.getElementById('abVolta');
+  if(!img || !esc || !ab) return;
+  var atual = null;
+
+  function poe(k){
+    var c = CAPAS[k]; if(!c) return;
+    atual = k;
+    img.src = c.img; img.alt = c.alt;
+    q.textContent = c.nome + ' \u2014 ' + c.linha;
+    troca.textContent = 'Ver a ' + CAPAS[outra()].nome;
+  }
+  function outra(){
+    return ORDEM[(ORDEM.indexOf(atual) + 1) % ORDEM.length];
+  }
+  function abre(k){
+    poe(k);
+    esc.hidden = true; ab.hidden = false;
+    document.documentElement.classList.remove('esc-aberta');
+    window.scrollTo(0, 0);
+    troca.focus();
+  }
+  function escolhe(){
+    esc.hidden = false; ab.hidden = true;
+    document.documentElement.classList.add('esc-aberta');
+  }
+
+  esc.querySelectorAll('.esc__c').forEach(function(b){
+    b.addEventListener('click', function(){ abre(b.getAttribute('data-capa')); });
+  });
+  troca.addEventListener('click', function(){ abre(outra()); });
+  volta.addEventListener('click', escolhe);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !esc.hidden && atual) abre(atual);
+  });
+
+  // a logo da tela de escolha e a mesma do topo — evita repetir a imagem
+  var topo = document.querySelector('.brand img');
+  var escLogo = document.getElementById('escLogo');
+  if(topo && escLogo) escLogo.src = topo.src;
+
+  atual = ORDEM[0];
+  esc.hidden = false; ab.hidden = true;
+  document.documentElement.classList.add('esc-aberta');
 })();
 </script>
 </body>
