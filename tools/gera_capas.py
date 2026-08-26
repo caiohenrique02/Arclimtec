@@ -9,7 +9,7 @@
 
 Uso: gera_capas.py <build_dir> <repo_out.html> <artifact_out.html>
 """
-import base64, mimetypes, os, re, sys
+import base64, datetime, mimetypes, os, re, sys
 
 BASE, OUT_REPO, OUT_ART = sys.argv[1], sys.argv[2], sys.argv[3]
 
@@ -30,6 +30,8 @@ CAPAS = [
             'da estrutura'},
 ]
 IMG_ESQ = 'assets/p-capa-predio-render.jpg'   # igual nas duas
+
+SELO = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
 
 
 def jsstr(t):
@@ -68,6 +70,8 @@ CSS = '''
     letter-spacing:.12em;text-transform:uppercase;color:var(--frio);margin-top:2px}
   .esc__s{display:block;font-size:14.5px;font-weight:300;line-height:1.5;color:var(--ink-soft);margin-top:9px}
   .esc__pe{font-size:13.5px;color:var(--ink-soft);margin-top:16px}
+  .esc__selo{font-family:"Barlow Condensed",sans-serif;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-soft);opacity:.6;margin-top:4px}
   html.esc-aberta{overflow:hidden}
 
   /* ===== barra da capa em uso, com volta pra tela de escolha ===== */
@@ -125,6 +129,7 @@ HTML = '''
 %(cards)s
     </div>
     <p class="esc__pe">Depois de abrir, a barra no canto de baixo troca de capa sem precisar voltar aqui.</p>
+    <p class="esc__selo">Esta prévia é de %(selo)s.</p>
   </div>
 </div>
 
@@ -133,7 +138,7 @@ HTML = '''
   <button class="ab__b" type="button" id="abTroca">Ver a outra</button>
   <button class="ab__b" type="button" id="abVolta">As duas</button>
 </div>
-''' % {'logo': 'assets/logo.png', 'cards': cards}
+''' % {'logo': 'assets/logo.png', 'cards': cards, 'selo': SELO}
 
 # ------------------------------------------------------------------- js ------
 JS = '''
