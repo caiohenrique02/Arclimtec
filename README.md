@@ -19,7 +19,7 @@ ver "Direções anteriores" mais abaixo.
 
 Parte da V12 B e mexe só na capa do hero:
 
-- **Divisor arrastável** entre as duas imagens da capa, em vez de mostrar as duas fixas.
+- **Divisor arrastável** entre as duas imagens da capa, em vez de mostrar as duas fixas. As duas imagens são registradas uma sobre a outra (mesmo tamanho, mesma posição e escala do prédio) e recebem o mesmo degradê e o mesmo filtro, então o divisor não marca nem degrau de tom nem salto de posição.
 - **Prédio inteiro no lugar da foto de obra**: o render isométrico mostra o sistema completo — condensadoras na cobertura, prumadas e rede dutada nos pavimentos.
 - Duas propostas pro que o divisor revela: a **planta baixa do pavimento** (Capa A, na branch `v13-capa-a`) ou o **mesmo prédio em desenho técnico** (Capa B, escolhida — é o que está na `main`).
 
@@ -89,7 +89,10 @@ Hero (texto + capa obra/planta) → cano/marquee → serviços (bloco industrial
 - `assets/bg-industrial.jpg` — foto de fundo das direções antigas (V1–V3)
 - `assets/p-dutos-galpao.jpg` — foto de fundo fixa da V12 B/C e uma das fotos do carrossel
 - `assets/p-capa-predio-render.jpg` — render isométrico do prédio com o sistema por inteiro; é a primeira imagem da capa do hero
-- `assets/p-capa-predio-tecnico.jpg` — o mesmo prédio em desenho técnico, revelado pelo divisor da capa
+- `assets/p-capa-predio-tecnico.jpg` — o mesmo prédio em desenho técnico, revelado pelo divisor da capa.
+  Está no mesmo tamanho (1329×904) e com o prédio na mesma posição e escala do render, pra o divisor
+  funcionar como raio-X: a linha do desenho cai exatamente em cima da aresta da foto. A planta baixa
+  que vinha no canto superior direito foi apagada — só existia deste lado e aparecia do nada ao arrastar.
 - `assets/p-planta-projeto.jpg` — blueprint técnico da rede dutada, usado na capa do hero até a V12 B/C
 - `assets/p-*.jpg` — demais fotos de obras, usadas no carrossel de equipamentos
 
