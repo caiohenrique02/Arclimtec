@@ -4,14 +4,24 @@ Landing page da **Arclimtec** (climatização industrial, empresarial e residenc
 
 ## O que está na `main`
 
-A `main` guarda só as duas versões finais, lado a lado, com um `index.html` que serve de página de comparação pro cliente:
+A `main` é o site definitivo: um `index.html` só, sem tela de escolha e sem barra
+pra alternar entre propostas. É a V13 Capa B — a capa do hero abre no render
+isométrico do prédio e o divisor arrastável revela o mesmo prédio em desenho
+técnico (`assets/p-capa-predio-tecnico.jpg`).
 
-| Arquivo | Versão | Linguagem visual |
-|---|---|---|
-| `v12-continuo-b.html` | V12 B — Escura | Hero com texto e capa (obra+planta) lado a lado já na primeira tela; degradê contínuo do branco até o azul-marinho da marca; foto do galpão fixa e translúcida ao fundo |
-| `v12-continuo-c.html` | V12 C — Clara | Mesma estrutura da V12 B, recolorida pra ficar em tons claros do início ao fim — nenhuma seção escurece, nem o rodapé |
+A capa A (divisor revelando a planta baixa do pavimento) continua na branch
+`v13-capa-a`, como registro da proposta que não foi escolhida.
 
-Todas as versões anteriores (V1 a V12 A) foram aposentadas pra branches próprias — ver "Direções anteriores" mais abaixo.
+Todas as versões anteriores (V1 a V12) foram aposentadas pra branches próprias —
+ver "Direções anteriores" mais abaixo.
+
+### O que a V13 mudou
+
+Parte da V12 B e mexe só na capa do hero:
+
+- **Divisor arrastável** entre as duas imagens da capa, em vez de mostrar as duas fixas.
+- **Prédio inteiro no lugar da foto de obra**: o render isométrico mostra o sistema completo — condensadoras na cobertura, prumadas e rede dutada nos pavimentos.
+- Duas propostas pro que o divisor revela: a **planta baixa do pavimento** (Capa A, na branch `v13-capa-a`) ou o **mesmo prédio em desenho técnico** (Capa B, escolhida — é o que está na `main`).
 
 ### O que a V12 B/C mudam (retificações do cliente por WhatsApp, 13–17/08)
 
@@ -42,7 +52,7 @@ Parte da V11 A (Capa Editorial) e aplicou:
 
 As três variações partiam de bases diferentes (V7 A, V7 B e V8) mas aplicavam a mesma lista de mudanças: capa dividida obra+planta (planta em SVG placeholder), duto de ar animado com fileira de chips de serviço, logo maior, título do hero reduzido pela metade, degradê entre seções e estrutura reduzida a 6 seções (apresentação → serviços → fotos → quem somos → clientes → rodapé).
 
-### Direções anteriores (V1 a V12 A)
+### Direções anteriores (V1 a V13 A)
 
 Todas aposentadas pra branches próprias, cada uma já como `index.html` pronta pra deploy, fora da `main`:
 
@@ -63,10 +73,12 @@ Todas aposentadas pra branches próprias, cada uma já como `index.html` pronta 
 | `v11-capa-2` | V11 B — Capa Técnico | Planta à esquerda em estilo prancha, duto com flanges/rebites |
 | `v11-capa-3` | V11 C — Capa Minimalista | Capa num cartão único arredondado, CTA laranja |
 | `v12-continuo-a` | V12 A — Degradê contínuo | Base pra V12 B/C, sem a foto real na planta nem a repaginação "Apple" |
+| `v12-continuo-b` (na `main` até a V13) | V12 B — Escura | Degradê contínuo do branco ao azul-marinho, foto do galpão fixa ao fundo; base da V13 |
+| `v13-capa-a` | V13 A — Capa com planta baixa | Igual à `main`, só que o divisor da capa revela a planta baixa do pavimento |
 
 As V7 A/B foram geradas por `tools/gen_claro.py` a partir da V6 — só cores mudam, a estrutura é a mesma.
 
-## Estrutura da página (igual nas duas versões atuais)
+## Estrutura da página
 
 Hero (texto + capa obra/planta) → cano/marquee → serviços (bloco industrial + bloco doméstico, cada um com manutenção **preventiva e corretiva**) → grade de 8 serviços → fotos dos equipamentos (carrossel automático) → quem somos → clientes → rodapé.
 
@@ -76,7 +88,9 @@ Hero (texto + capa obra/planta) → cano/marquee → serviços (bloco industrial
 - `assets/logo-branca.png` — versão branca, para fundos escuros (usada na V12 B)
 - `assets/bg-industrial.jpg` — foto de fundo das direções antigas (V1–V3)
 - `assets/p-dutos-galpao.jpg` — foto de fundo fixa da V12 B/C e uma das fotos do carrossel
-- `assets/p-planta-projeto.jpg` — blueprint técnico da rede dutada, usado na capa do hero (V12 B/C)
+- `assets/p-capa-predio-render.jpg` — render isométrico do prédio com o sistema por inteiro; é a primeira imagem da capa do hero
+- `assets/p-capa-predio-tecnico.jpg` — o mesmo prédio em desenho técnico, revelado pelo divisor da capa
+- `assets/p-planta-projeto.jpg` — blueprint técnico da rede dutada, usado na capa do hero até a V12 B/C
 - `assets/p-*.jpg` — demais fotos de obras, usadas no carrossel de equipamentos
 
 Paleta extraída da própria logo: `#24549C` (azul institucional), `#00A8F0` (ciano), `#48C6FF` (ciano claro).
@@ -89,7 +103,7 @@ python3 -m http.server 8081
 
 ## Deploy (EasyPanel)
 
-O `Dockerfile` é o mesmo em todas as branches — nginx alpine servindo os estáticos, com gzip e cache de 30 dias nas imagens (`default.conf`).
+O `Dockerfile` é o mesmo em todas as branches — nginx alpine servindo os estáticos, com gzip e (no `default.conf` da `main`) `no-cache`, pra proposta em revisão nunca abrir com imagem velha. Virando produção pra valer, dá pra voltar o cache longo nas imagens — tem a nota no próprio `default.conf`.
 
 Um serviço por versão, todos apontando para este repo:
 
@@ -100,9 +114,9 @@ Um serviço por versão, todos apontando para este repo:
 | `arclimtec-v3` | `v3-impacto` |
 | `arclimtec-v4` | `v4-termico` |
 | `arclimtec-v5` | `v5-duelo` |
-| `arclimtec-comp` (opcional) | `main` — comparação V12 B × V12 C |
+| `arclimtec` | `main` — site definitivo (V13 Capa B) |
 
-As demais versões (`v6-definitiva` … `v12-continuo-a`) também têm branch própria, mesmo padrão, caso seja preciso reativar alguma pra deploy.
+As demais versões (`v6-definitiva` … `v13-capa-a`) também têm branch própria, mesmo padrão, caso seja preciso reativar alguma pra deploy.
 
 Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Dockerfile`** (vazio também funciona, o padrão é `./Dockerfile`) e **porta 80**.
 
