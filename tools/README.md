@@ -31,6 +31,20 @@ Cuidado: ele usa `git checkout -B`, ou seja, **recria** as branches a partir de 
 git checkout v3-impacto     # a versão já é o index.html da branch
 ```
 
+## `marca_dagua.py`
+
+Carimba a logo branca como marca d'água nas 7 fotos do carrossel de equipamentos.
+
+```sh
+python3 tools/marca_dagua.py
+```
+
+Lê os arquivos limpos de `tools/fotos-originais/` e grava a versão carimbada por cima do mesmo nome em `assets/`. Como sempre parte do original, dá pra rodar quantas vezes quiser pra ajustar tamanho ou opacidade (as constantes no topo do script) sem carimbar duas vezes.
+
+Os originais ficam em `tools/` de propósito: o `Dockerfile` copia só `*.html` e `assets/`, então a foto sem marca não sobe pro ar.
+
+A marca não vai no canto da foto e sim no canto do **pedaço que aparece**: o card mostra a foto em 4/3 com `object-fit:cover` e dá um `scale(1.02)` no hover, e nas fotos em pé isso corta quase metade da altura. Carimbar no canto do arquivo colocaria a logo justo no pedaço que o card joga fora.
+
 ## `gen_claro.py`
 
 Gera `v7-claro-a.html` e `v7-claro-b.html` recolorindo a `v6-definitiva.html`. Só troca cores — estrutura, HTML e JS ficam idênticos, e o script aborta se algum trecho de CSS esperado não casar (proteção contra rodar em cima de uma V6 alterada).

@@ -94,7 +94,9 @@ Hero (texto + capa obra/planta) → cano/marquee → serviços (bloco industrial
   funcionar como raio-X: a linha do desenho cai exatamente em cima da aresta da foto. A planta baixa
   que vinha no canto superior direito foi apagada — só existia deste lado e aparecia do nada ao arrastar.
 - `assets/p-planta-projeto.jpg` — blueprint técnico da rede dutada, usado na capa do hero até a V12 B/C
-- `assets/p-*.jpg` — demais fotos de obras, usadas no carrossel de equipamentos
+- `assets/p-*.jpg` — demais fotos de obras, usadas no carrossel de equipamentos. As 7 do carrossel
+  saem carimbadas com a marca d'água da logo por `tools/marca_dagua.py`; os arquivos limpos ficam
+  em `tools/fotos-originais/`, que o `Dockerfile` não copia
 
 Paleta extraída da própria logo: `#24549C` (azul institucional), `#00A8F0` (ciano), `#48C6FF` (ciano claro).
 
