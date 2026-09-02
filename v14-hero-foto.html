@@ -86,17 +86,12 @@
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
     clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-  /* ===== HERO V14 — foto grande de ponta a ponta, com painel flutuante de CTA por cima ===== */
+  /* ===== HERO V14 — foto grande inteira, sem corte e sem nada sobreposto; CTA logo abaixo dela ===== */
   .hero-foto{position:relative}
-  .hero-foto__media{position:relative;width:100%;height:calc(100svh - 83px);min-height:460px;
-    max-height:860px;overflow:hidden}
-  .hero-foto__media img{width:100%;height:100%;object-fit:cover;object-position:center 38%;display:block}
-  .hero-foto__media::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(0deg,rgba(6,27,54,.6) 0%,rgba(6,27,54,0) 34%)}
-  .hero-foto__panel{position:relative;z-index:3;margin-top:-84px;max-width:1010px;
-    background:rgba(11,42,82,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-    border:1px solid rgba(255,255,255,.14);border-radius:var(--r-lg);box-shadow:var(--shadow-2);
-    padding:32px 40px;display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap}
+  .hero-foto__media{width:100%;line-height:0}
+  .hero-foto__media img{width:100%;height:auto;display:block}
+  .hero-foto__panel{position:relative;background:var(--azul-deep);padding:28px 0}
+  .hero-foto__panel-in{display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap}
   .hero-foto__cta{display:flex;gap:14px;flex-wrap:wrap}
   .hero-foto__side{display:flex;gap:26px;flex-wrap:wrap;padding-left:32px;border-left:1px solid rgba(255,255,255,.18)}
   .hero-foto__side div{min-width:132px}
@@ -394,10 +389,10 @@
     .hero{min-height:0;padding:28px 0 44px}
     .hero__grid{gap:32px}
     .capa{order:-1;height:280px}
-    .hero-foto__media{height:64svh;min-height:380px}
-    .hero-foto__panel{margin-top:-64px;padding:26px 28px;gap:22px}
+    .hero-foto__panel-in{gap:22px;flex-direction:column;align-items:stretch}
+    .hero-foto__cta{justify-content:center}
     .hero-foto__side{padding-left:0;border-left:none;border-top:1px solid rgba(255,255,255,.18);
-      padding-top:18px;width:100%}
+      padding-top:18px;width:100%;justify-content:center}
     .grid-cap,.cli__grid{grid-template-columns:repeat(2,1fr)}
     .blk{padding:32px 28px}
     .blk--secundario{padding:24px 28px}
@@ -426,8 +421,6 @@
     .capa__handle{width:40px}
     .capa__handle i{width:36px;height:36px}
     .capa__handle svg{width:14px;height:14px}
-    .hero-foto__media{height:52svh;min-height:320px}
-    .hero-foto__panel{margin-top:-46px;border-radius:var(--r-md)}
     .hero-foto__cta{width:100%}
     .hero-foto__cta .btn{flex:1;justify-content:center}
   }
@@ -475,8 +468,8 @@
   <div class="hero-foto__media">
     <img src="assets/hero-vista-aerea.jpg" alt="Vista aérea de casa de máquinas e rede dutada industrial instalada pela Arclimtec" loading="eager" fetchpriority="high">
   </div>
-  <div class="wrap">
-    <div class="hero-foto__panel rv">
+  <div class="hero-foto__panel rv">
+    <div class="wrap hero-foto__panel-in">
       <div class="hero-foto__cta">
         <a class="btn btn--frio" href="https://wa.me/558330998606" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.5 0-1.1 0-3.3-1.1s-3.6-3.6-3.7-3.8c-.2-.3-.9-1.3-.9-2.4s.6-1.7.8-1.9c.2-.2.4-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.1.3.6 1.1 1.3 1.7.9.8 1.6 1.1 1.9 1.2.2.1.4 0 .5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.4.5s0 .8-.1 1.1z"/></svg>
