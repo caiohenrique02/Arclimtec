@@ -5,15 +5,30 @@ Landing page da **Arclimtec** (climatização industrial, empresarial e residenc
 ## O que está na `main`
 
 A `main` é o site definitivo: um `index.html` só, sem tela de escolha e sem barra
-pra alternar entre propostas. É a V13 Capa B — a capa do hero abre no render
-isométrico do prédio e o divisor arrastável revela o mesmo prédio em desenho
-técnico (`assets/p-capa-predio-tecnico.jpg`).
+pra alternar entre propostas. É a **V15 C** — a V13 Capa B (hero com divisor
+arrastável entre o render isométrico do prédio e o mesmo prédio em desenho
+técnico) com a foto aérea da cobertura ocupando, em "Quem somos", o lugar que
+era da logo grande.
 
-A capa A (divisor revelando a planta baixa do pavimento) continua na branch
-`v13-capa-a`, como registro da proposta que não foi escolhida.
+As outras duas propostas pra foto aérea (V15 A, faixa entre seções; V15 B, foto
+08 do carrossel), a tentativa de hero em foto (V14) e a página de comparação
+das cinco continuam na branch `v15-aerea`, como registro do que não foi
+escolhido. A capa A da V13 segue em `v13-capa-a`, e as versões anteriores
+(V1 a V12) em branches próprias — ver "Direções anteriores" mais abaixo.
 
-Todas as versões anteriores (V1 a V12) foram aposentadas pra branches próprias —
-ver "Direções anteriores" mais abaixo.
+### O que a V15 mudou
+
+A arte que veio pra hero (`assets/hero-vista-aerea.jpg`) não é foto e sim um
+banner fechado 1280x720: já traz logo, headline e os três serviços embutidos em
+pixel, que o site repete em volta. Cortando, comia o texto da arte; sem cortar,
+sobrava faixa — por isso a V14 (hero em foto) foi descartada.
+
+A foto de drone limpa saiu da metade direita dessa arte, foi carimbada pelo
+`tools/marca_dagua.py` como as outras sete (`assets/p-aerea-casa-maquinas.jpg`,
+original em `tools/fotos-originais/`) e entrou em "Quem somos": mais prova de
+obra, menos marca repetida — a logo colorida já aparece no topo e no rodapé. A
+legenda fica numa barra de degradê no rodapé da foto, parando antes da marca
+d'água do canto.
 
 ### O que a V13 mudou
 
@@ -119,9 +134,9 @@ Um serviço por versão, todos apontando para este repo:
 | `arclimtec-v3` | `v3-impacto` |
 | `arclimtec-v4` | `v4-termico` |
 | `arclimtec-v5` | `v5-duelo` |
-| `arclimtec` | `main` — site definitivo (V13 Capa B) |
+| `arclimtec` | `main` — site definitivo (V15 C) |
 
-As demais versões (`v6-definitiva` … `v13-capa-a`) também têm branch própria, mesmo padrão, caso seja preciso reativar alguma pra deploy.
+As demais versões (`v6-definitiva` … `v13-capa-a`, `v14-hero-foto`, `v15-aerea`) também têm branch própria, mesmo padrão, caso seja preciso reativar alguma pra deploy.
 
 Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Dockerfile`** (vazio também funciona, o padrão é `./Dockerfile`) e **porta 80**.
 
