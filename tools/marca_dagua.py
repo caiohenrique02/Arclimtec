@@ -31,6 +31,7 @@ FOTOS = [
     "p-casa-de-maquinas.jpg",
     "p-condensadoras-laje.jpg",
     "p-cassete-apartamento.jpg",
+    "p-aerea-casa-maquinas.jpg",
 ]
 
 PROPORCAO_CARD = 4 / 3   # .card img { aspect-ratio: 4/3; object-fit: cover }

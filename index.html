@@ -25,7 +25,7 @@
   h1,h2,.disp{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;line-height:.96;
     letter-spacing:.005em;text-transform:uppercase}
   a{color:inherit;text-decoration:none}
-  .wrap{width:100%;max-width:920px;margin:0 auto}
+  .wrap{width:100%;max-width:1120px;margin:0 auto}
   .head{text-align:center;margin-bottom:44px}
   .head img{height:52px;margin:0 auto 22px}
   .tag{display:inline-flex;align-items:center;gap:10px;font-family:"Barlow Condensed",sans-serif;
@@ -35,6 +35,12 @@
   .head p{color:rgba(255,255,255,.68);font-size:15.5px;font-weight:300;margin-top:12px;max-width:46ch;
     margin-left:auto;margin-right:auto}
   .opcoes{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .opcoes--tres{grid-template-columns:repeat(3,1fr);margin-top:22px}
+  .bloco-tit{display:flex;align-items:center;gap:14px;margin:44px 0 4px;
+    font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;
+    text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .bloco-tit::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.16)}
+  .op--v15 .op__badge{background:var(--frio)}
   .op{position:relative;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
     border-radius:var(--r-lg);padding:30px 28px;display:flex;flex-direction:column;gap:16px;
     backdrop-filter:blur(14px);box-shadow:var(--shadow-2);
@@ -54,7 +60,7 @@
   .op:hover .op__cta svg{transform:translateX(5px)}
   .foot{text-align:center;margin-top:36px;color:rgba(255,255,255,.4);font-size:12.5px}
   @media (max-width:680px){
-    .opcoes{grid-template-columns:1fr}
+    .opcoes,.opcoes--tres{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -64,7 +70,7 @@
     <img src="assets/logo-branca.png" alt="Arclimtec">
     <div class="tag">Comparar versões</div>
     <h1>Qual você prefere?</h1>
-    <p>Duas versões do site pra você conferir e escolher. Clique em qualquer uma pra abrir por inteiro.</p>
+    <p>O site como está hoje, a tentativa de hero em foto e três lugares onde a foto aérea funciona melhor. Clique pra abrir por inteiro.</p>
   </div>
   <div class="opcoes">
     <a class="op" href="v-atual.html">
@@ -78,7 +84,35 @@
     <a class="op op--nova" href="v14-hero-foto.html">
       <span class="op__badge">Nova</span>
       <h2>Foto grande</h2>
-      <p>Hero substituído por uma foto aérea grande, ocupando a tela toda, com um painel flutuante de contato e diferenciais por cima.</p>
+      <p>Hero substituído pela arte aérea inteira. O problema: a arte já traz logo, headline e os três serviços embutidos, que o site repete logo em volta.</p>
+      <span class="op__cta">Ver esta versão
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+  </div>
+
+  <div class="bloco-tit">Onde a foto aérea entra bem</div>
+  <div class="opcoes opcoes--tres">
+    <a class="op op--v15" href="v15-faixa.html">
+      <span class="op__badge">V15 A</span>
+      <h2>Faixa entre seções</h2>
+      <p>A foto vira uma faixa larga entre os serviços e o carrossel, com a legenda numa barra abaixo. Nada por cima da foto, só a marca d'água. É o respiro do meio da página.</p>
+      <span class="op__cta">Ver esta versão
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+    <a class="op op--v15" href="v15-carrossel.html">
+      <span class="op__badge">V15 B</span>
+      <h2>Foto 08 no carrossel</h2>
+      <p>Entra como mais uma obra no carrossel de equipamentos, já com a marca d'água igual às outras sete. A única tomada aérea do acervo.</p>
+      <span class="op__cta">Ver esta versão
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+    <a class="op op--v15" href="v15-empresa.html">
+      <span class="op__badge">V15 C</span>
+      <h2>Em quem somos</h2>
+      <p>A foto ocupa o lugar da logo grande ao lado do texto da empresa. Mais prova de obra, menos marca repetida.</p>
       <span class="op__cta">Ver esta versão
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
       </span>
