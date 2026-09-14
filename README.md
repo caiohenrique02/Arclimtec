@@ -5,15 +5,46 @@ Landing page da **Arclimtec** (climatização industrial, empresarial e residenc
 ## O que está na `main`
 
 A `main` é o site definitivo: um `index.html` só, sem tela de escolha e sem barra
-pra alternar entre propostas. É a V13 Capa B — a capa do hero abre no render
-isométrico do prédio e o divisor arrastável revela o mesmo prédio em desenho
-técnico (`assets/p-capa-predio-tecnico.jpg`).
+pra alternar entre propostas. A capa do hero abre no render isométrico do prédio
+e o divisor arrastável revela o mesmo prédio em desenho técnico.
 
 A capa A (divisor revelando a planta baixa do pavimento) continua na branch
-`v13-capa-a`, como registro da proposta que não foi escolhida.
+`v13-capa-a`, e o hero de foto aérea grande na `v14-hero-foto` — as duas como
+registro de propostas que não foram escolhidas.
 
 Todas as versões anteriores (V1 a V12) foram aposentadas pra branches próprias —
 ver "Direções anteriores" mais abaixo.
+
+### O que a V15 mudou (retificações do cliente, 14/09)
+
+- **Hero enxuto**: saíram o título, o parágrafo de apresentação, o trio
+  Preventiva/Corretiva/PMOC e o botão "Falar agora". Sobrou a tarja, a capa
+  arrastável e um "Ver obras".
+- **Nada de imagem cortada**, no site inteiro. A capa usa a proporção exata das
+  fotos (1329x904); a prévia das obras usa a da foto dela (4:3); e as 7 fotos da
+  galeria, que vão de 3:4 a 16:9, entram com `object-fit:contain` sobre fundo
+  escuro pra caberem inteiras em cards do mesmo tamanho.
+- **Capa sangra até a borda** da tela no celular (até 760px).
+- **Ordem das seções**: Nossos serviços → Clientes → Fotos dos equipamentos →
+  Quem somos. Os blocos "Industrial & empresarial" e "Doméstico & residencial"
+  foram removidos.
+- **Fotos dos equipamentos**: a página mostra uma prévia só; o resto abre numa
+  galeria por cima, que fecha no X, no Esc ou clicando no fundo.
+- **`assets/p-capa-predio-tecnico-alinhado.jpg`**: a arte técnica reprocessada pra
+  casar com o render. As duas foram geradas com perspectivas diferentes (o
+  meio-fio do asfalto desce 0,56 num e 0,68 no outro), então o encaixe foi feito
+  por transformação afim otimizada pela sobreposição da silhueta do terreno —
+  91,8% de IoU. O chão (asfalto, muro, palmeiras, guarita, prédio baixo) passa
+  contínuo pela divisória; o topo da torre ainda tem um degrau de ~7%, que só
+  some se o desenho técnico for refeito com a mesma câmera do render. O arquivo
+  original segue no repo, intacto.
+- **Tudo centralizado**: títulos, subtítulos, cards de serviço e o texto da
+  empresa (que perdeu a logo grande ao lado).
+- **Logos dos clientes** sem a caixa branca em volta, 3 por linha também no
+  celular, e com a grade travada em 660px no PC pra as seis caberem numa tela só.
+- Responsivo validado por medição em 320, 360, 390, 430, 600, 768, 1024, 1440 e
+  1920px: sem rolagem horizontal, sem imagem cortada e sem elemento estourando a
+  borda em nenhuma delas.
 
 ### O que a V13 mudou
 
