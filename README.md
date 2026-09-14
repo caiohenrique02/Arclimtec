@@ -5,17 +5,31 @@ Landing page da **Arclimtec** (climatização industrial, empresarial e residenc
 ## O que está na `main`
 
 A `main` é o site definitivo: um `index.html` só, sem tela de escolha e sem barra
-pra alternar entre propostas. A capa do hero abre no render isométrico do prédio
-e o divisor arrastável revela o mesmo prédio em desenho técnico.
+pra alternar entre propostas. É a **V16** — a V13 Capa B (hero com divisor
+arrastável entre o render isométrico do prédio e o mesmo prédio em desenho
+técnico) com as retificações do cliente de 14/09.
 
-A capa A (divisor revelando a planta baixa do pavimento) continua na branch
-`v13-capa-a`, e o hero de foto aérea grande na `v14-hero-foto` — as duas como
-registro de propostas que não foram escolhidas.
+As propostas pra foto aérea (V15 A, faixa entre seções; V15 B, foto 08 do
+carrossel; V15 C, foto em "Quem somos"), a tentativa de hero em foto (V14) e a
+página de comparação das cinco continuam na branch `v15-aerea`, como registro do
+que não foi escolhido. A capa A da V13 segue em `v13-capa-a`, e as versões
+anteriores (V1 a V12) em branches próprias — ver "Direções anteriores" mais
+abaixo.
 
-Todas as versões anteriores (V1 a V12) foram aposentadas pra branches próprias —
-ver "Direções anteriores" mais abaixo.
+### O que a V15 tentou (foto aérea)
 
-### O que a V15 mudou (retificações do cliente, 14/09)
+A arte que veio pra hero (`hero-vista-aerea.jpg`, hoje só na branch `v15-aerea`) não é foto e sim um
+banner fechado 1280x720: já traz logo, headline e os três serviços embutidos em
+pixel, que o site repete em volta. Cortando, comia o texto da arte; sem cortar,
+sobrava faixa — por isso a V14 (hero em foto) foi descartada.
+
+A foto de drone limpa saiu da metade direita dessa arte, foi carimbada pelo
+`tools/marca_dagua.py` como as outras sete (`assets/p-aerea-casa-maquinas.jpg`,
+original em `tools/fotos-originais/`) e entrou em "Quem somos" na V15 C. A V16
+tirou essa foto: o cliente pediu a seção só com texto. O arquivo segue no repo,
+pronto pra voltar.
+
+### O que a V16 mudou (retificações do cliente, 14/09)
 
 - **Hero enxuto**: saíram o título, o parágrafo de apresentação, o trio
   Preventiva/Corretiva/PMOC e o botão "Falar agora". Sobrou a tarja, a capa
@@ -59,7 +73,7 @@ Parte da V12 B e mexe só na capa do hero:
 Partem da V12 A (que por sua vez parte da V11 A) e aplicam, nessa ordem:
 
 - **Hero reorganizado**: o texto de apresentação e a capa (foto da obra + planta do projeto) viraram uma única seção de duas colunas — a foto já aparece na primeira tela, sem precisar rolar. No celular a foto vem primeiro, o texto embaixo (`order:-1` no grid).
-- **Planta real**: o SVG placeholder da planta foi trocado por `assets/p-planta-projeto.jpg`, um desenho técnico (blueprint) da rede dutada gerado a pedido do cliente.
+- **Planta real**: o SVG placeholder da planta foi trocado por `p-planta-projeto.jpg`, um desenho técnico (blueprint) da rede dutada gerado a pedido do cliente (o arquivo saiu da `main` na limpeza da V15 C; segue nas branches da V12 em diante).
 - **Repaginação "Apple"**: cantos arredondados e sombras suaves em vez de bordas duras (capa, marquee, painel de serviços, cards, carrossel, clientes); botões com hover de elevação suave em vez do efeito "adesivo" deslocado; nav com borda fina em vez de faixa azul grossa.
 - **Blocos de serviço (industrial/doméstico) bem mais compactos**: texto de um lado, lista de 2 colunas do outro, em vez de empilhado — ficaram largos e curtos.
 - **Carrossel de fotos**: cards menores (3 por vez no desktop), e agora **anda sozinho** automaticamente, pausando quando o usuário interage.
@@ -117,17 +131,25 @@ Hero (texto + capa obra/planta) → cano/marquee → serviços (bloco industrial
 
 - `assets/logo.png` — logo colorida com fundo transparente
 - `assets/logo-branca.png` — versão branca, para fundos escuros (usada na V12 B)
-- `assets/bg-industrial.jpg` — foto de fundo das direções antigas (V1–V3)
+- `assets/bg-industrial.jpg` — foto de fundo das direções antigas (V1–V3); nenhuma página da `main`
+  usa, mas o `tools/gen_claro.py` referencia, então fica
+- `assets/logo.jpg` — logo original do cliente, com fundo branco; é a entrada do `tools/logo_prep.py`,
+  que gera a `logo.png` e a `logo-branca.png`. Também não vai pra página nenhuma
 - `assets/p-dutos-galpao.jpg` — foto de fundo fixa da V12 B/C e uma das fotos do carrossel
 - `assets/p-capa-predio-render.jpg` — render isométrico do prédio com o sistema por inteiro; é a primeira imagem da capa do hero
 - `assets/p-capa-predio-tecnico.jpg` — o mesmo prédio em desenho técnico, revelado pelo divisor da capa.
   Está no mesmo tamanho (1329×904) e com o prédio na mesma posição e escala do render, pra o divisor
   funcionar como raio-X: a linha do desenho cai exatamente em cima da aresta da foto. A planta baixa
   que vinha no canto superior direito foi apagada — só existia deste lado e aparecia do nada ao arrastar.
-- `assets/p-planta-projeto.jpg` — blueprint técnico da rede dutada, usado na capa do hero até a V12 B/C
+- `assets/p-aerea-casa-maquinas.jpg` — vista aérea da cobertura, em "Quem somos" desde a V15 C
 - `assets/p-*.jpg` — demais fotos de obras, usadas no carrossel de equipamentos. As 7 do carrossel
   saem carimbadas com a marca d'água da logo por `tools/marca_dagua.py`; os arquivos limpos ficam
   em `tools/fotos-originais/`, que o `Dockerfile` não copia
+
+Fotos que só as versões antigas usavam saíram da `main` na V15 C — `hero-vista-aerea.jpg`,
+`p-planta-projeto.jpg`, `p-capa-planta-baixa.jpg`, `p-rede-dutada-obra.jpg` e
+`p-condensadoras-telhado.jpg` (812 KB no total, que o `Dockerfile` copiava pra imagem à toa).
+Cada uma continua nas branches das versões que a usam, e no histórico.
 
 Paleta extraída da própria logo: `#24549C` (azul institucional), `#00A8F0` (ciano), `#48C6FF` (ciano claro).
 
@@ -150,9 +172,9 @@ Um serviço por versão, todos apontando para este repo:
 | `arclimtec-v3` | `v3-impacto` |
 | `arclimtec-v4` | `v4-termico` |
 | `arclimtec-v5` | `v5-duelo` |
-| `arclimtec` | `main` — site definitivo (V13 Capa B) |
+| `arclimtec` | `main` — site definitivo (V15 C) |
 
-As demais versões (`v6-definitiva` … `v13-capa-a`) também têm branch própria, mesmo padrão, caso seja preciso reativar alguma pra deploy.
+As demais versões (`v6-definitiva` … `v13-capa-a`, `v14-hero-foto`, `v15-aerea`) também têm branch própria, mesmo padrão, caso seja preciso reativar alguma pra deploy.
 
 Configuração em cada serviço: **Build = Dockerfile**, **Dockerfile Path = `Dockerfile`** (vazio também funciona, o padrão é `./Dockerfile`) e **porta 80**.
 

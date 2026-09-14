@@ -55,4 +55,4 @@ python3 tools/gen_claro.py
 
 ## De onde vieram os assets
 
-Fotos e logo são do próprio cliente, enviadas por WhatsApp. `bg-industrial.jpg` e `p-condensadoras-telhado.jpg` tiveram os 10% de baixo cortados para remover a marca d'água "tirada no moto g⁶ plus" da câmera.
+Fotos e logo são do próprio cliente, enviadas por WhatsApp. `bg-industrial.jpg` e `p-condensadoras-telhado.jpg` tiveram os 10% de baixo cortados para remover a marca d'água "tirada no moto g⁶ plus" da câmera (a `p-condensadoras-telhado.jpg` saiu de `assets/` na `main` a partir da V15 C — só as versões antigas usavam).
