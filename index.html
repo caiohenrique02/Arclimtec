@@ -71,16 +71,16 @@
   header.nav{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);
     background:rgba(238,242,247,.8);border-bottom:1px solid rgba(11,42,82,.1)}
   .nav__in{display:flex;align-items:center;gap:30px;height:82px}
-  .brand{display:flex;align-items:center;gap:12px}
-  .brand__chip{width:10px;height:38px;border-radius:3px;background:var(--azul-deep)}
-  .nav__in img{height:46px}
+  .brand{display:flex;align-items:center;gap:12px;flex:none}
+  .brand__chip{width:10px;height:38px;border-radius:3px;background:var(--azul-deep);flex:none}
+  .nav__in img{height:46px;width:auto;flex:none}
   .nav__links{display:flex;gap:28px;margin-left:auto;font-family:"Barlow Condensed",sans-serif;
     font-weight:600;font-size:17px;letter-spacing:.12em;text-transform:uppercase}
   .nav__links a{position:relative;padding-bottom:3px}
   .nav__links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;
     background:currentColor;transition:width .25s}
   .nav__links a:hover::after{width:100%}
-  .nav .btn{padding:12px 22px;font-size:16px;margin-left:auto}
+  .nav .btn{padding:12px 22px;font-size:16px;margin-left:auto;flex:none;white-space:nowrap}
   /* o atalho de Obras só existe no celular, onde o menu de links some */
   .nav__obras{display:none}
 
@@ -400,7 +400,12 @@
     .nav__links{display:none}
     .nav__obras{display:inline-flex;margin-left:auto}
     .nav__obras+.btn{margin-left:0}
-    .nav .nav__obras{padding:10px 16px;font-size:14.5px;border-color:rgba(11,42,82,.28);color:var(--ink-soft)}
+    .nav__in{gap:12px;height:72px}
+    .nav__in img{height:38px}
+    .brand{gap:9px}
+    .brand__chip{width:8px;height:31px}
+    .nav .btn{padding:10px 15px;font-size:13.5px;letter-spacing:.06em;min-height:0}
+    .nav .nav__obras{padding:9px 13px;font-size:12.5px;border-color:rgba(11,42,82,.28);color:var(--ink-soft)}
     .sec{padding:64px 0}
     .btn{padding:14px 24px;min-height:46px;font-size:16.5px;letter-spacing:.07em}
     .btn svg{width:18px;height:18px}
@@ -411,7 +416,9 @@
     .gc{padding:18px 13px}
     .gc.aberto{padding-bottom:64px}
     .gc__art{height:54px;margin-bottom:11px}
-    .gc h4{font-size:19px}
+    /* "Ventilação e exaustão" ocupa duas linhas: o título reserva as duas em todos
+       os cards, senão o texto do par ao lado começa numa altura diferente */
+    .gc h4{font-size:19px;line-height:1.05;min-height:2.1em}
     .gc p{font-size:12.5px;line-height:1.4}
     /* no celular as logos continuam 3 por linha, igual ao desktop */
     .cli__grid{gap:16px 10px}
@@ -433,11 +440,12 @@
   @media (max-width:420px){
     .wrap{padding:0 18px}
     .capa{margin-left:-18px;margin-right:-18px;width:calc(100% + 36px)}
-    .nav__in{gap:14px}
-    .nav__in img{height:36px}
-    .brand{gap:8px}
-    .nav .btn{padding:9px 14px;font-size:12.5px;letter-spacing:.06em}
-    .nav .nav__obras{padding:8px 12px;font-size:12px}
+    .nav__in{gap:10px}
+    .nav__in img{height:33px}
+    .brand{gap:7px}
+    .brand__chip{width:7px;height:27px}
+    .nav .btn{padding:9px 12px;font-size:12.5px}
+    .nav .nav__obras{padding:8px 10px;font-size:11.5px}
   }
   @media (prefers-reduced-motion:reduce){
     .rv{opacity:1;transform:none;transition:none}
@@ -520,7 +528,7 @@
       <div class="gc" data-zap="Olá! Preciso de um contrato de PMOC. Podem me explicar como funciona?"><div class="gc__art"><svg viewBox="0 0 130 64"><rect x="16" y="8" width="54" height="48" rx="4"/><rect x="33" y="4" width="20" height="8" rx="2"/><rect x="24" y="20" width="7" height="7" rx="1.5"/><path class="ic-check" d="M25.5 23.5l1.5 1.5 3-3"/><path d="M36 23.5h28"/><rect x="24" y="32" width="7" height="7" rx="1.5"/><path class="ic-check ic-check--2" d="M25.5 35.5l1.5 1.5 3-3"/><path d="M36 35.5h28"/><rect x="24" y="44" width="7" height="7" rx="1.5"/><path class="ic-check ic-check--3" d="M25.5 47.5l1.5 1.5 3-3"/><path d="M36 47.5h20"/><g class="ic-badge"><circle class="ic-accent" cx="100" cy="20" r="13"/><path d="M93 20l4.5 4.5 9-9"/></g></svg></div><h4>PMOC</h4><p>Plano de manutenção, operação e controle documentado.</p></div>
       <div class="gc" data-zap="Olá! Preciso de um laudo técnico com medição para o meu ambiente climatizado. Podem me atender?"><div class="gc__art"><svg viewBox="0 0 130 64"><rect x="14" y="6" width="58" height="52" rx="4"/><path class="ic-line ic-line--1" d="M22 18h30"/><path class="ic-line ic-line--2" d="M22 27h42"/><path class="ic-line ic-line--3" d="M22 36h34"/><path class="ic-line ic-line--4" d="M22 45h20"/><g class="ic-seal"><circle class="ic-accent" cx="98" cy="38" r="15"/><path class="ic-check" d="M90.5 38l5 5 9.5-10.5"/></g></svg></div><h4>Laudo técnico</h4><p>Medição e laudo com validade legal para o seu ambiente.</p></div>
       <div class="gc" data-zap="Olá! Meu ar-condicionado não está gelando como deveria. Podem fazer um diagnóstico com medição?"><div class="gc__art"><svg viewBox="0 0 130 64"><circle class="ic-ping ic-accent" cx="48" cy="42" r="17"/><path d="M20 42a28 28 0 1 1 56 0"/><path d="M22 42h4M92 42h4M48 10v4"/><path class="ic-needle" d="M48 42l16-20"/><circle class="ic-fill" cx="48" cy="42" r="3"/><g class="ic-digits"><rect x="72" y="8" width="9" height="14" rx="1.5"/><rect x="83" y="8" width="9" height="14" rx="1.5"/><rect x="94" y="8" width="9" height="14" rx="1.5"/></g></svg></div><h4>Diagnóstico</h4><p>Pressão, temperatura, vazão e consumo medidos.</p></div>
-      <div class="gc" data-zap="Olá! Preciso de ventilação / exaustão no meu ambiente. Podem avaliar?"><div class="gc__art"><svg viewBox="0 0 130 64"><rect x="10" y="18" width="34" height="28" rx="4"/><g class="ic-fan"><circle cx="27" cy="32" r="3"/><path d="M27 24v3M27 37v3M19 32h3M32 32h3M21 26l2 2M31 38l2 2M33 26l-2 2M23 38l-2 2"/></g><path class="ic-air ic-air--1" d="M50 24c14-4 22 2 34-2"/><path class="ic-air ic-air--2" d="M50 32c16 0 24 0 38 0"/><path class="ic-air ic-air--3" d="M50 40c14 4 22-2 34 2"/></svg></div><h4>Exaustão</h4><p>Renovação de ar, ventilação, exaustão e pressurização.</p></div>
+      <div class="gc" data-zap="Olá! Preciso de ventilação / exaustão no meu ambiente. Podem avaliar?"><div class="gc__art"><svg viewBox="0 0 130 64"><rect x="10" y="18" width="34" height="28" rx="4"/><g class="ic-fan"><circle cx="27" cy="32" r="3"/><path d="M27 24v3M27 37v3M19 32h3M32 32h3M21 26l2 2M31 38l2 2M33 26l-2 2M23 38l-2 2"/></g><path class="ic-air ic-air--1" d="M50 24c14-4 22 2 34-2"/><path class="ic-air ic-air--2" d="M50 32c16 0 24 0 38 0"/><path class="ic-air ic-air--3" d="M50 40c14 4 22-2 34 2"/></svg></div><h4>Ventilação e exaustão</h4><p>Renovação de ar, ventilação, exaustão e pressurização.</p></div>
       <div class="gc" data-zap="Olá! Preciso de fabricação e montagem de dutos. Podem me orçar?"><div class="gc__art"><svg viewBox="0 0 130 64"><g class="ic-duto ic-duto--1"><path d="M6 32h52v18H6z"/><path class="ic-topo" d="M6 32l9-7h52l-9 7z"/><path class="ic-topo" d="M58 32l9-7v18l-9 7z"/><path class="ic-flange" d="M22 30v22M22 30l9-7"/><path class="ic-flange" d="M56 30v22M56 30l9-7"/></g><g class="ic-duto ic-duto--2"><path d="M63 32h53v18H63z"/><path class="ic-topo" d="M63 32l9-7h53l-9 7z"/><path class="ic-topo" d="M116 32l9-7v18l-9 7z"/><path class="ic-flange" d="M65 30v22M65 30l9-7"/><path class="ic-flange" d="M114 30v22M114 30l9-7"/></g></svg></div><h4>Dutos</h4><p>Fabricação e montagem em PMU e chapas.</p></div>
     </div>
   </div>
