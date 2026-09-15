@@ -25,7 +25,7 @@
 
   /* ===== foto de fundo — fixa na tela, nunca se move nem se repete ===== */
   .bg-photo{position:fixed;inset:0;z-index:-2;pointer-events:none;
-    background:url("assets/p-dutos-galpao.jpg") center/cover no-repeat;
+    background:url("assets/p-difusores-forro.jpg") center 18%/cover no-repeat;
     filter:saturate(.9) contrast(1.02)}
 
   /* ===== degradê translúcido por cima da foto — acompanha a rolagem da página inteira,
@@ -81,12 +81,13 @@
     background:currentColor;transition:width .25s}
   .nav__links a:hover::after{width:100%}
   .nav .btn{padding:12px 22px;font-size:16px;margin-left:auto}
+  /* o atalho de Obras só existe no celular, onde o menu de links some */
+  .nav__obras{display:none}
 
   /* ===== HERO — texto e capa (obra+planta) lado a lado, tudo já na primeira tela ===== */
   .hero{position:relative;padding:28px 0 44px;min-height:calc(100svh - 83px);display:flex;align-items:center}
   .hero__grid{display:grid;grid-template-columns:1fr;gap:22px;width:100%}
   .hero h1.tag{font-size:14px;justify-self:center;text-align:center}
-  .hero__cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
 
   /* ===== CAPA: obra + planta com divisor arrastável — arrasta pra qualquer lado
      e a foto daquele lado ocupa o espaço todo, a outra vai encolhendo ===== */
@@ -218,12 +219,13 @@
   .ic-air--3{animation-delay:.5s}
   @keyframes icAirFlow{to{stroke-dashoffset:-18}}
 
-  /* Eficiência: a curva de consumo desenha caindo e o raio de energia pulsa no fim */
-  .ic-graph{stroke-dasharray:70;stroke-dashoffset:70;animation:icGraphDraw 3s ease-in-out infinite}
-  @keyframes icGraphDraw{0%{stroke-dashoffset:70}45%,72%{stroke-dashoffset:0}100%{stroke-dashoffset:70}}
-  .ic-bolt2{fill:var(--frio-2);stroke:var(--frio);stroke-width:1;stroke-linejoin:round;
-    transform-origin:78px 20px;opacity:0;animation:icBolt2 3s ease-in-out infinite}
-  @keyframes icBolt2{0%,45%{opacity:0;transform:scale(.6)}58%{opacity:1;transform:scale(1.15)}68%{transform:scale(1)}90%{opacity:1}100%{opacity:0;transform:scale(.6)}}
+  /* Dutos: dois trechos retangulares deslizam e encaixam flange com flange */
+  .ic-topo{opacity:.55}
+  .ic-flange{stroke:var(--frio-2)}
+  .ic-duto--1{animation:icDutoA 3.4s cubic-bezier(.3,.7,.25,1) infinite}
+  .ic-duto--2{animation:icDutoB 3.4s cubic-bezier(.3,.7,.25,1) infinite}
+  @keyframes icDutoA{0%{opacity:0;transform:translateX(-16px)}20%,82%{opacity:1;transform:translateX(0)}100%{opacity:0;transform:translateX(-16px)}}
+  @keyframes icDutoB{0%{opacity:0;transform:translateX(20px)}12%{opacity:1}34%,82%{opacity:1;transform:translateX(0)}100%{opacity:0;transform:translateX(20px)}}
 
   /* ===== botão de whatsapp em cada box — pílula com o assunto por extenso, não só o ícone ===== */
   .zap-box{z-index:6;display:inline-flex;align-items:center;gap:9px;
@@ -396,12 +398,21 @@
   @media (max-width:680px){
     body{font-size:16.5px}
     .nav__links{display:none}
+    .nav__obras{display:inline-flex;margin-left:auto}
+    .nav__obras+.btn{margin-left:0}
+    .nav .nav__obras{padding:10px 16px;font-size:14.5px;border-color:rgba(11,42,82,.28);color:var(--ink-soft)}
     .sec{padding:64px 0}
     .btn{padding:14px 24px;min-height:46px;font-size:16.5px;letter-spacing:.07em}
     .btn svg{width:18px;height:18px}
     .rail-controls{gap:10px}
     .rail-dots button{width:22px}
-    .grid-cap{grid-template-columns:1fr}
+    /* no celular os 8 servicos ficam em 4 pares, 2 por linha */
+    .grid-cap{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:34px}
+    .gc{padding:18px 13px}
+    .gc.aberto{padding-bottom:64px}
+    .gc__art{height:54px;margin-bottom:11px}
+    .gc h4{font-size:19px}
+    .gc p{font-size:12.5px;line-height:1.4}
     /* no celular as logos continuam 3 por linha, igual ao desktop */
     .cli__grid{gap:16px 10px}
     .cli__item{gap:7px}
@@ -426,6 +437,7 @@
     .nav__in img{height:36px}
     .brand{gap:8px}
     .nav .btn{padding:9px 14px;font-size:12.5px;letter-spacing:.06em}
+    .nav .nav__obras{padding:8px 12px;font-size:12px}
   }
   @media (prefers-reduced-motion:reduce){
     .rv{opacity:1;transform:none;transition:none}
@@ -451,9 +463,10 @@
     <nav class="nav__links">
       <a href="#servicos">Serviços</a>
       <a href="#clientes">Clientes</a>
-      <a href="#fotos">Fotos</a>
+      <a href="#fotos">Obras</a>
       <a href="#empresa">Empresa</a>
     </nav>
+    <a class="btn btn--out nav__obras" href="#fotos">Obras</a>
     <a class="btn btn--frio" href="https://wa.me/558330998606" target="_blank" rel="noopener">Orçamento</a>
   </div>
 </header>
@@ -477,9 +490,6 @@
       </div>
     </div>
 
-    <div class="hero__cta">
-      <a class="btn btn--frio" href="#fotos">Ver obras</a>
-    </div>
   </div>
 </section>
 
@@ -510,8 +520,8 @@
       <div class="gc" data-zap="Olá! Preciso de um contrato de PMOC. Podem me explicar como funciona?"><div class="gc__art"><svg viewBox="0 0 130 64"><rect x="16" y="8" width="54" height="48" rx="4"/><rect x="33" y="4" width="20" height="8" rx="2"/><rect x="24" y="20" width="7" height="7" rx="1.5"/><path class="ic-check" d="M25.5 23.5l1.5 1.5 3-3"/><path d="M36 23.5h28"/><rect x="24" y="32" width="7" height="7" rx="1.5"/><path class="ic-check ic-check--2" d="M25.5 35.5l1.5 1.5 3-3"/><path d="M36 35.5h28"/><rect x="24" y="44" width="7" height="7" rx="1.5"/><path class="ic-check ic-check--3" d="M25.5 47.5l1.5 1.5 3-3"/><path d="M36 47.5h20"/><g class="ic-badge"><circle class="ic-accent" cx="100" cy="20" r="13"/><path d="M93 20l4.5 4.5 9-9"/></g></svg></div><h4>PMOC</h4><p>Plano de manutenção, operação e controle documentado.</p></div>
       <div class="gc" data-zap="Olá! Preciso de um laudo técnico com medição para o meu ambiente climatizado. Podem me atender?"><div class="gc__art"><svg viewBox="0 0 130 64"><rect x="14" y="6" width="58" height="52" rx="4"/><path class="ic-line ic-line--1" d="M22 18h30"/><path class="ic-line ic-line--2" d="M22 27h42"/><path class="ic-line ic-line--3" d="M22 36h34"/><path class="ic-line ic-line--4" d="M22 45h20"/><g class="ic-seal"><circle class="ic-accent" cx="98" cy="38" r="15"/><path class="ic-check" d="M90.5 38l5 5 9.5-10.5"/></g></svg></div><h4>Laudo técnico</h4><p>Medição e laudo com validade legal para o seu ambiente.</p></div>
       <div class="gc" data-zap="Olá! Meu ar-condicionado não está gelando como deveria. Podem fazer um diagnóstico com medição?"><div class="gc__art"><svg viewBox="0 0 130 64"><circle class="ic-ping ic-accent" cx="48" cy="42" r="17"/><path d="M20 42a28 28 0 1 1 56 0"/><path d="M22 42h4M92 42h4M48 10v4"/><path class="ic-needle" d="M48 42l16-20"/><circle class="ic-fill" cx="48" cy="42" r="3"/><g class="ic-digits"><rect x="72" y="8" width="9" height="14" rx="1.5"/><rect x="83" y="8" width="9" height="14" rx="1.5"/><rect x="94" y="8" width="9" height="14" rx="1.5"/></g></svg></div><h4>Diagnóstico</h4><p>Pressão, temperatura, vazão e consumo medidos.</p></div>
-      <div class="gc" data-zap="Olá! Preciso de ventilação / exaustão no meu ambiente. Podem avaliar?"><div class="gc__art"><svg viewBox="0 0 130 64"><rect x="10" y="18" width="34" height="28" rx="4"/><g class="ic-fan"><circle cx="27" cy="32" r="3"/><path d="M27 24v3M27 37v3M19 32h3M32 32h3M21 26l2 2M31 38l2 2M33 26l-2 2M23 38l-2 2"/></g><path class="ic-air ic-air--1" d="M50 24c14-4 22 2 34-2"/><path class="ic-air ic-air--2" d="M50 32c16 0 24 0 38 0"/><path class="ic-air ic-air--3" d="M50 40c14 4 22-2 34 2"/></svg></div><h4>Exaustão</h4><p>Renovação de ar, exaustão de processo e pressurização.</p></div>
-      <div class="gc" data-zap="Olá! Queria reduzir o consumo de energia do meu sistema de climatização."><div class="gc__art"><svg viewBox="0 0 130 64"><path d="M14 10v44h50" opacity=".35"/><path class="ic-graph" d="M14 20l16 6 14 8 14 6 14 16"/><path class="ic-bolt2" d="M96 8l-11 18h8l-3 16 14-20h-8z"/></svg></div><h4>Eficiência</h4><p>Ajuste e retrofit para derrubar a conta de energia.</p></div>
+      <div class="gc" data-zap="Olá! Preciso de ventilação / exaustão no meu ambiente. Podem avaliar?"><div class="gc__art"><svg viewBox="0 0 130 64"><rect x="10" y="18" width="34" height="28" rx="4"/><g class="ic-fan"><circle cx="27" cy="32" r="3"/><path d="M27 24v3M27 37v3M19 32h3M32 32h3M21 26l2 2M31 38l2 2M33 26l-2 2M23 38l-2 2"/></g><path class="ic-air ic-air--1" d="M50 24c14-4 22 2 34-2"/><path class="ic-air ic-air--2" d="M50 32c16 0 24 0 38 0"/><path class="ic-air ic-air--3" d="M50 40c14 4 22-2 34 2"/></svg></div><h4>Exaustão</h4><p>Renovação de ar, ventilação, exaustão e pressurização.</p></div>
+      <div class="gc" data-zap="Olá! Preciso de fabricação e montagem de dutos. Podem me orçar?"><div class="gc__art"><svg viewBox="0 0 130 64"><g class="ic-duto ic-duto--1"><path d="M6 32h52v18H6z"/><path class="ic-topo" d="M6 32l9-7h52l-9 7z"/><path class="ic-topo" d="M58 32l9-7v18l-9 7z"/><path class="ic-flange" d="M22 30v22M22 30l9-7"/><path class="ic-flange" d="M56 30v22M56 30l9-7"/></g><g class="ic-duto ic-duto--2"><path d="M63 32h53v18H63z"/><path class="ic-topo" d="M63 32l9-7h53l-9 7z"/><path class="ic-topo" d="M116 32l9-7v18l-9 7z"/><path class="ic-flange" d="M65 30v22M65 30l9-7"/><path class="ic-flange" d="M114 30v22M114 30l9-7"/></g></svg></div><h4>Dutos</h4><p>Fabricação e montagem em PMU e chapas.</p></div>
     </div>
   </div>
 </section>
@@ -556,7 +566,7 @@
 <section class="sec" id="fotos">
   <div class="wrap">
     <div class="sec__head rv">
-      <h2>Fotos dos <span class="f">equipamentos</span></h2>
+      <h2>Nossas <span class="f">obras</span></h2>
       <p>Do duto galvanizado no galpão ao cassete embutido no forro do apartamento.</p>
     </div>
     <div class="obras rv">
@@ -644,7 +654,7 @@
         <ul class="foot__list">
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#clientes">Clientes</a></li>
-          <li><a href="#fotos">Fotos dos equipamentos</a></li>
+          <li><a href="#fotos">Obras</a></li>
           <li><a href="#empresa">Quem somos</a></li>
         </ul>
       </div>
@@ -661,7 +671,7 @@
       </div>
     </div>
     <div class="foot__bottom">
-      <span>Campina Grande · Paraíba</span>
+      <span class="foot__end">Rua Ladislau Rodrigues de Souza, 323 — Centenário, Campina Grande - PB, 58107-074</span>
       <span class="sp">© 2026 Arclimtec — [Razão social / CNPJ]</span>
     </div>
   </div>

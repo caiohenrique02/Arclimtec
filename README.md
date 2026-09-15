@@ -79,7 +79,7 @@ Partem da V12 A (que por sua vez parte da V11 A) e aplicam, nessa ordem:
 - **Carrossel de fotos**: cards menores (3 por vez no desktop), e agora **anda sozinho** automaticamente, pausando quando o usuário interage.
 - **Quem somos**: logo grande trocada de branca pra colorida (mesma do topo), sem a caixa/glow que tinha antes.
 - **Rodapé**: botão de WhatsApp em verde (diferente do azul usado no resto do site).
-- **V12 B** mantém o degradê indo até `--azul-deep`/`--azul-night`, com a foto de fundo (`assets/p-dutos-galpao.jpg`) fixa (`position:fixed`, não rola nem se repete) e um overlay translúcido de transição longa por cima.
+- **V12 B** mantém o degradê indo até `--azul-deep`/`--azul-night`, com a foto de fundo (`assets/p-difusores-forro.jpg`, desde 15/09) fixa (`position:fixed`, não rola nem se repete) e um overlay translúcido de transição longa por cima.
 - **V12 C** é a V12 B com o mesmo overlay só que preso em tons claros (branco → azul bem claro, nunca passa de `--frio`/`--azul`) — isso obrigou a rever todo texto/ícone que assumia fundo escuro (títulos de seção, números da empresa, legendas do carrossel, rodapé) pra usar tinta escura em vez de branca, e a logo do rodapé/"quem somos" virou a colorida (a branca sumiria num fundo claro).
 
 ### O que a V12 A mudou (retificações do cliente por WhatsApp, 13/08)
@@ -135,7 +135,10 @@ Hero (texto + capa obra/planta) → cano/marquee → serviços (bloco industrial
   usa, mas o `tools/gen_claro.py` referencia, então fica
 - `assets/logo.jpg` — logo original do cliente, com fundo branco; é a entrada do `tools/logo_prep.py`,
   que gera a `logo.png` e a `logo-branca.png`. Também não vai pra página nenhuma
-- `assets/p-dutos-galpao.jpg` — foto de fundo fixa da V12 B/C e uma das fotos do carrossel
+- `assets/p-difusores-forro.jpg` — foto de fundo fixa desde 15/09 (difusores no forro). É retrato
+  (960×1280), então o fundo usa `center 18%`: com `cover` centralizado o desktop caía numa faixa de
+  teto liso, sem difusor. No celular a foto cabe inteira na vertical e o corte é só nas laterais.
+  Substituiu a `p-dutos-galpao.jpg`, que foi apagada
 - `assets/p-capa-predio-render.jpg` — render isométrico do prédio com o sistema por inteiro; é a primeira imagem da capa do hero
 - `assets/p-capa-predio-tecnico.jpg` — o mesmo prédio em desenho técnico, revelado pelo divisor da capa.
   Está no mesmo tamanho (1329×904) e com o prédio na mesma posição e escala do render, pra o divisor
