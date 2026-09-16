@@ -304,6 +304,9 @@
   .card__b i{font-style:normal;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:11.5px;
     letter-spacing:.18em;text-transform:uppercase;color:var(--frio);display:block;margin-bottom:3px}
   .card__b b{font-family:"Bebas Neue",sans-serif;font-size:19px;display:block;line-height:1;margin-bottom:5px;color:#fff}
+  /* nome da obra e cidade, logo abaixo do titulo do card */
+  .card__b em{font-style:normal;display:block;font-family:"Barlow Condensed",sans-serif;font-weight:600;
+    font-size:12.5px;letter-spacing:.05em;color:#8FB9DE;margin:-2px 0 6px}
   .card__b p{font-size:12.5px;color:#C6DAEE;font-weight:300;line-height:1.4}
 
   /* ===== carrossel: passa 2 fotos por vez ===== */
@@ -332,6 +335,12 @@
   .about h2{font-size:clamp(38px,5.2vw,72px);margin:14px 0 20px}
   .about h2 span{color:var(--frio)}
   .about p{margin-bottom:16px;max-width:60ch;font-weight:300}
+  /* cartao do diretor, entre o texto e os numeros */
+  .about__dir{margin-top:10px;padding:14px 24px;border-radius:var(--r-md);text-align:center;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
+  .about__dir b{font-family:"Bebas Neue",sans-serif;font-size:23px;color:#fff;display:block;line-height:1.05}
+  .about__dir span{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:13px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--frio);display:block;margin-top:4px}
   .about__nums{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px;
     width:100%;max-width:640px;text-align:center}
   .about__nums b{font-family:"Bebas Neue",sans-serif;font-size:42px;color:var(--frio-2);display:block;line-height:1}
@@ -635,25 +644,31 @@
     <div class="rail" id="trilho">
       <article class="card" data-zap="Olá! Vi no site a obra de rede dutada de grande área. Preciso de algo parecido, podem me orçar?"><span class="card__n">01</span>
         <img src="assets/p-dutos-galpao-2.jpg" alt="Dutos galvanizados em galpão industrial">
-        <div class="card__b"><i>Industrial</i><b>Dutos em galpão</b><p>Rede suspensa na estrutura metálica, integrada à iluminação e ao sistema de combate a incêndio.</p></div></article>
+        <div class="card__b"><i>Industrial</i><b>Dutos em galpão</b><em>Ortobom · Simões Filho (BA)</em><p>Rede suspensa na estrutura metálica, integrada à iluminação e ao sistema de combate a incêndio.</p></div></article>
       <article class="card" data-zap="Olá! Preciso de um sistema de grande capacidade, tipo a bateria de condensadoras que vi no site."><span class="card__n">02</span>
         <img src="assets/p-carrier-laje.jpg" alt="Bateria de condensadoras em laje técnica">
-        <div class="card__b"><i>Grande capacidade</i><b>Bateria de condensadoras</b><p>Seis unidades em laje técnica, cada uma em base própria, com interligação e drenagem dedicadas.</p></div></article>
+        <div class="card__b"><i>Grande capacidade</i><b>Bateria de condensadoras</b><em>Cinema Cinesercla · Campina Grande (PB)</em><p>Seis unidades em laje técnica, cada uma em base própria, com interligação e drenagem dedicadas.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site a instalação de sistema VRF. Queria falar sobre VRF para o meu prédio."><span class="card__n">03</span>
         <img src="assets/p-vrf-hitachi.jpg" alt="Unidade externa em passarela técnica">
-        <div class="card__b"><i>Sistema VRF</i><b>Passarela técnica</b><p>Unidade externa instalada em passarela com grade de piso e guarda-corpo.</p></div></article>
+        <div class="card__b"><i>Sistema VRF</i><b>Passarela técnica</b><em>Usina termelétrica · Maracanaú (CE)</em><p>Unidade externa instalada em passarela com grade de piso e guarda-corpo.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site o rooftop em cobertura industrial. Queria um orçamento parecido."><span class="card__n">04</span>
         <img src="assets/p-selfcontained.jpg" alt="Rooftop em cobertura industrial">
-        <div class="card__b"><i>Rooftop</i><b>Cobertura industrial</b><p>Conjunto com plenum de insuflamento e condensadoras dedicadas.</p></div></article>
+        <div class="card__b"><i>Rooftop</i><b>Cobertura industrial</b><em>Usina termelétrica Borborema Energética</em><p>Conjunto com plenum de insuflamento e condensadoras dedicadas.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site a montagem de casa de máquinas. Queria falar sobre um projeto assim."><span class="card__n">05</span>
         <img src="assets/p-casa-de-maquinas.jpg" alt="Fancoils em casa de máquinas">
-        <div class="card__b"><i>Casa de máquinas</i><b>Fancoils em série</b><p>Montagem alinhada, com filtro e dutos flexíveis prontos para interligação da rede.</p></div></article>
+        <div class="card__b"><i>Casa de máquinas</i><b>Fancoils em série</b><em>Academia Smart Fit</em><p>Montagem alinhada, com filtro e dutos flexíveis prontos para interligação da rede.</p></div></article>
       <article class="card" data-zap="Olá! Tenho um parque de condensadoras e queria contratar a manutenção preventiva."><span class="card__n">06</span>
         <img src="assets/p-condensadoras-laje.jpg" alt="Parque de condensadoras em laje">
         <div class="card__b"><i>Manutenção</i><b>Parque de condensadoras</b><p>Preventiva em parque sobre laje impermeabilizada com argila expandida.</p></div></article>
       <article class="card" data-zap="Olá! Queria instalar ar-condicionado cassete embutido no forro do meu apartamento."><span class="card__n">07</span>
         <img src="assets/p-cassete-apartamento.jpg" alt="Cassete embutido em apartamento">
         <div class="card__b"><i>Residencial</i><b>Cassete em apartamento</b><p>Instalação embutida no forro, acabamento alinhado ao projeto de interiores.</p></div></article>
+      <article class="card" data-zap="Olá! Vi no site a rede de duto virotubo. Queria um orçamento para a minha loja."><span class="card__n">08</span>
+        <img src="assets/p-virotubo-loja.jpg" alt="Duto virotubo suspenso sobre a área de vendas de uma loja">
+        <div class="card__b"><i>Comercial</i><b>Rede de duto virotubo</b><em>Sam's Club</em><p>Duto redondo pré-isolado suspenso na estrutura metálica, com as saídas de ar ao longo do trecho.</p></div></article>
+      <article class="card" data-zap="Olá! Vi no site os dutos com isolamento em manta de lã de vidro. Preciso de algo parecido."><span class="card__n">09</span>
+        <img src="assets/p-dutos-isolamento.jpg" alt="Dutos convencionais com isolamento externo em manta de lã de vidro com face aluminizada">
+        <div class="card__b"><i>Rede dutada</i><b>Dutos com isolamento</b><p>Duto convencional isolado com manta de lã de vidro de face aluminizada, montado ainda na fase de obra.</p></div></article>
     </div>
     <div class="rail-controls">
       <button class="rail-btn" id="trilhoPrev" aria-label="Fotos anteriores" type="button">
@@ -676,6 +691,10 @@
         <h2>Feita por <span>gente da área</span></h2>
         <p>A Arclimtec tem <b>experiência no mercado desde 2012</b>, em Campina Grande, tratando climatização como engenharia: dimensionar antes de instalar, medir antes de entregar e documentar depois de manter.</p>
         <p>De lá para cá são <b>mais de 50 projetos de médio e grande porte</b> entregues — indústrias, redes comerciais, saúde e residências da Paraíba e região. Com equipe própria, treinada e uniformizada: é o mesmo time que projeta, instala e volta para a manutenção.</p>
+        <div class="about__dir">
+          <b>Daniel Souza da Silva</b>
+          <span>Diretor · 15 anos de experiência no mercado</span>
+        </div>
         <div class="about__nums">
           <div><b>2012</b><span>experiência no mercado desde</span></div>
           <div><b>+50</b><span>projetos de médio e grande porte</span></div>
@@ -741,7 +760,7 @@
     </div>
     <div class="foot__bottom">
       <span class="foot__end">Rua Ladislau Rodrigues de Souza, 323 — Centenário, Campina Grande - PB, 58107-074</span>
-      <span class="sp">© 2026 Arclimtec — [Razão social / CNPJ]</span>
+      <span class="sp">© 2026 Arclimtec · CNPJ: 33.443.579/0001-16</span>
     </div>
   </div>
 </footer>
