@@ -61,8 +61,10 @@ de um `location` apaga todos os headers herdados do `server`. Se alguém mover
 esses headers pra dentro de um location, o cache e os headers de segurança
 param de valer sem dar erro nenhum.
 
-Não há docker nesta máquina, então o `default.conf` **nunca foi testado**. Se o
-container não subir depois de um deploy, é o primeiro suspeito.
+O `default.conf` foi testado em container local em 16/09/2026 (`docker build` +
+`docker run -p 8099:80`): `nginx -t` ok, troca automática por WebP funcionando
+(110 KB -> 62 KB), cache de 30 dias nas fotos, `no-cache` no HTML, headers de
+segurança e os seis arquivos de raiz respondendo 200.
 
 ## SEO
 
