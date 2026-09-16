@@ -66,6 +66,27 @@ O `default.conf` foi testado em container local em 16/09/2026 (`docker build` +
 (110 KB -> 62 KB), cache de 30 dias nas fotos, `no-cache` no HTML, headers de
 segurança e os seis arquivos de raiz respondendo 200.
 
+## Contato (todos os caminhos caem no WhatsApp)
+
+Desde 16/09/2026 **nenhum link de contato usa `tel:`**: o pedido do Caio foi que
+todo número clicável abra o WhatsApp, com a frase já preenchida. São cinco
+lugares com o número, todos com `558330998606` literal:
+
+- `index.html` linha ~555, botão "Orçamento" do topo.
+- linha ~783, botão WhatsApp do rodapé.
+- linha ~787, o número visível do rodapé (era `tel:`, virou `wa.me`).
+- linha ~801, botão flutuante.
+- `const ZAP` no JS, que monta os botões `data-zap` de cada serviço e obra com
+  o assunto da caixa que a pessoa abriu.
+
+Trocar o número = trocar `558330998606` nesses cinco pontos. O JSON-LD guarda
+`+55-83-3099-8606` em `telephone` de propósito: lá é o telefone da empresa, não
+um botão.
+
+⚠️ **Não está confirmado que 83 3099-8606 tem WhatsApp** — é o fixo. Se não
+tiver, os cinco caminhos de contato do site não levam a lugar nenhum. O cadastro
+do domínio no Registro.br traz 83 99825-3434 como celular do Daniel.
+
 ## SEO
 
 - `robots.txt`, `sitemap.xml`, `site.webmanifest`, `favicon.ico`,
