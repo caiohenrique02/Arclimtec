@@ -23,6 +23,8 @@ ORIGINAIS = RAIZ / "tools" / "fotos-originais"
 DESTINO = RAIZ / "assets"
 LOGO = RAIZ / "assets" / "logo-branca.png"
 
+# Rodar o script recarimba todas de uma vez, sempre a partir do original limpo
+# em tools/fotos-originais/ — nunca por cima de uma foto já carimbada.
 FOTOS = [
     "p-dutos-galpao-2.jpg",
     "p-carrier-laje.jpg",
@@ -31,9 +33,10 @@ FOTOS = [
     "p-casa-de-maquinas.jpg",
     "p-condensadoras-laje.jpg",
     "p-cassete-apartamento.jpg",
+    "p-virotubo-loja.jpg",
+    "p-dutos-isolamento.jpg",
 ]
 
-PROPORCAO_CARD = 4 / 3   # .card img { aspect-ratio: 4/3; object-fit: cover }
 ZOOM_HOVER = 1.02        # .card:hover img { transform: scale(1.02) }
 LARGURA_MARCA = 0.26     # largura da logo, em fração da área visível
 MARGEM = 0.045           # respiro até o canto, na mesma fração
@@ -43,16 +46,14 @@ QUALIDADE = 88
 
 
 def area_visivel(largura, altura):
-    """Retângulo da foto que sobra depois do corte do card e do zoom do hover."""
-    proporcao = largura / altura
-    if proporcao > PROPORCAO_CARD:
-        vis_a = altura
-        vis_l = altura * PROPORCAO_CARD
-    else:
-        vis_l = largura
-        vis_a = largura / PROPORCAO_CARD
-    vis_l /= ZOOM_HOVER
-    vis_a /= ZOOM_HOVER
+    """Retângulo da foto que de fato aparece no card.
+
+    O card usa object-fit:contain (já foi cover), então a foto inteira
+    aparece: não há corte a descontar, só a folga do zoom do hover, senão a
+    marca encosta na borda quando o card cresce.
+    """
+    vis_l = largura / ZOOM_HOVER
+    vis_a = altura / ZOOM_HOVER
     return (
         round((largura - vis_l) / 2),
         round((altura - vis_a) / 2),

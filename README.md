@@ -2,6 +2,49 @@
 
 Landing page da **Arclimtec** (climatização industrial, empresarial e residencial). Site estático: só HTML/CSS/JS inline, sem build e sem servidor de aplicação.
 
+## O que mudou em 16/09/2026
+
+### Conteúdo
+
+- **Duas obras novas na galeria**, que passou a ter 9 fotos: rede de duto
+  virotubo no Sam's Club e dutos convencionais com isolamento em manta de lã de
+  vidro.
+- **Nome da obra e cidade em cada card**, como o cliente mandou: Ortobom
+  (Simões Filho/BA), cinema Cinesercla (Campina Grande/PB), usina termelétrica
+  (Maracanaú/CE), usina termelétrica Borborema Energética, academia Smart Fit e
+  Sam's Club. Os cards 06, 07 e 09 seguem sem obra, que ele não informou.
+- **Cartão do diretor** em "Quem somos": Daniel Souza da Silva, 15 anos de
+  mercado.
+- **CNPJ no rodapé**, no lugar do placeholder. A razão social ficou de fora de
+  propósito: o site é institucional e não fecha venda, então não cai na
+  exigência do Decreto 7.962/2013.
+
+### Produção
+
+Preparo pra ir ao ar num domínio. **Nenhum texto visível da página foi
+alterado** — foi pedido do cliente manter as palavras do site, então palavra-chave
+entrou só em `title`, `description`, `alt` e dados estruturados.
+
+- **WebP com troca automática no nginx** pelo `Accept` do navegador, sem mexer
+  em HTML nem CSS. A primeira visita caiu de 1208 KB para 456 KB de imagem.
+- **nginx saiu do modo proposta**: o HTML revalida, imagem e fonte ficam 30 dias
+  no navegador. `Cache-Control` e `Vary` saem de `map` e não de `add_header`
+  dentro de `location`, porque no nginx isso apagaria os headers herdados do
+  `server`.
+- `loading`, `width`, `height` e `decoding` em todas as imagens, `preload` nas
+  duas que aparecem antes de rolar, e quatro fotos sem uso removidas da `main`.
+- **Open Graph e Twitter Card**: colar o link no WhatsApp agora mostra prévia
+  (`assets/og-arclimtec.jpg`). Antes não mostrava nada.
+- **Dados estruturados `HVACBusiness`**, `robots.txt`, `sitemap.xml`,
+  `canonical`, favicon, apple-touch-icon e webmanifest.
+- Serviços viraram `h3`, que estava pulando de `h2` pra `h4`.
+- `tools/marca_dagua.py` passou a calcular a área visível por
+  `object-fit:contain`, que é o que o card usa hoje (a conta antiga era de
+  quando ele usava `cover` e jogava a marca pro meio das fotos verticais).
+
+O domínio está escrito como `arclimtec.com.br` em `index.html`, `robots.txt` e
+`sitemap.xml`. Era suposição: se o comprado for outro, trocar nos três.
+
 ## O que está na `main`
 
 A `main` é o site definitivo: um `index.html` só, sem tela de escolha e sem barra
@@ -26,8 +69,9 @@ sobrava faixa — por isso a V14 (hero em foto) foi descartada.
 A foto de drone limpa saiu da metade direita dessa arte, foi carimbada pelo
 `tools/marca_dagua.py` como as outras sete (`assets/p-aerea-casa-maquinas.jpg`,
 original em `tools/fotos-originais/`) e entrou em "Quem somos" na V15 C. A V16
-tirou essa foto: o cliente pediu a seção só com texto. O arquivo segue no repo,
-pronto pra voltar.
+tirou essa foto: o cliente pediu a seção só com texto. O arquivo saiu da `main`
+na limpeza de 16/09 e segue na branch `v15-aerea`, com o original limpo em
+`tools/fotos-originais/`.
 
 ### O que a V16 mudou (retificações do cliente, 14/09)
 
@@ -35,7 +79,7 @@ pronto pra voltar.
   Preventiva/Corretiva/PMOC e o botão "Falar agora". Sobrou a tarja, a capa
   arrastável e um "Ver obras".
 - **Nada de imagem cortada**, no site inteiro. A capa usa a proporção exata das
-  fotos (1329x904); a prévia das obras usa a da foto dela (4:3); e as 7 fotos da
+  fotos (1329x904); a prévia das obras usa a da foto dela (4:3); e as fotos da
   galeria, que vão de 3:4 a 16:9, entram com `object-fit:contain` sobre fundo
   escuro pra caberem inteiras em cards do mesmo tamanho.
 - **Capa sangra até a borda** da tela no celular (até 760px).
