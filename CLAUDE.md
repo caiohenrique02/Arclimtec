@@ -86,6 +86,92 @@ da linha ~787 junto, senão o rodapé mostra um número e linka outro.
 O fixo **83 3099-8606** não é mais botão nenhum. Ele sobrevive só no JSON-LD,
 em `telephone`, que agora é uma lista com o celular primeiro.
 
+## Onde paramos: lançamento de 16/09/2026
+
+O site **ainda não está no ar no domínio**, e o único motivo é DNS. Tudo o
+mais foi feito e conferido na noite do dia 16.
+
+### O que já funciona no servidor
+
+O app está rodando no EasyPanel, IP **31.97.24.35** (mesma VPS do
+caiohenrique.dev). Testado forjando o `Host`, sem depender de DNS:
+
+    curl -sk --resolve arclimtec.com.br:443:31.97.24.35 https://arclimtec.com.br/
+
+- `arclimtec.com.br` e `www.arclimtec.com.br` respondem **200** com o site certo.
+- HTTP redireciona pra HTTPS sozinho.
+- O EasyPanel faz **deploy automático** a cada push na `main`: o número novo do
+  WhatsApp e o fix do `Vary` subiram sem ninguém clicar em nada.
+- Certificado atual: `CN=Easypanel`, o auto-assinado padrão.
+
+### O que trava
+
+O domínio `arclimtec.com.br` é registrado no **Registro.br** (não na Hostinger,
+como o arquivo supunha antes), em nome da Arclimtec, titular Daniel Souza da
+Silva, conta **DASSI1531**, criado em 18/07/2026 e pago até 2031.
+
+Na noite do dia 16 foi ligado o **modo avançado** do DNS do Registro.br e criados
+dois registros:
+
+| Tipo | Nome | Dados |
+|---|---|---|
+| A | (vazio, o apex) | 31.97.24.35 |
+| A | www | 31.97.24.35 |
+
+O painel salvou os dois ("Zona DNS atualizada com sucesso"), mas eles ficaram
+com a **bolinha cinza**, que é pendente de publicação, e até 22h04 o DNS público
+seguia sem responder. A zona no ar ainda era a de domínio parqueado, com o
+`v=spf1 -all` e o MX nulo `0 .` de fábrica. O serial subiu várias vezes
+(...9920, ...9950, ...0000, ...0010) republicando sempre a versão antiga.
+
+Causa: o Registro.br segura a publicação enquanto o domínio está na janela de
+**transição** aberta pela troca de modo básico para avançado. O contador na tela
+marcava 1h7m às 21h33, ou seja, fecharia por volta das **22h40 de 16/09**.
+
+**Lição**: ligar o modo avançado custa uma janela de 2h em que nada publica. Em
+domínio novo com pressa de subir, o modo básico resolve o apex na hora. O
+avançado só compensa se precisar de `www` separado, MX ou TXT, e é melhor ligar
+com antecedência, não no dia do lançamento.
+
+### Amanhã, na ordem
+
+1. **Conferir se o DNS publicou.** Pelo DNS público, que não tem cache local:
+
+       curl -s "https://dns.google/resolve?name=www.arclimtec.com.br&type=A"
+
+   Esperado: `31.97.24.35` nos dois nomes. Se der `Status 3`, ainda é NXDOMAIN.
+   O navegador pode insistir no NXDOMAIN por até 15 min depois de publicar (TTL
+   negativo do SOA é 900s): limpar em `chrome://net-internals/#dns` ou com
+   `ipconfig /flushdns`.
+
+2. **Se publicou**: o Caio clica em emitir o SSL (Let's Encrypt) nos dois
+   domínios no EasyPanel. Uma tentativa já falhou no dia 16, com o DNS ainda
+   fora. O limite do Let's Encrypt é de **5 validações falhas por hostname por
+   hora**, então só clicar com o DNS confirmado.
+
+3. **Se não publicou nem depois da transição fechar**: aí sim apagar as duas
+   entradas no painel e recriar, que força uma publicação nova. Durante a
+   transição isso não adianta, as entradas voltam pra mesma fila.
+
+4. Depois do SSL, marcar o **`www` como redirect 301 pro apex** no EasyPanel.
+   Hoje os dois servem cópias idênticas (mesmo md5), e o `canonical` do site
+   aponta pro apex sem www. Fazer isso antes de cadastrar no Search Console.
+
+5. Search Console e envio do `sitemap.xml`.
+
+6. Perfil da Empresa no Google. Pra busca local do tipo "ar condicionado Campina
+   Grande", pesa mais que o site.
+
+7. E-mail do domínio quando o cliente quiser. A zona hoje tem **MX nulo** e
+   **SPF `-all`**, que bloqueiam e-mail: os dois precisam sair na hora de
+   apontar o provedor. Como o DNS é do Registro.br, dá pra contratar em
+   qualquer lugar e só trocar os registros, sem mexer em nameserver.
+
+### Acesso
+
+O painel do Registro.br é a conta do Daniel (DASSI1531) e a sessão cai rápido.
+Quem faz login é o Caio; o Claude só opera a tela depois que ela já está logada.
+
 ## SEO
 
 - `robots.txt`, `sitemap.xml`, `site.webmanifest`, `favicon.ico`,
@@ -102,15 +188,9 @@ em `telephone`, que agora é uma lista com o celular primeiro.
 
 Do Caio, fora do código:
 
-1. Apontar o domínio da Hostinger pro EasyPanel (registro A do `@`, CNAME do
-   `www`), escolher a versão oficial e ligar o HTTPS. **Não trocar os
-   nameservers da Hostinger**, senão o e-mail do domínio para junto.
-2. Comprar o e-mail do domínio (recomendado: Titan da Hostinger). Depois que
-   existir, o endereço entra no rodapé e no contato, que hoje só têm WhatsApp
-   e telefone.
-3. Cadastrar o site no Google Search Console e enviar o sitemap.
-4. Criar e verificar o Perfil da Empresa no Google. Pra busca local do tipo
-   "ar condicionado Campina Grande", isso pesa mais que o site.
+Ver "Onde paramos" acima: o domínio já existe no Registro.br, os registros A
+já foram criados e o que falta é a publicação da zona, o SSL, o redirect do
+`www`, o Search Console, o Perfil da Empresa e o e-mail do domínio.
 
 De conteúdo, com o cliente:
 
