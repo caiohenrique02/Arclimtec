@@ -12,6 +12,11 @@ framework, sem servidor de aplicação. Deploy em **EasyPanel** por Dockerfile
 
 ## Regras de trabalho neste repo
 
+- **Não existe deploy automático neste projeto.** "Subir pra main" significa
+  push no GitHub e nada mais; quem coloca no ar é o Caio, clicando em
+  **Redeploy** no EasyPanel depois. Então: empurrar, avisar que está pronto pro
+  redeploy e parar por aí. Não ficar esperando a produção mudar sozinha, e não
+  concluir que o deploy "falhou" porque o site ainda serve a versão velha.
 - **Sempre `git fetch` antes de editar.** O checkout local costuma ficar vários
   commits atrás do `origin/main`.
 - **Não rodar `tools/publish_branches.py`**: ele usa `checkout -B` e **recria**
@@ -137,8 +142,7 @@ caiohenrique.dev). Testado forjando o `Host`, sem depender de DNS:
 
 - `arclimtec.com.br` e `www.arclimtec.com.br` respondem **200** com o site certo.
 - HTTP redireciona pra HTTPS sozinho.
-- O EasyPanel faz **deploy automático** a cada push na `main`: o número novo do
-  WhatsApp e o fix do `Vary` subiram sem ninguém clicar em nada.
+- Quem publica é o Caio, clicando em **Redeploy** no EasyPanel depois do push.
 - Certificado atual: `CN=Easypanel`, o auto-assinado padrão.
 
 ### O que trava
