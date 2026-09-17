@@ -88,13 +88,21 @@ em `telephone`, que agora é uma lista com o celular primeiro.
 
 ## Estado do lançamento (17/09/2026)
 
-**O DNS publicou.** `arclimtec.com.br` e `www.arclimtec.com.br` respondem
-31.97.24.35 pelo DNS público, o HTTP redireciona pra HTTPS e o site que carrega
-é o certo. Agora o único ponto aberto é o **SSL**: o certificado servido ainda
-é o auto-assinado `CN=Easypanel`, então o navegador mostra "Não seguro". Falta
-o Caio clicar em emitir o Let's Encrypt nos dois domínios no EasyPanel; com o
-DNS confirmado, o desafio HTTP-01 passa. Depois disso valem os passos 4 a 7 da
-lista abaixo (redirect do `www`, Search Console, Perfil da Empresa, e-mail).
+**O site está no ar, com HTTPS válido.** `arclimtec.com.br` e
+`www.arclimtec.com.br` resolvem 31.97.24.35, respondem 200, o HTTP redireciona
+301 pra HTTPS e os dois servem certificado **Let's Encrypt** emitido em
+17/09/2026, com validade até 16/12/2026 (renovação automática pelo Traefik do
+EasyPanel).
+
+Sobre o SSL, pra não repetir o erro: a primeira tentativa de emitir foi na noite
+do dia 16, com o DNS ainda fora do ar, e falhou. **O Traefik não tenta de novo
+sozinho**, e um redeploy do app também não forcou: o que resolveu foi desligar e
+religar o SSL do domínio no painel, nos dois hostnames, depois do DNS publicado.
+Se um dia o certificado voltar a ser `CN=Easypanel`, é esse o caminho.
+
+Continua aberto: redirect 301 do `www` pro apex, Search Console com o
+`sitemap.xml`, Perfil da Empresa no Google e o e-mail do domínio (passos 4 a 7
+da lista abaixo).
 
 Também em 17/09: as fotos no computador estavam com zoom e a logo do rodapé
 esticada. Causa única, e vale pra qualquer `<img>` novo do site: os atributos
