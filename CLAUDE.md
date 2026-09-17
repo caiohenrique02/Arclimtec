@@ -86,10 +86,28 @@ da linha ~787 junto, senão o rodapé mostra um número e linka outro.
 O fixo **83 3099-8606** não é mais botão nenhum. Ele sobrevive só no JSON-LD,
 em `telephone`, que agora é uma lista com o celular primeiro.
 
-## Onde paramos: lançamento de 16/09/2026
+## Estado do lançamento (17/09/2026)
 
-O site **ainda não está no ar no domínio**, e o único motivo é DNS. Tudo o
-mais foi feito e conferido na noite do dia 16.
+**O DNS publicou.** `arclimtec.com.br` e `www.arclimtec.com.br` respondem
+31.97.24.35 pelo DNS público, o HTTP redireciona pra HTTPS e o site que carrega
+é o certo. Agora o único ponto aberto é o **SSL**: o certificado servido ainda
+é o auto-assinado `CN=Easypanel`, então o navegador mostra "Não seguro". Falta
+o Caio clicar em emitir o Let's Encrypt nos dois domínios no EasyPanel; com o
+DNS confirmado, o desafio HTTP-01 passa. Depois disso valem os passos 4 a 7 da
+lista abaixo (redirect do `www`, Search Console, Perfil da Empresa, e-mail).
+
+Também em 17/09: as fotos no computador estavam com zoom e a logo do rodapé
+esticada. Causa única, e vale pra qualquer `<img>` novo do site: os atributos
+`width`/`height` do HTML valem como **altura fixa** quando o CSS só define a
+largura, e aí o `aspect-ratio` não tem efeito nenhum. A prévia de obras virava
+640x960 com recorte, cada card da galeria ficava mais alto que a tela e a logo
+do rodapé ia de 124px para 422px de largura. O `img{...;height:auto}` na regra
+global resolve o caso geral; quem define `height` em CSS precisa de `width:auto`
+junto. A foto de fundo passou a usar em toda tela o tratamento que já era do
+celular (`contain` nítido sobre uma cópia `cover` desfocada), porque `cover`
+numa tela larga ampliava a foto 3:4 mais de duas vezes.
+
+### Como estava em 16/09
 
 ### O que já funciona no servidor
 
