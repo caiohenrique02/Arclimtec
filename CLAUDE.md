@@ -69,23 +69,22 @@ segurança e os seis arquivos de raiz respondendo 200.
 ## Contato (todos os caminhos caem no WhatsApp)
 
 Desde 16/09/2026 **nenhum link de contato usa `tel:`**: o pedido do Caio foi que
-todo número clicável abra o WhatsApp, com a frase já preenchida. São cinco
-lugares com o número, todos com `558330998606` literal:
+todo número clicável abra o WhatsApp, com a frase já preenchida. O WhatsApp do
+atendimento é **83 99825-3434** (confirmado pelo Caio em 16/09/2026), escrito
+como `5583998253434` em cinco lugares do `index.html`:
 
-- `index.html` linha ~555, botão "Orçamento" do topo.
+- linha ~555, botão "Orçamento" do topo.
 - linha ~783, botão WhatsApp do rodapé.
-- linha ~787, o número visível do rodapé (era `tel:`, virou `wa.me`).
+- linha ~787, o número visível do rodapé (era `tel:` com o fixo, virou `wa.me`).
 - linha ~801, botão flutuante.
 - `const ZAP` no JS, que monta os botões `data-zap` de cada serviço e obra com
   o assunto da caixa que a pessoa abriu.
 
-Trocar o número = trocar `558330998606` nesses cinco pontos. O JSON-LD guarda
-`+55-83-3099-8606` em `telephone` de propósito: lá é o telefone da empresa, não
-um botão.
+Trocar o número = trocar `5583998253434` nesses cinco pontos, e o texto visível
+da linha ~787 junto, senão o rodapé mostra um número e linka outro.
 
-⚠️ **Não está confirmado que 83 3099-8606 tem WhatsApp** — é o fixo. Se não
-tiver, os cinco caminhos de contato do site não levam a lugar nenhum. O cadastro
-do domínio no Registro.br traz 83 99825-3434 como celular do Daniel.
+O fixo **83 3099-8606** não é mais botão nenhum. Ele sobrevive só no JSON-LD,
+em `telephone`, que agora é uma lista com o celular primeiro.
 
 ## SEO
 
@@ -115,9 +114,8 @@ Do Caio, fora do código:
 
 De conteúdo, com o cliente:
 
-- Autorização pra publicar as marcas dos clientes (Borborema, Axia,
-  Pernambuco III, Thermomatic, Imago, Smart Fit) e as obras citadas pelo nome
-  (Ortobom, Cinesercla, Sam's Club).
+- ~~Autorização pra publicar as marcas dos clientes e as obras citadas pelo
+  nome~~ — **autorizado** pelo Caio em 16/09/2026.
 - Obra e cidade das fotos 06, 07 e 09, que ficaram sem.
 - Confirmar se fazem chiller e câmara fria.
 - Três dúvidas técnicas nas legendas: `p-carrier-laje` (as seis Carrier são
