@@ -68,8 +68,12 @@ segurança e os seis arquivos de raiz respondendo 200.
 
 ## Contato (todos os caminhos caem no WhatsApp)
 
-Desde 16/09/2026 **nenhum link de contato usa `tel:`**: o pedido do Caio foi que
-todo número clicável abra o WhatsApp, com a frase já preenchida. O número do
+Regra desde 17/09/2026: **o WhatsApp é o fixo, a ligação é o celular.** Todo
+botão de zap abre o WhatsApp com a frase já preenchida; o único `tel:` do site
+é o número embaixo do botão de WhatsApp no rodapé, **83 99825-3434**, que é pra
+pessoa tocar e ligar na hora. Os dois números estão no JSON-LD.
+
+O número do
 atendimento é **83 3099-8606** (trocado a pedido do Caio em 17/09/2026; antes
 era o celular 83 99825-3434). Apesar de ser o fixo, ele tem **WhatsApp Business
 ativo** — conferido no `wa.me`, que abre o perfil "Arclimtec Soluções Em
