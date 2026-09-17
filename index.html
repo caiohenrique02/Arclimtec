@@ -55,23 +55,12 @@
     position:relative;background:var(--paper)}
 
   /* ===== foto de fundo — fixa na tela, nunca se move nem se repete.
-     A foto é 3:4, em pé. Com `cover` numa tela larga ela era ampliada mais de
-     duas vezes e só uma faixa do forro aparecia: no PC virava zoom. Agora, em
-     qualquer tela, ela entra inteira (`contain`) e o que sobra em volta é
-     preenchido por ela mesma ampliada e desfocada, com as bordas esmaecendo
-     pra não virar uma tarja nítida. ===== */
+     No PC ela preenche a tela inteira (`cover`), sem sobra nas laterais; o corte
+     vertical é inevitável, então a posição favorece a faixa dos difusores.
+     No celular a tela é estreita e o tratamento muda — ver o media query ===== */
   .bg-photo{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;
+    background:url("assets/p-difusores-forro-2.jpg") center 18%/cover no-repeat;
     filter:saturate(.9) contrast(1.02)}
-  .bg-photo::before,.bg-photo::after{content:"";position:absolute;inset:0}
-  .bg-photo::before{background:url("assets/p-difusores-forro-2.jpg") center/cover no-repeat;
-    filter:blur(26px);transform:scale(1.14)}
-  .bg-photo::after{background:url("assets/p-difusores-forro-2.jpg") center/contain no-repeat;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent),
-      linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
-    -webkit-mask-composite:source-in;
-    mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent),
-      linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
-    mask-composite:intersect}
 
   /* ===== degradê translúcido por cima da foto — acompanha a rolagem da página inteira,
      de transição bem longa e suave para o tom nunca "trocar" num ponto perceptível ===== */
@@ -468,7 +457,20 @@
   }
   @media (max-width:680px){
     body{font-size:16.5px}
-    /* o tratamento da foto de fundo agora é o mesmo em toda tela — ver `.bg-photo` */
+    /* no celular a foto cabe quase inteira: ela entra por completo (`contain`) e o
+       que sobra em cima e embaixo é preenchido por ela mesma ampliada e desfocada,
+       com as bordas esmaecendo pra não virar uma tarja nítida no meio da tela */
+    .bg-photo{background:none}
+    .bg-photo::before,.bg-photo::after{content:"";position:absolute;inset:0}
+    .bg-photo::before{background:url("assets/p-difusores-forro-2.jpg") center/cover no-repeat;
+      filter:blur(26px);transform:scale(1.14)}
+    .bg-photo::after{background:url("assets/p-difusores-forro-2.jpg") center/contain no-repeat;
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent),
+        linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
+      -webkit-mask-composite:source-in;
+      mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent),
+        linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
+      mask-composite:intersect}
     /* no celular não cabe tudo numa linha só: os links descem pra uma segunda
        faixa do cabeçalho, distribuídos de ponta a ponta, sem caixa nenhuma */
     .nav__in{gap:12px;height:auto;flex-wrap:wrap;padding-top:10px;padding-bottom:8px}

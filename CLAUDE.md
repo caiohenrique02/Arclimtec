@@ -103,9 +103,12 @@ largura, e aí o `aspect-ratio` não tem efeito nenhum. A prévia de obras virav
 640x960 com recorte, cada card da galeria ficava mais alto que a tela e a logo
 do rodapé ia de 124px para 422px de largura. O `img{...;height:auto}` na regra
 global resolve o caso geral; quem define `height` em CSS precisa de `width:auto`
-junto. A foto de fundo passou a usar em toda tela o tratamento que já era do
-celular (`contain` nítido sobre uma cópia `cover` desfocada), porque `cover`
-numa tela larga ampliava a foto 3:4 mais de duas vezes.
+junto.
+
+A foto de fundo chegou a ser mudada pra usar no PC o mesmo `contain` desfocado
+do celular, e **o Caio pediu pra voltar**: no PC ela segue `center 18%/cover`,
+preenchendo a tela, e o `contain` continua só no celular. Não mexer nisso de
+novo sem ele pedir.
 
 ### Como estava em 16/09
 
