@@ -69,9 +69,12 @@ segurança e os seis arquivos de raiz respondendo 200.
 ## Contato (todos os caminhos caem no WhatsApp)
 
 Desde 16/09/2026 **nenhum link de contato usa `tel:`**: o pedido do Caio foi que
-todo número clicável abra o WhatsApp, com a frase já preenchida. O WhatsApp do
-atendimento é **83 99825-3434** (confirmado pelo Caio em 16/09/2026), escrito
-como `5583998253434` em cinco lugares do `index.html`:
+todo número clicável abra o WhatsApp, com a frase já preenchida. O número do
+atendimento é **83 3099-8606** (trocado a pedido do Caio em 17/09/2026; antes
+era o celular 83 99825-3434). Apesar de ser o fixo, ele tem **WhatsApp Business
+ativo** — conferido no `wa.me`, que abre o perfil "Arclimtec Soluções Em
+Climatização" com a logo da empresa. Ele vai escrito como `558330998606` em
+cinco lugares do `index.html`:
 
 - linha ~555, botão "Orçamento" do topo.
 - linha ~783, botão WhatsApp do rodapé.
@@ -80,11 +83,12 @@ como `5583998253434` em cinco lugares do `index.html`:
 - `const ZAP` no JS, que monta os botões `data-zap` de cada serviço e obra com
   o assunto da caixa que a pessoa abriu.
 
-Trocar o número = trocar `5583998253434` nesses cinco pontos, e o texto visível
-da linha ~787 junto, senão o rodapé mostra um número e linka outro.
+Trocar o número = trocar `558330998606` nesses cinco pontos, e o texto visível
+da linha ~787 junto, senão o rodapé mostra um número e linka outro. O JSON-LD,
+em `telephone`, também acompanha.
 
-O fixo **83 3099-8606** não é mais botão nenhum. Ele sobrevive só no JSON-LD,
-em `telephone`, que agora é uma lista com o celular primeiro.
+Conferência rápida depois de trocar, na página servida: todo `a[href*="wa.me"]`
+tem que apontar pro mesmo número, e nenhum link pode voltar a usar `tel:`.
 
 ## Estado do lançamento (17/09/2026)
 
