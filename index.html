@@ -132,8 +132,12 @@
   .menu{display:none}
 
   /* ===== HERO — texto e capa (obra+planta) lado a lado, tudo já na primeira tela ===== */
-  .hero{position:relative;padding:28px 0 44px;min-height:calc(100svh - 93px);display:flex;align-items:center}
-  .hero__grid{display:grid;grid-template-columns:1fr;gap:22px;width:100%}
+  /* nada de padding em cima nem de altura mínima: a capa encosta na barra.
+     O `min-height` de uma tela existia pra segurar o hero quando o título ainda
+     ficava no fluxo e a capa era pequena; hoje a capa sozinha já passa disso, e
+     o que ele fazia era centralizar tudo e abrir um vão embaixo da barra. */
+  .hero{position:relative;padding:0 0 44px}
+  .hero__grid{display:grid;grid-template-columns:1fr;width:100%}
 
   /* ===== CAPA: carrossel que troca de foto sozinho, de 2 em 2 segundos =====
      A caixa sangra até as duas bordas da tela, no computador e no celular, e é
@@ -463,8 +467,7 @@
 
   @media (max-width:980px){
     .about__grid{grid-template-columns:1fr}
-    .hero{min-height:0;padding:22px 0 44px}
-    .hero__grid{gap:24px}
+    .hero{padding:0 0 44px}
     .grid-cap{grid-template-columns:repeat(2,1fr)}
     .card{flex:0 0 calc(50% - 10px)}
     .foot__top{grid-template-columns:1fr;gap:36px}
