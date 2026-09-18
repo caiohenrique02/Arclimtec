@@ -232,8 +232,18 @@ Quem faz login é o Caio; o Claude só opera a tela depois que ela já está log
 
 O comparador de antes e depois saiu. No lugar entrou um carrossel que **troca
 sozinho de 3 em 3 segundos** e não tem controle nenhum: sem seta, sem bolinha,
-sem arrastar. A ordem é render do projeto, desenho técnico, condensadoras
-Carrier no piso, duto descendo no galpão e condensadoras na laje.
+sem arrastar. São **quatro slides**, nesta ordem (ordem do cliente, 18/09/2026):
+
+1. `p-hero-5-condensadoras-laje.jpg` — condensadoras Carrier na laje
+2. `p-hero-6-condensadoras-aquasnap.jpg` — condensadoras AquaSnap na casa de máquinas
+3. `p-hero-7-dutos-teto.jpg` — rede dutada no teto do galpão
+4. `p-hero-2-tecnico.jpg` — o desenho técnico do prédio, o traçado transparente
+
+O cliente pediu o **desenho** no fim, não o render realista: são duas artes do
+mesmo prédio e é fácil trocar uma pela outra. O render (`p-hero-1`), o duto
+vertical (`p-hero-4`) e as condensadoras no piso (`p-hero-3`) ficaram fora da
+hero. Os arquivos continuam em `assets/` e o `tools/hero_slides.py` continua
+gerando os sete — é só o HTML que serve quatro.
 
 A caixa **sangra até as duas bordas da tela**, agora também no computador
 (`width:100vw` com `margin-inline:calc(50% - 50vw)`), e é **16/9 fixa**.
@@ -241,10 +251,10 @@ A caixa **sangra até as duas bordas da tela**, agora também no computador
 O `<h1>` "Climatização industrial e empresarial" **fica por cima das fotos**, no
 alto da caixa, e não mais acima dela: no fluxo ele comia uma faixa da primeira
 tela e empurrava a foto pra baixo. O véu escuro atrás dele não é enfeite, é o
-que segura a leitura — os dois renders do prédio são quase brancos no topo e o
+que segura a leitura — o desenho técnico do prédio é quase branco no topo e o
 texto é claro.
 
-O que segura tudo isso é o `tools/hero_slides.py`: ele entrega os cinco slides
+O que segura tudo isso é o `tools/hero_slides.py`: ele entrega os slides
 já em 1600x900, então o HTML não corta nem estica nada e a página não muda de
 altura a cada troca. Cada foto chega nesse formato de um jeito:
 

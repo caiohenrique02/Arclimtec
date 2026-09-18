@@ -52,6 +52,9 @@ SLIDES = [
     (ORIGINAIS / "p-hero-3-condensadoras-piso.jpg", "p-hero-3-condensadoras-piso.jpg", "corta", 0.45),
     (ORIGINAIS / "p-hero-4-duto-vertical.jpg", "p-hero-4-duto-vertical.jpg", "blur", 0.5),
     (ORIGINAIS / "p-hero-5-condensadoras-laje.jpg", "p-hero-5-condensadoras-laje.jpg", "corta", 0.5),
+    (ORIGINAIS / "p-hero-6-condensadoras-aquasnap.jpg", "p-hero-6-condensadoras-aquasnap.jpg", "corta", 0.5),
+    # quase quadrada e com o assunto no teto: o foco alto joga fora o piso vazio
+    (ORIGINAIS / "p-hero-7-dutos-teto.jpg", "p-hero-7-dutos-teto.jpg", "corta", 0.18),
 ]
 
 

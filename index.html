@@ -38,7 +38,7 @@
 <!-- as duas primeiras imagens que aparecem na tela: sem isso o navegador só descobre
      o fundo depois de ler o CSS inteiro, e é ele que marca o tempo de carregamento -->
 <link rel="preload" as="image" href="assets/p-difusores-forro-2.jpg" fetchpriority="high">
-<link rel="preload" as="image" href="assets/p-hero-1-render.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/p-hero-5-condensadoras-laje.jpg" fetchpriority="high">
 <style>
   :root{
     --azul:#24549C; --azul-deep:#0B2A52; --azul-night:#061B36;
@@ -146,7 +146,7 @@
 
   /* ===== CAPA: carrossel que troca de foto sozinho, de 2 em 2 segundos =====
      A caixa sangra até as duas bordas da tela, no computador e no celular, e é
-     16/9 fixa. Os cinco slides já saem de tools/hero_slides.py em 1600x900, ou
+     16/9 fixa. Os slides já saem de tools/hero_slides.py em 1600x900, ou
      seja, todos na mesma proporção da caixa: nenhum é cortado nem esticado aqui,
      e a página não muda de altura quando um entra no lugar do outro.
      Foto nova aqui precisa passar pelo script, senão ela é a única que desencaixa. */
@@ -622,24 +622,20 @@
     <div class="capa" id="capaSlides">
       <h1 class="tag capa__titulo">Climatização industrial e empresarial</h1>
       <figure class="capa__slide on">
-        <img fetchpriority="high" decoding="async" width="1600" height="900" src="assets/p-hero-1-render.jpg" alt="Render isométrico de um edifício empresarial com o sistema de ar-condicionado por inteiro: condensadoras na cobertura, prumadas e rede dutada nos pavimentos">
-        <span>Projeto do sistema</span>
+        <img fetchpriority="high" decoding="async" width="1600" height="900" src="assets/p-hero-5-condensadoras-laje.jpg" alt="Fileira de condensadoras Carrier Ecoplit sobre a cobertura metálica, alinhadas em suporte com a tubulação isolada">
+        <span>Condensadoras em laje</span>
       </figure>
       <figure class="capa__slide">
-        <img decoding="async" width="1600" height="900" src="assets/p-hero-2-tecnico.jpg" alt="Mesmo edifício em desenho técnico isométrico, com as linhas frigorígenas e a rede dutada em azul e vermelho sobre o traçado da estrutura">
-        <span>Projeto técnico</span>
+        <img decoding="async" width="1600" height="900" src="assets/p-hero-6-condensadoras-aquasnap.jpg" alt="Seis condensadoras Carrier AquaSnap instaladas em bases de concreto numa casa de máquinas, com a tubulação isolada correndo pelo piso">
+        <span>Condensadoras AquaSnap</span>
       </figure>
       <figure class="capa__slide">
-        <img decoding="async" width="1600" height="900" src="assets/p-hero-3-condensadoras-piso.jpg" alt="Bateria de condensadoras Carrier de ar condicionado instaladas em bases de concreto, com a tubulação frigorígena isolada entre elas">
-        <span>Condensadoras Carrier</span>
-      </figure>
-      <figure class="capa__slide">
-        <img decoding="async" width="1600" height="900" src="assets/p-hero-4-duto-vertical.jpg" alt="Duto de ar condicionado em chapa galvanizada descendo do teto e alimentando a rede de distribuição do galpão">
+        <img decoding="async" width="1600" height="900" src="assets/p-hero-7-dutos-teto.jpg" alt="Rede dutada em chapa galvanizada suspensa no teto de um galpão, ao lado das linhas vermelhas da rede de incêndio">
         <span>Rede dutada industrial</span>
       </figure>
       <figure class="capa__slide">
-        <img decoding="async" width="1600" height="900" src="assets/p-hero-5-condensadoras-laje.jpg" alt="Fileira de condensadoras Carrier Ecoplit sobre a cobertura metálica, alinhadas em suporte com a tubulação isolada">
-        <span>Condensadoras em laje</span>
+        <img decoding="async" width="1600" height="900" src="assets/p-hero-2-tecnico.jpg" alt="Edifício empresarial em desenho técnico isométrico, com as linhas frigorígenas e a rede dutada em azul e vermelho sobre o traçado da estrutura">
+        <span>Projeto técnico</span>
       </figure>
     </div>
 
