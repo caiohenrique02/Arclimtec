@@ -53,8 +53,9 @@ SLIDES = [
     (ORIGINAIS / "p-hero-4-duto-vertical.jpg", "p-hero-4-duto-vertical.jpg", "blur", 0.5),
     (ORIGINAIS / "p-hero-5-condensadoras-laje.jpg", "p-hero-5-condensadoras-laje.jpg", "corta", 0.5),
     (ORIGINAIS / "p-hero-6-condensadoras-aquasnap.jpg", "p-hero-6-condensadoras-aquasnap.jpg", "corta", 0.5),
-    # quase quadrada e com o assunto no teto: o foco alto joga fora o piso vazio
-    (ORIGINAIS / "p-hero-7-dutos-teto.jpg", "p-hero-7-dutos-teto.jpg", "corta", 0.18),
+    # quase quadrada, com o duto encostando no topo: foco 0 nao tira nada de
+    # cima (pedido do Caio em 18/09/2026), o recorte todo sai do piso vazio
+    (ORIGINAIS / "p-hero-7-dutos-teto.jpg", "p-hero-7-dutos-teto.jpg", "corta", 0.0),
 ]
 
 
