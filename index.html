@@ -63,15 +63,20 @@
     filter:saturate(.9) contrast(1.02)}
 
   /* ===== degradê translúcido por cima da foto — acompanha a rolagem da página inteira,
-     de transição bem longa e suave para o tom nunca "trocar" num ponto perceptível ===== */
+     de transição bem longa e suave para o tom nunca "trocar" num ponto perceptível.
+     O trecho de 13% a 32% fecha mais cedo e um pouco mais escuro do que fechava:
+     "Onde já estivemos" cai perto de 29% e o ciano da palavra destacada sumia no
+     azul claro que havia ali (1,17 de contraste contra o fundo; agora 2,39).
+     Mexer nessas quatro paradas mexe em quem lê esse trecho — conferir os títulos
+     de serviços, clientes e obras depois de qualquer ajuste aqui. ===== */
   .page{position:relative;
     background:linear-gradient(180deg,
       rgba(232,236,241,.72) 0%,
       rgba(229,236,244,.78) 9%,
-      rgba(210,238,255,.82) 16%,
-      rgba(72,198,255,.72) 24%,
-      rgba(58,148,206,.72) 32%,
-      rgba(36,84,156,.74) 41%,
+      rgba(210,238,255,.82) 13%,
+      rgba(86,190,240,.76) 18%,
+      rgba(46,124,186,.82) 25%,
+      rgba(28,72,140,.86) 32%,
       rgba(24,64,128,.78) 50%,
       rgba(15,48,98,.82) 60%,
       rgba(11,42,82,.87) 70%,
@@ -179,14 +184,6 @@
   .sec__head{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:44px;text-align:center}
   .sec__head h2{font-size:clamp(36px,5.6vw,78px)}
   .sec__head h2 .f{color:var(--frio)}
-  /* O degradê da página vai do claro ao escuro, e o ciano do `.f` só rende
-     contraste na metade de baixo: lá em cima ele fica quase do tom do fundo.
-     Nas duas primeiras seções a palavra destacada usa o azul do site, mesma
-     família e sem inventar cor nova. Medido contra o fundo real: em "Onde já
-     estivemos" o ciano dava 1,24 de contraste e o azul dá 3,45.
-     Seção nova no trecho claro precisa entrar nesta lista. */
-  #servicos .sec__head h2 .f,
-  #clientes .sec__head h2 .f{color:var(--azul)}
   .sec__head p{color:var(--ink-soft);max-width:46ch;font-size:16px;font-weight:300}
 
   /* ===== nossos serviços ===== */
