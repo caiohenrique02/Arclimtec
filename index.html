@@ -179,6 +179,14 @@
   .sec__head{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:44px;text-align:center}
   .sec__head h2{font-size:clamp(36px,5.6vw,78px)}
   .sec__head h2 .f{color:var(--frio)}
+  /* O degradê da página vai do claro ao escuro, e o ciano do `.f` só rende
+     contraste na metade de baixo: lá em cima ele fica quase do tom do fundo.
+     Nas duas primeiras seções a palavra destacada usa o azul do site, mesma
+     família e sem inventar cor nova. Medido contra o fundo real: em "Onde já
+     estivemos" o ciano dava 1,24 de contraste e o azul dá 3,45.
+     Seção nova no trecho claro precisa entrar nesta lista. */
+  #servicos .sec__head h2 .f,
+  #clientes .sec__head h2 .f{color:var(--azul)}
   .sec__head p{color:var(--ink-soft);max-width:46ch;font-size:16px;font-weight:300}
 
   /* ===== nossos serviços ===== */
