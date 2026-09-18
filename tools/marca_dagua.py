@@ -9,9 +9,11 @@ vezes. Os originais ficam em tools/ de propósito: o Dockerfile copia só
 
     python3 tools/marca_dagua.py
 
-O carrossel mostra a foto em 4/3 com object-fit:cover e dá um scale(1.02)
-no hover, ou seja, boa parte da foto original nunca aparece. A marca é
-posicionada dentro do que sobra, senão ela cai justo no pedaço cortado.
+O carrossel mostra a foto num card 4/3 com object-fit:cover, ou seja, boa
+parte da foto original nunca aparece: as deitadas perdem as laterais, as em
+pé perdem o topo e a base, e o quanto perde de cada lado sai do
+object-position. A marca é posicionada dentro do que sobra, senão ela cai
+justo no pedaço cortado.
 """
 
 from pathlib import Path
@@ -22,6 +24,28 @@ RAIZ = Path(__file__).resolve().parent.parent
 ORIGINAIS = RAIZ / "tools" / "fotos-originais"
 DESTINO = RAIZ / "assets"
 LOGO = RAIZ / "assets" / "logo-branca.png"
+
+CARD = 4 / 3              # .card img { aspect-ratio:4/3 }
+ZOOM_HOVER = 1.02         # .card:hover img { transform: scale(1.02) }
+LARGURA_MARCA = 0.22      # largura da logo, em fração da largura visível
+# O respiro sai da MENOR dimensão visível, não da largura: numa foto deitada a
+# largura é bem maior que a altura, e uma margem tirada dela deixava a marca
+# colada na borda de baixo do card — de longe parecia cortada.
+MARGEM = 0.09
+OPACIDADE = 0.6
+SOMBRA = 0.5              # sombra escura atrás, pra logo branca aguentar foto clara
+QUALIDADE = 88
+
+# Espelho do object-position de cada foto no CSS (as regras
+# `.card img[src*="..."]` do index.html). Quem não está aqui é `center center`.
+# Mudou lá, muda aqui: é esse valor que diz onde a marca não vai ser cortada.
+POSICAO = {
+    "p-dutos-galpao-2.jpg": (0.5, 0.30),
+    "p-vrf-hitachi.jpg": (0.5, 0.45),
+    "p-cassete-apartamento.jpg": (0.5, 0.30),
+    "p-virotubo-loja.jpg": (0.5, 0.33),
+    "p-dutos-isolamento.jpg": (0.60, 0.5),
+}
 
 # Rodar o script recarimba todas de uma vez, sempre a partir do original limpo
 # em tools/fotos-originais/ — nunca por cima de uma foto já carimbada.
@@ -37,39 +61,41 @@ FOTOS = [
     "p-dutos-isolamento.jpg",
 ]
 
-ZOOM_HOVER = 1.02        # .card:hover img { transform: scale(1.02) }
-LARGURA_MARCA = 0.26     # largura da logo, em fração da área visível
-MARGEM = 0.045           # respiro até o canto, na mesma fração
-OPACIDADE = 0.6
-SOMBRA = 0.5             # sombra escura atrás, pra logo branca aguentar foto clara
-QUALIDADE = 88
 
-
-def area_visivel(largura, altura):
+def area_visivel(largura, altura, posicao=(0.5, 0.5)):
     """Retângulo da foto que de fato aparece no card.
 
-    O card usa object-fit:contain (já foi cover), então a foto inteira
-    aparece: não há corte a descontar, só a folga do zoom do hover, senão a
-    marca encosta na borda quando o card cresce.
+    O card é 4/3 com object-fit:cover: a foto cobre o card inteiro e o que
+    não couber é cortado. Foto mais larga que 4/3 perde as laterais, foto
+    mais alta perde topo e base, e o object-position decide de que lado sai
+    o corte. Desconta também a folga do zoom do hover, senão a marca encosta
+    na borda quando o card cresce.
     """
-    vis_l = largura / ZOOM_HOVER
-    vis_a = altura / ZOOM_HOVER
+    if largura / altura > CARD:       # deitada demais: corta as laterais
+        vis_l, vis_a = altura * CARD, altura
+    else:                             # em pé demais: corta topo e base
+        vis_l, vis_a = largura, largura / CARD
+
+    vis_l /= ZOOM_HOVER
+    vis_a /= ZOOM_HOVER
+    fx, fy = posicao
     return (
-        round((largura - vis_l) / 2),
-        round((altura - vis_a) / 2),
+        round((largura - vis_l) * fx),
+        round((altura - vis_a) * fy),
         round(vis_l),
         round(vis_a),
     )
 
 
-def carimba(foto, logo):
-    x, y, vis_l, vis_a = area_visivel(*foto.size)
+def carimba(foto, logo, visivel=None, largura_marca=LARGURA_MARCA, margem_rel=MARGEM):
+    """Grava a logo no canto inferior direito da área visível da foto."""
+    x, y, vis_l, vis_a = visivel or (0, 0, foto.width, foto.height)
 
-    marca_l = round(vis_l * LARGURA_MARCA)
+    marca_l = round(vis_l * largura_marca)
     marca_a = round(marca_l * logo.height / logo.width)
     marca = logo.resize((marca_l, marca_a), Image.LANCZOS)
 
-    margem = round(vis_l * MARGEM)
+    margem = round(min(vis_l, vis_a) * margem_rel)
     pos = (x + vis_l - marca_l - margem, y + vis_a - marca_a - margem)
 
     alfa = marca.getchannel("A")
@@ -97,10 +123,11 @@ def main():
         if not origem.exists():
             raise SystemExit(f"falta o original {origem}")
         foto = Image.open(origem).convert("RGB")
-        carimba(foto, logo).save(
+        visivel = area_visivel(*foto.size, POSICAO.get(nome, (0.5, 0.5)))
+        carimba(foto, logo, visivel).save(
             DESTINO / nome, quality=QUALIDADE, optimize=True, progressive=True
         )
-        print(f"{nome}: {foto.width}x{foto.height} -> visivel {area_visivel(*foto.size)}")
+        print(f"{nome}: {foto.width}x{foto.height} -> visivel {visivel}")
 
 
 if __name__ == "__main__":

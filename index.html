@@ -38,7 +38,7 @@
 <!-- as duas primeiras imagens que aparecem na tela: sem isso o navegador só descobre
      o fundo depois de ler o CSS inteiro, e é ele que marca o tempo de carregamento -->
 <link rel="preload" as="image" href="assets/p-difusores-forro-2.jpg" fetchpriority="high">
-<link rel="preload" as="image" href="assets/p-capa-predio-render.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/p-hero-1-render.jpg" fetchpriority="high">
 <style>
   :root{
     --azul:#24549C; --azul-deep:#0B2A52; --azul-night:#061B36;
@@ -134,35 +134,30 @@
   /* ===== HERO — texto e capa (obra+planta) lado a lado, tudo já na primeira tela ===== */
   .hero{position:relative;padding:28px 0 44px;min-height:calc(100svh - 93px);display:flex;align-items:center}
   .hero__grid{display:grid;grid-template-columns:1fr;gap:22px;width:100%}
-  .hero h1.tag{font-size:14px;justify-self:center;text-align:center}
 
-  /* ===== CAPA: obra + planta com divisor arrastável — arrasta pra qualquer lado
-     e a foto daquele lado ocupa o espaço todo, a outra vai encolhendo ===== */
-  /* as duas fotos são 1329x904: a caixa usa a mesma proporção, então nada é cortado nem esticado.
-     o teto em vh é o que impede a capa de estourar a primeira tela em monitor largo */
-  .capa{position:relative;aspect-ratio:1329/904;width:100%;max-width:calc(67vh * 1.47);
-    margin-inline:auto;border-radius:var(--r-lg);
-    overflow:hidden;box-shadow:var(--shadow-2);--split:56%;touch-action:none;user-select:none}
-  .capa__obra{position:absolute;inset:0;overflow:hidden;clip-path:inset(0 calc(100% - var(--split)) 0 0)}
-  .capa__obra img,.capa__planta img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.04)}
-  .capa__obra::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,27,54,.55),transparent 46%)}
-  .capa__obra span{position:absolute;left:22px;bottom:18px;z-index:2;color:#fff;font-family:"Barlow Condensed",sans-serif;
+  /* ===== CAPA: carrossel que troca de foto sozinho, de 2 em 2 segundos =====
+     A caixa sangra até as duas bordas da tela, no computador e no celular, e é
+     16/9 fixa. Os cinco slides já saem de tools/hero_slides.py em 1600x900, ou
+     seja, todos na mesma proporção da caixa: nenhum é cortado nem esticado aqui,
+     e a página não muda de altura quando um entra no lugar do outro.
+     Foto nova aqui precisa passar pelo script, senão ela é a única que desencaixa. */
+  .capa{position:relative;aspect-ratio:16/9;width:100vw;margin-inline:calc(50% - 50vw);
+    overflow:hidden;background:#061B36}
+  .capa__slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s ease}
+  .capa__slide.on{opacity:1}
+  .capa__slide img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.04)}
+  .capa__slide::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,27,54,.55),transparent 46%)}
+  .capa__slide span{position:absolute;left:22px;bottom:18px;z-index:2;color:#fff;font-family:"Barlow Condensed",sans-serif;
     font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
-  .capa__planta{position:absolute;inset:0;background:#F4F4F6;overflow:hidden;clip-path:inset(0 0 0 var(--split))}
-  /* mesmo degrade dos dois lados: o divisor nao pode marcar um degrau de tom */
-  .capa__planta::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,27,54,.55),transparent 46%)}
-  .capa__tag{position:absolute;right:22px;bottom:18px;z-index:2;color:var(--frio-2);text-align:right;
-    font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
-  .capa__handle{position:absolute;top:0;bottom:0;left:var(--split);transform:translateX(-50%);
-    width:52px;z-index:5;display:flex;align-items:center;justify-content:center;cursor:ew-resize}
-  .capa__handle::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:2px;
-    background:rgba(255,255,255,.75);transform:translateX(-50%);box-shadow:0 0 0 1px rgba(6,27,54,.25)}
-  .capa__handle i{position:relative;width:42px;height:42px;border-radius:50%;background:#fff;
-    display:flex;align-items:center;justify-content:center;gap:2px;box-shadow:0 10px 24px -8px rgba(6,27,54,.55);
-    transition:transform .2s}
-  .capa:hover .capa__handle i,.capa__handle:focus-visible i{transform:scale(1.08)}
-  .capa__handle svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-  .capa__tag b{display:block;color:#fff;font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:.02em;text-transform:none;margin-top:2px}
+  /* a frase fica por cima das fotos, não acima delas: assim a capa começa logo
+     abaixo da barra e ganha de volta a faixa que o título ocupava no fluxo.
+     O véu escuro atrás é o que segura a leitura, porque os dois renders do
+     prédio são quase brancos no topo e o texto é claro. */
+  .capa__titulo{position:absolute;top:0;left:0;right:0;z-index:3;justify-content:center;
+    margin:0;padding:18px 20px 30px;color:#fff;text-align:center;
+    background:linear-gradient(180deg,rgba(6,27,54,.62),transparent);
+    text-shadow:0 2px 12px rgba(6,27,54,.55);pointer-events:none}
+  .capa__titulo::before{background:var(--frio-2)}
 
   /* ===== CANO: mesmo desenho do cano/marquee da V6-V7, agora do lado contrário ===== */
   .cano-band{padding:8px 0 32px}
@@ -345,7 +340,7 @@
   .card img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:#061B36;
     filter:saturate(.85);transition:filter .4s;pointer-events:none}
   /* fotos em pé: o corte tira de cima e de baixo, então a faixa vai pro equipamento */
-  .card img[src*="p-dutos-galpao-2"]{object-position:center 55%}   /* os dois dutos */
+  .card img[src*="p-dutos-galpao-2"]{object-position:center 30%}   /* os dutos no alto */
   .card img[src*="p-vrf-hitachi"]{object-position:center 45%}      /* o corpo da unidade */
   .card img[src*="p-cassete-apartamento"]{object-position:center 30%} /* o cassete no forro */
   .card img[src*="p-virotubo-loja"]{object-position:center 33%}    /* o duto redondo */
@@ -448,6 +443,10 @@
   .foot__bottom{display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:13.5px;
     color:rgba(255,255,255,.55);margin-top:30px}
   .foot__bottom .sp{margin-left:auto}
+  .foot__cred{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);
+    font-size:13px;color:rgba(255,255,255,.45)}
+  .foot__cred a{color:rgba(255,255,255,.72);border-bottom:1px solid rgba(255,255,255,.25)}
+  .foot__cred a:hover{color:var(--frio-2);border-bottom-color:var(--frio-2)}
 
   /* ===== whatsapp flutuante — redondo e minimalista, com pulso suave ===== */
   .zap-float{position:fixed;right:24px;bottom:24px;z-index:50;width:58px;height:58px;border-radius:50%;
@@ -466,31 +465,30 @@
     .about__grid{grid-template-columns:1fr}
     .hero{min-height:0;padding:22px 0 44px}
     .hero__grid{gap:24px}
-    .capa{max-width:none}
     .grid-cap{grid-template-columns:repeat(2,1fr)}
     .card{flex:0 0 calc(50% - 10px)}
     .foot__top{grid-template-columns:1fr;gap:36px}
   }
   @media (max-width:760px){
     .card{flex:0 0 100%}
-    /* no celular a capa sangra até a borda da tela: o cliente não quer margem aparecendo */
-    .capa{border-radius:0;margin-left:-28px;margin-right:-28px;width:calc(100% + 56px)}
   }
   @media (max-width:680px){
     body{font-size:16.5px}
-    /* no celular a foto cabe quase inteira: ela entra por completo (`contain`) e o
-       que sobra em cima e embaixo é preenchido por ela mesma ampliada e desfocada,
-       com as bordas esmaecendo pra não virar uma tarja nítida no meio da tela */
+    /* no celular a foto entra com zoom e presa pelo topo: o difusor grande fica em
+       destaque e a fileira seguinte aparece só pela metade. O tamanho é dado pela
+       altura (`auto 170%`), então a fatia visível é sempre o mesmo pedaço de cima
+       em qualquer tela; o que sobra embaixo é ela mesma ampliada e desfocada. */
     .bg-photo{background:none}
-    .bg-photo::before,.bg-photo::after{content:"";position:absolute;inset:0}
-    .bg-photo::before{background:url("assets/p-difusores-forro-2.jpg") center/cover no-repeat;
+    .bg-photo::before,.bg-photo::after{content:"";position:absolute}
+    .bg-photo::before{inset:0;background:url("assets/p-difusores-forro-2.jpg") center/cover no-repeat;
       filter:blur(26px);transform:scale(1.14)}
-    .bg-photo::after{background:url("assets/p-difusores-forro-2.jpg") center/contain no-repeat;
+    .bg-photo::after{inset:0 0 auto 0;height:50vh;height:50svh;
+      background:url("assets/p-difusores-forro-2.jpg") center top/auto 170% no-repeat;
       -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent),
-        linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
+        linear-gradient(180deg,#000 80%,transparent);
       -webkit-mask-composite:source-in;
       mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent),
-        linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
+        linear-gradient(180deg,#000 80%,transparent);
       mask-composite:intersect}
     /* no celular a barra é uma linha só: logo, orçamento e o botão de menu.
        Os links saem da barra e viram um painel que entra pela direita. */
@@ -543,17 +541,12 @@
     .mvv h3{font-size:21px}
     .mvv__card p{font-size:13.5px}
     .mvv__valores li{font-size:12.5px;padding:6px 12px}
-    .capa__obra span,.capa__tag{font-size:10.5px;letter-spacing:.09em}
-    .capa__obra span{left:14px;bottom:14px}
-    .capa__tag{right:14px;bottom:14px}
-    .capa__tag b{font-size:16px}
-    .capa__handle{width:40px}
-    .capa__handle i{width:36px;height:36px}
-    .capa__handle svg{width:14px;height:14px}
+    .capa__slide span{font-size:10.5px;letter-spacing:.09em;left:14px;bottom:14px}
+    .capa__titulo{font-size:11px;letter-spacing:.12em;padding:12px 14px 24px}
+    .capa__titulo::before{width:22px}
   }
   @media (max-width:420px){
     .wrap{padding:0 18px}
-    .capa{margin-left:-18px;margin-right:-18px;width:calc(100% + 36px)}
     .nav__in{gap:10px}
     .nav__in img{height:32px}
     .brand{gap:7px}
@@ -611,20 +604,28 @@
 <!-- ===== 1. APRESENTAÇÃO — texto e capa (obra + planta) já na primeira tela ===== -->
 <section class="hero" id="top">
   <div class="wrap hero__grid">
-    <h1 class="tag">Climatização industrial e empresarial</h1>
-
-    <div class="capa" id="capaSlider">
-      <figure class="capa__obra">
-        <img fetchpriority="high" decoding="async" width="1329" height="904" src="assets/p-capa-predio-render.jpg" alt="Render isométrico de um edifício empresarial com o sistema de ar-condicionado por inteiro: condensadoras na cobertura, prumadas e rede dutada nos pavimentos">
+    <div class="capa" id="capaSlides">
+      <h1 class="tag capa__titulo">Climatização industrial e empresarial</h1>
+      <figure class="capa__slide on">
+        <img fetchpriority="high" decoding="async" width="1600" height="900" src="assets/p-hero-1-render.jpg" alt="Render isométrico de um edifício empresarial com o sistema de ar-condicionado por inteiro: condensadoras na cobertura, prumadas e rede dutada nos pavimentos">
+        <span>Projeto do sistema</span>
+      </figure>
+      <figure class="capa__slide">
+        <img decoding="async" width="1600" height="900" src="assets/p-hero-2-tecnico.jpg" alt="Mesmo edifício em desenho técnico isométrico, com as linhas frigorígenas e a rede dutada em azul e vermelho sobre o traçado da estrutura">
+        <span>Projeto técnico</span>
+      </figure>
+      <figure class="capa__slide">
+        <img decoding="async" width="1600" height="900" src="assets/p-hero-3-condensadoras-piso.jpg" alt="Bateria de condensadoras Carrier de ar condicionado instaladas em bases de concreto, com a tubulação frigorígena isolada entre elas">
+        <span>Condensadoras Carrier</span>
+      </figure>
+      <figure class="capa__slide">
+        <img decoding="async" width="1600" height="900" src="assets/p-hero-4-duto-vertical.jpg" alt="Duto de ar condicionado em chapa galvanizada descendo do teto e alimentando a rede de distribuição do galpão">
         <span>Rede dutada industrial</span>
       </figure>
-      <div class="capa__planta">
-        <img fetchpriority="high" decoding="async" width="1329" height="904" src="assets/p-capa-predio-tecnico-alinhado.jpg" alt="Mesmo edifício em desenho técnico isométrico, com as linhas frigorígenas e a rede dutada em azul e vermelho sobre o traçado da estrutura">
-        <div class="capa__tag">Planta<b>Projeto técnico</b></div>
-      </div>
-      <div class="capa__handle" tabindex="0" role="slider" aria-label="Arraste pra ver a foto da obra ou a planta por inteiro" aria-valuemin="12" aria-valuemax="88" aria-valuenow="56">
-        <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 7l-5 5 5 5"/><path d="M14.5 7l5 5-5 5"/></svg></i>
-      </div>
+      <figure class="capa__slide">
+        <img decoding="async" width="1600" height="900" src="assets/p-hero-5-condensadoras-laje.jpg" alt="Fileira de condensadoras Carrier Ecoplit sobre a cobertura metálica, alinhadas em suporte com a tubulação isolada">
+        <span>Condensadoras em laje</span>
+      </figure>
     </div>
 
   </div>
@@ -726,7 +727,7 @@
   <div class="wrap">
     <div class="rail" id="trilho">
       <article class="card" data-zap="Olá! Vi no site a obra de rede dutada de grande área. Preciso de algo parecido, podem me orçar?"><span class="card__n">01</span>
-        <img loading="lazy" decoding="async" width="1201" height="1280" src="assets/p-dutos-galpao-2.jpg" alt="Rede de dutos de ar condicionado em galpão industrial da Ortobom, em Simões Filho (BA)">
+        <img loading="lazy" decoding="async" width="1090" height="974" src="assets/p-dutos-galpao-2.jpg" alt="Rede de dutos de ar condicionado suspensa na estrutura metálica de galpão industrial da Ortobom, em Simões Filho (BA)">
         <div class="card__b"><i>Industrial</i><b>Dutos em galpão</b><em>Ortobom · Simões Filho (BA)</em><p>Rede suspensa na estrutura metálica, integrada à iluminação e ao sistema de combate a incêndio.</p></div></article>
       <article class="card" data-zap="Olá! Preciso de um sistema de grande capacidade, tipo a bateria de condensadoras que vi no site."><span class="card__n">02</span>
         <img loading="lazy" decoding="async" width="1280" height="720" src="assets/p-carrier-laje.jpg" alt="Bateria de condensadoras de ar condicionado em laje técnica do cinema Cinesercla, em Campina Grande (PB)">
@@ -746,9 +747,9 @@
       <article class="card" data-zap="Olá! Queria instalar ar-condicionado cassete embutido no forro do meu apartamento."><span class="card__n">07</span>
         <img loading="lazy" decoding="async" width="960" height="1280" src="assets/p-cassete-apartamento.jpg" alt="Ar condicionado cassete embutido no forro de um apartamento">
         <div class="card__b"><i>Residencial</i><b>Cassete em apartamento</b><p>Instalação embutida no forro, acabamento alinhado ao projeto de interiores.</p></div></article>
-      <article class="card" data-zap="Olá! Vi no site a rede de duto virotubo. Queria um orçamento para a minha loja."><span class="card__n">08</span>
-        <img loading="lazy" decoding="async" width="576" height="1280" src="assets/p-virotubo-loja.jpg" alt="Rede de duto virotubo de ar condicionado suspensa sobre a área de vendas do Sam's Club">
-        <div class="card__b"><i>Comercial</i><b>Rede de duto virotubo</b><em>Sam's Club</em><p>Duto redondo pré-isolado suspenso na estrutura metálica, com as saídas de ar ao longo do trecho.</p></div></article>
+      <article class="card" data-zap="Olá! Vi no site a rede de duto Girotubo. Queria um orçamento para a minha loja."><span class="card__n">08</span>
+        <img loading="lazy" decoding="async" width="576" height="1280" src="assets/p-virotubo-loja.jpg" alt="Rede de duto Girotubo de ar condicionado suspensa sobre a área de vendas do Sam's Club">
+        <div class="card__b"><i>Comercial</i><b>Rede de duto Girotubo</b><em>Sam's Club</em><p>Duto redondo pré-isolado suspenso na estrutura metálica, com as saídas de ar ao longo do trecho.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site os dutos com isolamento em manta de lã de vidro. Preciso de algo parecido."><span class="card__n">09</span>
         <img loading="lazy" decoding="async" width="1280" height="719" src="assets/p-dutos-isolamento.jpg" alt="Dutos de ar condicionado com isolamento externo em manta de lã de vidro com face aluminizada">
         <div class="card__b"><i>Rede dutada</i><b>Dutos com isolamento</b><p>Duto convencional isolado com manta de lã de vidro de face aluminizada, montado ainda na fase de obra.</p></div></article>
@@ -845,6 +846,9 @@
       <span class="foot__end">Rua Ladislau Rodrigues de Souza, 323 — Centenário, Campina Grande - PB, 58107-074</span>
       <span class="sp">© 2026 Arclimtec · CNPJ: 33.443.579/0001-16</span>
     </div>
+    <div class="foot__cred">
+      Site desenvolvido por <a href="https://caiohenrique.dev" target="_blank" rel="noopener">Caio Henrique</a>
+    </div>
   </div>
 </footer>
 
@@ -857,36 +861,34 @@
 <script>
 (function(){
   /* ===== capa: arrasta o divisor pra revelar a obra ou a planta por inteiro ===== */
-  const capa = document.getElementById('capaSlider');
+  /* carrossel da capa: troca sozinho de 3 em 3 segundos, sem controle nenhum.
+     Para quando a aba sai da frente pra não rodar à toa, e quem pediu menos
+     animação no sistema vê só a primeira foto, parada. */
+  const capa = document.getElementById('capaSlides');
   if(capa){
-    const handle = capa.querySelector('.capa__handle');
-    const MIN = 12, MAX = 88;
-    let split = 56, arrastandoCapa = false;
+    const slides = [...capa.querySelectorAll('.capa__slide')];
+    const paradinho = matchMedia('(prefers-reduced-motion: reduce)');
+    let atual = 0, relogio = null;
 
-    function aplicar(v){
-      split = Math.max(MIN, Math.min(MAX, v));
-      capa.style.setProperty('--split', split + '%');
-      handle.setAttribute('aria-valuenow', Math.round(split));
+    function passar(){
+      const prox = (atual + 1) % slides.length;
+      // segura a troca se a próxima ainda está baixando, senão entra um quadro vazio
+      if(!slides[prox].querySelector('img').complete) return;
+      slides[atual].classList.remove('on');
+      slides[prox].classList.add('on');
+      atual = prox;
     }
-    function porPosicao(clientX){
-      const r = capa.getBoundingClientRect();
-      aplicar(((clientX - r.left) / r.width) * 100);
+    function tocar(){
+      if(relogio || paradinho.matches || slides.length < 2) return;
+      relogio = setInterval(passar, 3000);
     }
-    capa.addEventListener('pointerdown', e=>{
-      arrastandoCapa = true;
-      capa.setPointerCapture(e.pointerId);
-      porPosicao(e.clientX);
-    });
-    capa.addEventListener('pointermove', e=>{
-      if(!arrastandoCapa) return;
-      porPosicao(e.clientX);
-    });
-    capa.addEventListener('pointerup', ()=> arrastandoCapa = false);
-    capa.addEventListener('pointercancel', ()=> arrastandoCapa = false);
-    handle.addEventListener('keydown', e=>{
-      if(e.key === 'ArrowLeft'){ e.preventDefault(); aplicar(split - 4); }
-      if(e.key === 'ArrowRight'){ e.preventDefault(); aplicar(split + 4); }
-    });
+    function pausar(){
+      clearInterval(relogio);
+      relogio = null;
+    }
+    document.addEventListener('visibilitychange', ()=> document.hidden ? pausar() : tocar());
+    paradinho.addEventListener('change', ()=> paradinho.matches ? pausar() : tocar());
+    tocar();
   }
 
   /* ===== trilho de fotos arrastável com o mouse ===== */

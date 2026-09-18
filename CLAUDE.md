@@ -23,12 +23,16 @@ framework, sem servidor de aplicação. Deploy em **EasyPanel** por Dockerfile
   as branches de versão, apagando o que estiver nelas.
 - Servir local com `python3 -m http.server 8085` na raiz do repo. A 8081 e a
   8082 costumam estar ocupadas por outros projetos do Caio.
+- A hero é um carrossel automático e os slides saem de `tools/hero_slides.py`,
+  todos em 1600x900. Foto nova na hero passa por lá antes, senão ela é a única
+  que não bate com a caixa e a página muda de altura quando ela entra.
 - Fotos de obra novas passam por `tools/marca_dagua.py`: o original limpo vai
   pra `tools/fotos-originais/` e o nome entra na lista `FOTOS`. O script
   recarimba tudo a partir dos originais, nunca por cima de foto já carimbada.
   O Dockerfile não copia `tools/`, então o original sem marca não vai ao ar.
 - Toda foto nova precisa do `.webp` irmão (`foto.jpg.webp`), senão ela é a
-  única do site que não pega a otimização. Ver "WebP" abaixo.
+  única do site que não pega a otimização. `python3 tools/webp.py` gera o que
+  estiver faltando ou desatualizado. Ver "WebP" abaixo.
 - Escrita: PT-BR direto, sem travessão, sem paralelismo de três, sem slogan de
   agência e sem métrica inventada.
 
@@ -128,8 +132,15 @@ junto.
 
 A foto de fundo chegou a ser mudada pra usar no PC o mesmo `contain` desfocado
 do celular, e **o Caio pediu pra voltar**: no PC ela segue `center 18%/cover`,
-preenchendo a tela, e o `contain` continua só no celular. Não mexer nisso de
-novo sem ele pedir.
+preenchendo a tela. Não mexer no PC sem ele pedir.
+
+No celular (18/09/2026, a pedido dele) o `contain` saiu: a foto agora tem zoom e
+fica presa pelo topo, mostrando o difusor grande inteiro e só a parte de cima da
+fileira seguinte, que dissolve no desfoque. O `::after` é uma faixa de `50svh`
+com `center top/auto 170%`. **O tamanho é dado pela altura, não pela largura**,
+de propósito: assim a fatia visível da foto é sempre o mesmo pedaço de cima em
+qualquer tela, e só o corte lateral varia. Mexer no `170%` muda o que aparece;
+mexer no `50svh` muda o tamanho da foto na tela sem mudar o enquadramento.
 
 ### Como estava em 16/09
 
@@ -213,6 +224,39 @@ com antecedência, não no dia do lançamento.
 O painel do Registro.br é a conta do Daniel (DASSI1531) e a sessão cai rápido.
 Quem faz login é o Caio; o Claude só opera a tela depois que ela já está logada.
 
+## Hero: carrossel automático (18/09/2026, pedido do Caio)
+
+O comparador de antes e depois saiu. No lugar entrou um carrossel que **troca
+sozinho de 3 em 3 segundos** e não tem controle nenhum: sem seta, sem bolinha,
+sem arrastar. A ordem é render do projeto, desenho técnico, condensadoras
+Carrier no piso, duto descendo no galpão e condensadoras na laje.
+
+A caixa **sangra até as duas bordas da tela**, agora também no computador
+(`width:100vw` com `margin-inline:calc(50% - 50vw)`), e é **16/9 fixa**.
+
+O `<h1>` "Climatização industrial e empresarial" **fica por cima das fotos**, no
+alto da caixa, e não mais acima dela: no fluxo ele comia uma faixa da primeira
+tela e empurrava a foto pra baixo. O véu escuro atrás dele não é enfeite, é o
+que segura a leitura — os dois renders do prédio são quase brancos no topo e o
+texto é claro.
+
+O que segura tudo isso é o `tools/hero_slides.py`: ele entrega os cinco slides
+já em 1600x900, então o HTML não corta nem estica nada e a página não muda de
+altura a cada troca. Cada foto chega nesse formato de um jeito:
+
+- os dois renders do prédio têm fundo liso, então o fundo é **esticado** pros
+  lados. Não se perde um pixel do desenho e não dá pra ver a emenda.
+- as fotos de obra são **recortadas**, com um foco vertical por foto.
+- as fotos de obra levam a marca d'água; os renders não, porque a logo branca
+  sumiria no fundo claro deles.
+
+Os arquivos que alimentam o script moram em `tools/fotos-originais/`, inclusive
+os dois renders — eles saíram de `assets/` quando deixaram de ser servidos.
+
+O carrossel para quando a aba sai da frente, e com `prefers-reduced-motion` ele
+nem começa: fica na primeira foto, parada. A troca também espera a próxima foto
+estar carregada, senão entraria um quadro vazio no meio.
+
 ## Decisões de layout (17/09/2026, pedidos do cliente)
 
 - **Fotos da galeria**: todo card é 4/3 e a foto preenche ele por inteiro
@@ -220,6 +264,14 @@ Quem faz login é o Caio; o Claude só opera a tela depois que ela já está log
   o recorte é inevitável, então cada foto em pé tem seu `object-position` no
   CSS, apontando pra faixa onde está o equipamento. Foto nova em pé precisa
   ganhar a linha dela, senão o corte cai no centro e pode pegar teto ou chão.
+  **O `marca_dagua.py` tem uma cópia desses `object-position` na constante
+  `POSICAO`** e é ela que decide onde a marca cabe. Mudou o valor no CSS e
+  esqueceu do script, a marca volta a sair cortada no card — foi o que
+  aconteceu quando o card virou `cover` e o script ainda calculava por
+  `contain` (corrigido em 18/09/2026).
+  A margem da marca sai da **menor** dimensão visível. Tirada da largura, como
+  era antes, a marca ficava colada na borda de baixo das fotos deitadas e de
+  longe parecia cortada.
 - **Carrossel**: cada clique anda **uma foto**, e o alvo sai da posição medida do
   card (`getBoundingClientRect`), nunca de múltiplos da largura visível. Era
   isso que desalinhava: o gap fazia o erro crescer a cada clique até os cards
