@@ -213,6 +213,31 @@ com antecedência, não no dia do lançamento.
 O painel do Registro.br é a conta do Daniel (DASSI1531) e a sessão cai rápido.
 Quem faz login é o Caio; o Claude só opera a tela depois que ela já está logada.
 
+## Decisões de layout (17/09/2026, pedidos do cliente)
+
+- **Fotos da galeria**: todo card é 4/3 e a foto preenche ele por inteiro
+  (`object-fit:cover`), sem faixa vazia. Como as fotos vão de 16:9 a quase 1:2,
+  o recorte é inevitável, então cada foto em pé tem seu `object-position` no
+  CSS, apontando pra faixa onde está o equipamento. Foto nova em pé precisa
+  ganhar a linha dela, senão o corte cai no centro e pode pegar teto ou chão.
+- **Carrossel**: cada clique anda **uma foto**, e o alvo sai da posição medida do
+  card (`getBoundingClientRect`), nunca de múltiplos da largura visível. Era
+  isso que desalinhava: o gap fazia o erro crescer a cada clique até os cards
+  pararem cortados. As bolinhas são uma por foto.
+- **Menu do celular**: os links do topo viram um painel lateral, aberto pelo
+  botão de três linhas à direita do orçamento. O painel mora **fora do
+  `header`**, de propósito: a barra tem `backdrop-filter`, e um ancestral com
+  filtro vira containing block de qualquer `position:fixed` dentro dele — o
+  painel ficava com a altura da barra. Por isso os quatro links existem duas
+  vezes no HTML, na barra e no painel; mexeu num, mexe no outro.
+- **Logo do topo**: 58px no PC, 36px no celular e 32px abaixo de 400px. A altura
+  da barra e o `min-height` do hero (`calc(100svh - 93px)`) acompanham.
+- **Textos**: o site não fala mais em "desde 2012"; fala em **15 anos de
+  experiência no mercado**. E o alcance deixou de ser "Paraíba e região": o selo
+  virou **BR / atendemos o Brasil todo**, a seção de clientes acompanha e o
+  JSON-LD ganhou o país no `areaServed`. O `foundingDate` de 2012 continua no
+  JSON-LD: é dado de cadastro, não texto de página.
+
 ## SEO
 
 - `robots.txt`, `sitemap.xml`, `site.webmanifest`, `favicon.ico`,

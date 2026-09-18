@@ -17,14 +17,14 @@
 <meta property="og:site_name" content="Arclimtec">
 <meta property="og:url" content="https://arclimtec.com.br/">
 <meta property="og:title" content="Arclimtec | Ar Condicionado Industrial em Campina Grande">
-<meta property="og:description" content="Projeto, instalação, rede dutada, sistema VRF, ventilação e exaustão, manutenção e PMOC. Equipe própria, no mercado desde 2012.">
+<meta property="og:description" content="Projeto, instalação, rede dutada, sistema VRF, ventilação e exaustão, manutenção e PMOC. Equipe própria, com 15 anos de experiência no mercado.">
 <meta property="og:image" content="https://arclimtec.com.br/assets/og-arclimtec.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Render de um edifício empresarial com o sistema de ar-condicionado por inteiro, com a marca Arclimtec">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Arclimtec | Ar Condicionado Industrial em Campina Grande">
-<meta name="twitter:description" content="Projeto, instalação, rede dutada, sistema VRF, ventilação e exaustão, manutenção e PMOC. Equipe própria, no mercado desde 2012.">
+<meta name="twitter:description" content="Projeto, instalação, rede dutada, sistema VRF, ventilação e exaustão, manutenção e PMOC. Equipe própria, com 15 anos de experiência no mercado.">
 <meta name="twitter:image" content="https://arclimtec.com.br/assets/og-arclimtec.jpg">
 
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -107,10 +107,10 @@
   /* ===== nav — discreta, com blur, sem faixa pesada ===== */
   header.nav{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);
     background:rgba(238,242,247,.8);border-bottom:1px solid rgba(11,42,82,.1)}
-  .nav__in{display:flex;align-items:center;gap:30px;height:82px}
+  .nav__in{display:flex;align-items:center;gap:30px;height:92px}
   .brand{display:flex;align-items:center;gap:12px;flex:none}
-  .brand__chip{width:10px;height:38px;border-radius:3px;background:var(--azul-deep);flex:none}
-  .nav__in img{height:46px;width:auto;flex:none}
+  .brand__chip{width:11px;height:46px;border-radius:3px;background:var(--azul-deep);flex:none}
+  .nav__in img{height:58px;width:auto;flex:none}
   .nav__links{display:flex;gap:28px;margin-left:auto;font-family:"Barlow Condensed",sans-serif;
     font-weight:600;font-size:17px;letter-spacing:.12em;text-transform:uppercase}
   .nav__links a{position:relative;padding-bottom:3px}
@@ -118,9 +118,21 @@
     background:currentColor;transition:width .25s}
   .nav__links a:hover::after{width:100%}
   .nav .btn{padding:12px 22px;font-size:16px;margin-left:auto;flex:none;white-space:nowrap}
+  /* botão de menu: no PC os links cabem na barra, então ele nem aparece */
+  .nav__menu{display:none;width:44px;height:44px;flex:none;padding:0;cursor:pointer;
+    border:1.5px solid rgba(11,42,82,.22);border-radius:12px;background:rgba(255,255,255,.55);
+    flex-direction:column;align-items:center;justify-content:center;gap:5px}
+  .nav__menu span{display:block;width:20px;height:2px;border-radius:2px;background:var(--azul-deep);
+    transition:transform .26s cubic-bezier(.2,.7,.2,1),opacity .18s}
+  /* aberto, as três linhas viram um X */
+  .nav__menu[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav__menu[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .nav__menu[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  /* no PC os links moram na barra e o menu lateral nem existe */
+  .menu{display:none}
 
   /* ===== HERO — texto e capa (obra+planta) lado a lado, tudo já na primeira tela ===== */
-  .hero{position:relative;padding:28px 0 44px;min-height:calc(100svh - 83px);display:flex;align-items:center}
+  .hero{position:relative;padding:28px 0 44px;min-height:calc(100svh - 93px);display:flex;align-items:center}
   .hero__grid{display:grid;grid-template-columns:1fr;gap:22px;width:100%}
   .hero h1.tag{font-size:14px;justify-self:center;text-align:center}
 
@@ -289,7 +301,7 @@
 
   /* ===== obras: só uma prévia na página; a galeria inteira abre por cima ===== */
   .obras{display:flex;flex-direction:column;align-items:center;gap:24px}
-  /* a foto é 1280x960: a caixa segue a proporção dela, sem recorte */
+  /* a foto é 1280x960, o mesmo 4/3 da caixa: preenche sem recorte nenhum */
   .obras__previa{position:relative;display:block;width:100%;max-width:640px;padding:0;border:none;
     background:none;border-radius:var(--r-md);overflow:hidden;cursor:pointer;box-shadow:var(--shadow-2)}
   .obras__previa img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;filter:saturate(.9);
@@ -327,9 +339,18 @@
   .card{flex:0 0 calc(33.333% - 14px);scroll-snap-align:start;position:relative;
     border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-1);transition:box-shadow .3s,transform .3s}
   .card:hover{box-shadow:var(--shadow-2);transform:translateY(-4px)}
-  /* as fotos vão de 3:4 a 16:9 — contain mostra cada uma inteira e mantém os cards do mesmo tamanho */
-  .card img{width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:#061B36;
+  /* Todo card é 4/3 e a foto preenche ele por inteiro, sem faixa vazia em volta.
+     Como as fotos vão de 16:9 a quase 1:2, o recorte é inevitável: cada uma diz
+     abaixo qual faixa não pode sumir — a máquina, o duto, o equipamento. */
+  .card img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:#061B36;
     filter:saturate(.85);transition:filter .4s;pointer-events:none}
+  /* fotos em pé: o corte tira de cima e de baixo, então a faixa vai pro equipamento */
+  .card img[src*="p-dutos-galpao-2"]{object-position:center 55%}   /* os dois dutos */
+  .card img[src*="p-vrf-hitachi"]{object-position:center 45%}      /* o corpo da unidade */
+  .card img[src*="p-cassete-apartamento"]{object-position:center 30%} /* o cassete no forro */
+  .card img[src*="p-virotubo-loja"]{object-position:center 33%}    /* o duto redondo */
+  /* fotos deitadas: o corte tira das laterais */
+  .card img[src*="p-dutos-isolamento"]{object-position:60% center} /* a manta fica à direita */
   .card:hover img{filter:saturate(1.05)}
   .card__n{position:absolute;left:12px;top:8px;font-family:"Bebas Neue",sans-serif;font-size:32px;
     line-height:1;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.6);z-index:2}
@@ -471,11 +492,23 @@
       mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent),
         linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
       mask-composite:intersect}
-    /* no celular não cabe tudo numa linha só: os links descem pra uma segunda
-       faixa do cabeçalho, distribuídos de ponta a ponta, sem caixa nenhuma */
-    .nav__in{gap:12px;height:auto;flex-wrap:wrap;padding-top:10px;padding-bottom:8px}
-    .nav__links{order:3;width:100%;margin-left:0;justify-content:space-between;
-      gap:6px;font-size:13px;letter-spacing:.07em}
+    /* no celular a barra é uma linha só: logo, orçamento e o botão de menu.
+       Os links saem da barra e viram um painel que entra pela direita. */
+    .nav__in{gap:10px;height:68px}
+    .nav__links{display:none}
+    .nav__menu{display:flex}
+    .menu{display:block}
+    .menu__fundo{position:fixed;inset:0;z-index:55;opacity:0;visibility:hidden;
+      background:rgba(6,20,40,.55);transition:opacity .28s,visibility .28s}
+    .menu__fundo.aberto{opacity:1;visibility:visible}
+    .menu__painel{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(74vw,290px);
+      display:flex;flex-direction:column;padding:88px 24px 24px;background:var(--azul-deep);color:#fff;
+      font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:16px;
+      letter-spacing:.1em;text-transform:uppercase;transform:translateX(100%);
+      transition:transform .3s cubic-bezier(.2,.7,.2,1);box-shadow:-26px 0 60px -34px #000;
+      overflow-y:auto}
+    .menu__painel.aberto{transform:none}
+    .menu__painel a{padding:15px 2px;border-bottom:1px solid rgba(255,255,255,.14)}
     .nav__in img{height:36px}
     .brand{gap:9px}
     .brand__chip{width:8px;height:30px}
@@ -525,7 +558,6 @@
     .nav__in img{height:32px}
     .brand{gap:7px}
     .brand__chip{width:7px;height:26px}
-    .nav__links{font-size:11.5px;letter-spacing:.05em}
     .nav .btn{padding:9px 12px;font-size:12.5px}
   }
   @media (prefers-reduced-motion:reduce){
@@ -556,8 +588,25 @@
       <a href="#empresa">Empresa</a>
     </nav>
     <a class="btn btn--frio" href="https://wa.me/558330998606?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20quero%20um%20or%C3%A7amento%20de%20climatiza%C3%A7%C3%A3o." target="_blank" rel="noopener">Orçamento</a>
+    <button class="nav__menu" id="menuBtn" type="button" aria-label="Abrir menu"
+            aria-expanded="false" aria-controls="menuLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<!-- Menu do celular. Precisa ficar FORA do `header`: a barra tem backdrop-filter,
+     e um ancestral com filtro prende qualquer position:fixed dentro dele — o
+     painel ficaria com a altura da barra em vez de cobrir a tela. -->
+<div class="menu" id="menuLateral">
+  <div class="menu__fundo" id="menuFundo"></div>
+  <nav class="menu__painel" id="menuLinks" aria-label="Menu do site">
+    <a href="#servicos">Serviços</a>
+    <a href="#clientes">Clientes</a>
+    <a href="#fotos">Obras</a>
+    <a href="#empresa">Empresa</a>
+  </nav>
+</div>
 
 <!-- ===== 1. APRESENTAÇÃO — texto e capa (obra + planta) já na primeira tela ===== -->
 <section class="hero" id="top">
@@ -619,7 +668,7 @@
   <div class="wrap">
     <div class="sec__head rv">
       <h2>Onde já <span class="f">estivemos</span></h2>
-      <p>Energia, indústria, saúde e redes de varejo — na Paraíba e região.</p>
+      <p>Energia, indústria, saúde e redes de varejo — no Brasil todo.</p>
     </div>
     <div class="cli__grid rv">
       <figure class="cli__item" style="--tile:#fff">
@@ -723,16 +772,16 @@
       <div class="rv about__texto">
         <div class="tag">A empresa</div>
         <h2>Feita por <span>gente da área</span></h2>
-        <p>A Arclimtec tem <b>experiência no mercado desde 2012</b>, em Campina Grande, tratando climatização como engenharia: dimensionar antes de instalar, medir antes de entregar e documentar depois de manter.</p>
-        <p>De lá para cá são <b>mais de 50 projetos de médio e grande porte</b> entregues — indústrias, redes comerciais, saúde e residências da Paraíba e região. Com equipe própria, treinada e uniformizada: é o mesmo time que projeta, instala e volta para a manutenção.</p>
+        <p>A Arclimtec tem <b>15 anos de experiência no mercado</b>, em Campina Grande, tratando climatização como engenharia: dimensionar antes de instalar, medir antes de entregar e documentar depois de manter.</p>
+        <p>São <b>mais de 50 projetos de médio e grande porte</b> entregues — indústrias, redes comerciais, saúde e residências em todo o Brasil. Com equipe própria, treinada e uniformizada: é o mesmo time que projeta, instala e volta para a manutenção.</p>
         <div class="about__dir">
           <b>Daniel Souza da Silva</b>
           <span>Diretor · 15 anos de experiência no mercado</span>
         </div>
         <div class="about__nums">
-          <div><b>2012</b><span>experiência no mercado desde</span></div>
+          <div><b>15</b><span>anos de experiência no mercado</span></div>
           <div><b>+50</b><span>projetos de médio e grande porte</span></div>
-          <div><b>PB+</b><span>Paraíba e região</span></div>
+          <div><b>BR</b><span>atendemos o Brasil todo</span></div>
         </div>
 
         <div class="mvv">
@@ -769,7 +818,7 @@
     <div class="foot__top">
       <div class="foot__brand">
         <img loading="lazy" decoding="async" width="1196" height="366" src="assets/logo-branca.png" alt="Arclimtec Soluções em Climatização">
-        <p>Climatização industrial, empresarial e residencial em Campina Grande/PB, com experiência no mercado desde 2012. Projeto, instalação, manutenção e PMOC com equipe própria.</p>
+        <p>Climatização industrial, empresarial e residencial em Campina Grande/PB, com 15 anos de experiência no mercado. Projeto, instalação, manutenção e PMOC com equipe própria.</p>
       </div>
       <div>
         <h5>Navegação</h5>
@@ -848,7 +897,9 @@
     trilho.addEventListener('pointerdown', e=>{
       baixo = true; x0 = e.clientX; s0 = trilho.scrollLeft; trilho.classList.add('arrastando');
     });
-    addEventListener('pointerup', ()=>{ baixo = false; trilho.classList.remove('arrastando'); });
+    const soltar = ()=>{ baixo = false; trilho.classList.remove('arrastando'); };
+    addEventListener('pointerup', soltar);
+    addEventListener('pointercancel', soltar);
     trilho.addEventListener('pointermove', e=>{
       if(!baixo) return;
       e.preventDefault();
@@ -857,7 +908,39 @@
     });
   }
 
-  /* ===== carrossel de fotos: avança de 2 em 2, com setas e bolinhas ===== */
+  /* ===== menu do celular: os links do topo viram um painel que entra pela
+     direita, aberto pelo botão de três linhas ao lado do orçamento ===== */
+  (function(){
+    const btn = document.getElementById('menuBtn');
+    const links = document.getElementById('menuLinks');
+    const fundo = document.getElementById('menuFundo');
+    if(!btn || !links || !fundo) return;
+    const aberto = ()=> btn.getAttribute('aria-expanded') === 'true';
+    function abrir(){
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Fechar menu');
+      links.classList.add('aberto');
+      fundo.classList.add('aberto');
+      document.body.classList.add('travado');
+    }
+    function fechar(){
+      if(!aberto()) return;
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Abrir menu');
+      links.classList.remove('aberto');
+      fundo.classList.remove('aberto');
+      document.body.classList.remove('travado');
+    }
+    btn.addEventListener('click', ()=> aberto() ? fechar() : abrir());
+    fundo.addEventListener('click', fechar);
+    links.addEventListener('click', e=>{ if(e.target.closest('a')) fechar(); });
+    addEventListener('keydown', e=>{ if(e.key === 'Escape') fechar(); });
+    // virou o celular e a barra voltou a caber inteira: o painel não pode ficar preso
+    matchMedia('(min-width:681px)').addEventListener('change', e=>{ if(e.matches) fechar(); });
+  })();
+
+  /* ===== carrossel de fotos: cada clique anda uma foto, e o trilho sempre para
+     com um card encostado na borda esquerda, nunca no meio de uma foto ===== */
   (function(){
     const trilho = document.getElementById('trilho');
     const dotsWrap = document.getElementById('trilhoDots');
@@ -865,59 +948,70 @@
     const next = document.getElementById('trilhoNext');
     if(!trilho || !dotsWrap) return;
 
-    // número de "grupos" arredondado pra cima, senão o resto (ex: 7 fotos de 3 em 3 = 3 grupos) some
-    // enquanto a galeria está fechada o trilho tem largura 0: sem isso, Ceil(x/0) vira Infinity
-    function paginas(){ if(!trilho.clientWidth) return 1;
-      return Math.max(1, Math.ceil(trilho.scrollWidth / trilho.clientWidth)); }
+    const cards = ()=> [...trilho.querySelectorAll('.card')];
     function scrollMax(){ return Math.max(0, trilho.scrollWidth - trilho.clientWidth); }
-    // a última página sempre vai até o fim de verdade (scrollMax), não um múltiplo exato de clientWidth —
-    // é o que garante que a última foto do grupo (ex: a 7ª) fique visível por completo
-    function alvoDaPagina(i, n){ return i >= n - 1 ? scrollMax() : i * trilho.clientWidth; }
-    function paginaAtual(){
-      const max = scrollMax();
-      const n = paginas();
-      if(max <= 0) return 0;
-      return Math.min(n - 1, Math.round((trilho.scrollLeft / max) * (n - 1)));
+
+    // Onde o scroll tem que parar pra deixar o card `i` encostado na borda do
+    // trilho. Medir o card em vez de multiplicar a largura visível é o que evita
+    // o desalinhamento que ia se acumulando clique a clique por causa do gap.
+    // No fim da fila o alvo vira o próprio scrollMax, senão o último card ficaria
+    // pela metade.
+    function alvo(i){
+      const c = cards()[i];
+      if(!c) return 0;
+      const x = trilho.scrollLeft + c.getBoundingClientRect().left - trilho.getBoundingClientRect().left;
+      return Math.max(0, Math.min(scrollMax(), Math.round(x)));
     }
+    function atual(){
+      const s = trilho.scrollLeft;
+      let melhor = 0, dist = Infinity;
+      cards().forEach((c, i)=>{ const d = Math.abs(alvo(i) - s); if(d < dist - 1){ dist = d; melhor = i; } });
+      return melhor;
+    }
+    function irPara(i){
+      const n = cards().length;
+      if(!n) return;
+      trilho.scrollTo({left: alvo((i + n) % n), behavior: 'smooth'});
+    }
+    // no fim da fila volta pro começo, e no começo volta pro fim
+    function proximo(){ if(trilho.scrollLeft >= scrollMax() - 2) return irPara(0); irPara(atual() + 1); }
+    function anterior(){ if(trilho.scrollLeft <= 2) return irPara(cards().length - 1); irPara(atual() - 1); }
 
     function montarDots(){
       dotsWrap.innerHTML = '';
-      const n = paginas();
-      for(let i = 0; i < n; i++){
+      cards().forEach((c, i)=>{
         const d = document.createElement('button');
         d.type = 'button';
-        d.setAttribute('aria-label', 'Ir para o grupo ' + (i + 1));
-        d.addEventListener('click', ()=>{ pararAuto(); trilho.scrollTo({left: alvoDaPagina(i, n), behavior: 'smooth'}); });
+        d.setAttribute('aria-label', 'Ir para a foto ' + (i + 1));
+        d.addEventListener('click', ()=>{ pararAuto(); irPara(i); });
         dotsWrap.appendChild(d);
-      }
+      });
       atualizarDots();
     }
     function atualizarDots(){
-      const atual = paginaAtual();
-      [...dotsWrap.children].forEach((d, i)=> d.classList.toggle('on', i === atual));
+      const i = atual();
+      [...dotsWrap.children].forEach((d, k)=> d.classList.toggle('on', k === i));
     }
-    prev && prev.addEventListener('click', ()=>{ pararAuto(); trilho.scrollBy({left: -trilho.clientWidth, behavior: 'smooth'}); });
-    next && next.addEventListener('click', ()=>{ pararAuto(); trilho.scrollBy({left: trilho.clientWidth, behavior: 'smooth'}); });
+    prev && prev.addEventListener('click', ()=>{ pararAuto(); anterior(); });
+    next && next.addEventListener('click', ()=>{ pararAuto(); proximo(); });
 
     let t;
     trilho.addEventListener('scroll', ()=>{ clearTimeout(t); t = setTimeout(atualizarDots, 80); });
     window.addEventListener('resize', montarDots);
     montarDots();
 
-    /* ===== anda sozinho: avança automaticamente e volta ao início no fim ===== */
+    /* ===== anda sozinho: avança de foto em foto e volta ao início no fim ===== */
     const semMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
     let auto;
-    function proximaAuto(){
-      const n = paginas();
-      const atual = paginaAtual();
-      trilho.scrollTo({left: alvoDaPagina((atual + 1) % n, n), behavior: 'smooth'});
-    }
-    function iniciarAuto(){ if(semMovimento) return; pararAuto(); auto = setInterval(proximaAuto, 4200); }
+    function iniciarAuto(){ if(semMovimento) return; pararAuto(); auto = setInterval(proximo, 4200); }
     function pararAuto(){ clearInterval(auto); }
     trilho.addEventListener('pointerenter', pararAuto);
     trilho.addEventListener('pointerdown', pararAuto);
     trilho.addEventListener('pointerleave', iniciarAuto);
+    // no toque o gesto que vira rolagem termina em pointercancel, e não em
+    // pointerup: sem ouvir os dois, o carrossel parava de vez no celular
     addEventListener('pointerup', ()=> setTimeout(iniciarAuto, 2600));
+    addEventListener('pointercancel', ()=> setTimeout(iniciarAuto, 2600));
     iniciarAuto();
   })();
 
@@ -1026,6 +1120,10 @@
     "https://instagram.com/arclimtec"
   ],
   "areaServed": [
+    {
+      "@type": "Country",
+      "name": "Brasil"
+    },
     {
       "@type": "City",
       "name": "Campina Grande"
