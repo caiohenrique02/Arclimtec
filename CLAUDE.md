@@ -21,8 +21,12 @@ framework, sem servidor de aplicação. Deploy em **EasyPanel** por Dockerfile
   commits atrás do `origin/main`.
 - **Não rodar `tools/publish_branches.py`**: ele usa `checkout -B` e **recria**
   as branches de versão, apagando o que estiver nelas.
-- Servir local com `python3 -m http.server 8085` na raiz do repo. A 8081 e a
-  8082 costumam estar ocupadas por outros projetos do Caio.
+- Servir local com **`python3 tools/servir.py`** (8085), nunca com
+  `python3 -m http.server` direto. O módulo padrão não manda `Cache-Control`,
+  então o navegador guarda o HTML e as fotos e mostra a versão velha: em
+  18/09/2026 isso custou três rodadas de "não vi a mudança" numa alteração que
+  já estava no ar. A 8081 e a 8082 costumam estar ocupadas por outros projetos
+  do Caio.
 - A hero é um carrossel automático e os slides saem de `tools/hero_slides.py`,
   todos em 1600x900. Foto nova na hero passa por lá antes, senão ela é a única
   que não bate com a caixa e a página muda de altura quando ela entra.
