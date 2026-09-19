@@ -195,9 +195,12 @@
   .cano{overflow:hidden;border-block:1.5px solid rgba(11,42,82,.28)}
   .cano__in{display:flex;gap:40px;width:max-content;align-items:center;padding:15px 0;
     animation:cano-flow 26s linear infinite}
+  /* letra no azul escuro do site, gelinho no azul claro (pedido do cliente,
+     18/09/2026). A faixa cai na parte clara do degradê, então o escuro é quem
+     segura a leitura e o claro fica só pro símbolo, que é enfeite. */
   .cano__in span{font-family:"Bebas Neue",sans-serif;font-size:25px;letter-spacing:.05em;white-space:nowrap;
-    color:#04121F;display:flex;align-items:center;gap:14px}
-  .cano__in span::after{content:"❆";font-size:15px}
+    color:var(--azul-deep);display:flex;align-items:center;gap:14px}
+  .cano__in span::after{content:"❆";font-size:15px;color:var(--frio-2)}
   @keyframes cano-flow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* ===== seções ===== */
