@@ -235,9 +235,13 @@ sozinho de 3 em 3 segundos**. São **quatro slides**, nesta ordem (ordem do
 cliente, 18/09/2026):
 
 1. `p-hero-5-condensadoras-laje.jpg` — condensadoras Carrier na laje
-2. `p-hero-6-condensadoras-aquasnap.jpg` — condensadoras AquaSnap na casa de máquinas
+2. `p-hero-6-condensadoras-aquasnap.jpg` — condensadoras Carrier em bases de concreto
 3. `p-hero-7-dutos-teto.jpg` — rede dutada no teto do galpão
 4. `p-hero-2-tecnico.jpg` — o desenho técnico do prédio, o traçado transparente
+
+As duas primeiras levam a mesma legenda, "Condensadoras em laje": foi escolha
+do Caio em 18/09/2026, depois de eu ter posto "Condensadoras AquaSnap" e
+"Condensadoras Carrier" na segunda. Não "consertar" pra diferenciar.
 
 O cliente pediu o **desenho** no fim, não o render realista: são duas artes do
 mesmo prédio e é fácil trocar uma pela outra. O render (`p-hero-1`), o duto
