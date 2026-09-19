@@ -266,8 +266,16 @@ Dois detalhes que não são enfeite:
 - a capa é `touch-action:pan-y`. Sem isso o Chrome do celular decide no meio do
   gesto que o arraste horizontal era rolagem, manda `pointercancel` e o swipe
   morre.
-- o ponteiro é capturado no `pointerdown`. Sem isso, soltar o dedo fora da
-  caixa engole o `pointerup` e o carrossel volta a passar no meio do gesto.
+- seta e arraste saem os dois do mesmo `pointerup`, e o `pointerup` fica na
+  **janela**, não na capa: soltar o dedo fora da caixa não dispararia o da
+  capa e o carrossel voltaria a passar no meio do gesto.
+- **não usar `setPointerCapture` aqui.** A primeira versão prendia o ponteiro
+  na capa e deixava a seta no `click` do botão. No desktop ia; no celular não,
+  porque com o ponteiro preso o `click` do toque é entregue à capa e não ao
+  botão, e a seta virava enfeite. O Caio pegou isso em produção em 18/09/2026.
+- a seta só conta se o dedo **soltar em cima da mesma seta** onde apertou.
+- o `click` do botão continua lá, mas só atende teclado (`e.detail === 0`).
+  Sem essa guarda o mouse contaria duas vezes, no `pointerup` e no `click`.
 
 Com `prefers-reduced-motion` ele continua não passando sozinho, mas as setas
 valem: aí a troca é escolha da pessoa, não animação solta.

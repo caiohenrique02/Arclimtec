@@ -945,33 +945,44 @@
       retomada = setTimeout(()=>{ retomada = null; tocar(); }, ESPERA);
     }
 
-    capa.querySelectorAll('.capa__seta').forEach(botao=>{
-      botao.addEventListener('click', e=>{
-        e.stopPropagation();
-        mostrar(atual + Number(botao.dataset.passo));
-        segurar();
-      });
-    });
-
-    /* arraste e toque. O ponteiro fica preso na capa até soltar, senão sair
-       com o dedo pra fora da caixa engoliria o 'pointerup' e o carrossel
-       voltaria a passar no meio do gesto. */
-    let x0 = null, y0 = 0;
+    /* Seta e arraste saem os dois do mesmo 'pointerup', de propósito.
+       A primeira versão prendia o ponteiro na capa com `setPointerCapture` e
+       deixava a seta no `click` dela. No desktop ia, no celular não: com o
+       ponteiro preso, o `click` do toque é entregue à capa e não ao botão, e a
+       seta virava enfeite (Caio, 18/09/2026). Sem captura e resolvendo tudo no
+       `pointerup`, o caminho é o mesmo nos dois.
+       O `pointerup` fica na janela porque soltar o dedo fora da caixa não
+       dispararia o da capa, e o carrossel voltaria a passar no meio do gesto. */
+    let x0 = null, y0 = 0, setaInicial = null;
     capa.addEventListener('pointerdown', e=>{
       x0 = e.clientX; y0 = e.clientY;
-      capa.setPointerCapture?.(e.pointerId);
+      setaInicial = e.target.closest('.capa__seta');
     });
     function soltou(e){
       if(x0 === null) return;
       const dx = e.clientX - x0, dy = e.clientY - y0;
-      x0 = null;
+      const seta = setaInicial;
+      x0 = null; setaInicial = null;
       // rolagem da página passando por cima da capa não é gesto de carrossel
       if(Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 12) return;
-      if(Math.abs(dx) > ARRASTO) mostrar(atual + (dx < 0 ? 1 : -1));
+      if(Math.abs(dx) > ARRASTO)                       mostrar(atual + (dx < 0 ? 1 : -1));
+      // só vale se soltou em cima da mesma seta onde apertou
+      else if(seta && seta.contains(e.target))         mostrar(atual + Number(seta.dataset.passo));
       segurar();
     }
-    capa.addEventListener('pointerup', soltou);
-    capa.addEventListener('pointercancel', ()=>{ x0 = null; });
+    addEventListener('pointerup', soltou);
+    addEventListener('pointercancel', ()=>{ x0 = null; setaInicial = null; });
+
+    /* teclado: quem chega na seta de Tab não passa por ponteiro nenhum, e aí
+       o clique vem com `detail` 0. Clique de dedo ou mouse já foi tratado
+       acima, então esse aqui só atende o teclado e não conta duas vezes. */
+    capa.querySelectorAll('.capa__seta').forEach(botao=>{
+      botao.addEventListener('click', e=>{
+        if(e.detail !== 0) return;
+        mostrar(atual + Number(botao.dataset.passo));
+        segurar();
+      });
+    });
 
     document.addEventListener('visibilitychange', ()=> document.hidden ? pausar() : tocar());
     paradinho.addEventListener('change', ()=> paradinho.matches ? pausar() : tocar());
