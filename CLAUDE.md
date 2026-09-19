@@ -218,10 +218,9 @@ com antecedência, não no dia do lançamento.
 6. Perfil da Empresa no Google. Pra busca local do tipo "ar condicionado Campina
    Grande", pesa mais que o site.
 
-7. E-mail do domínio quando o cliente quiser. A zona hoje tem **MX nulo** e
-   **SPF `-all`**, que bloqueiam e-mail: os dois precisam sair na hora de
-   apontar o provedor. Como o DNS é do Registro.br, dá pra contratar em
-   qualquer lugar e só trocar os registros, sem mexer em nameserver.
+7. E-mail do domínio — o Caio quer fazer isso **em 19/09/2026**, junto comigo.
+   Ver a seção "E-mail do domínio" no fim deste arquivo, que tem o passo a
+   passo e as opções de provedor.
 
 ### Acesso
 
@@ -348,13 +347,85 @@ estar carregada, senão entraria um quadro vazio no meio.
   `robots.txt` e `sitemap.xml`. Era uma suposição. Se o domínio comprado for
   outro, trocar nos três.
 
+## E-mail do domínio (levantado em 18/09/2026, pra fazer em 19/09)
+
+O Caio perguntou quanto custa e como compra o e-mail do domínio. Isto aqui é a
+resposta, pra não refazer a pesquisa amanhã.
+
+### O que ele estava confundindo
+
+**Registro.br não vende e-mail.** Ele registra o domínio e dá o painel de DNS,
+só. E-mail se compra em outro lugar e se aponta por DNS.
+
+**A VPS da Hostinger não entra nessa.** Site e e-mail são independentes:
+
+- o site vai pelo registro `A`, que aponta pro IP da VPS (`31.97.24.35`)
+- o e-mail vai pelos registros `MX`, que apontam pro provedor contratado
+
+Ou seja: não se mexe em nada do EasyPanel pra ter e-mail, e **não se mexe no
+registro `A`** na hora de configurar o e-mail, senão o site cai.
+
+### Como a zona está hoje (conferido em 18/09/2026)
+
+Nameservers: `a.sec.dns.br` e `b.sec.dns.br` — o DNS é do próprio Registro.br.
+Então dá pra contratar o e-mail em qualquer provedor e só colar os registros
+lá, sem trocar nameserver.
+
+**MX: nenhum. TXT: nenhum.** Conferido pelo DNS público:
+
+    curl -s "https://dns.google/resolve?name=arclimtec.com.br&type=MX"
+    curl -s "https://dns.google/resolve?name=arclimtec.com.br&type=TXT"
+
+Os dois voltam `Status 0` sem `Answer`, que é NODATA: o registro não existe.
+A versão anterior deste arquivo dizia que a zona tinha **MX nulo** e **SPF
+`-all`** e que os dois teriam que sair antes — **isso não confere mais**, não
+tem nada pra remover. Conferir de novo antes de mexer, porque a zona pode ter
+mudado entre 18/09 e o dia de fazer.
+
+### Opções
+
+| Opção | Custo | Pega bem se |
+|---|---|---|
+| **Zoho Mail grátis** | R$ 0 | 5 contas, 5 GB cada. **Só webmail e app do Zoho**: IMAP/POP virou pago, então não conecta no Outlook nem no app de e-mail do celular |
+| **Hostinger (Titan)** | ~US$ 1 a US$ 2,50 por caixa/mês | O Caio já é cliente: cai na mesma fatura e a configuração é mais guiada |
+| **Google Workspace / Microsoft 365** | O mais caro | Se o cliente já vive no Gmail ou no Outlook e quer Drive/Teams junto |
+| **Servidor na própria VPS** | R$ 0 de licença | **Não fazer.** Porta 25 costuma vir bloqueada, o IP não tem reputação e o e-mail cai no spam |
+
+Os preços são de 18/09/2026 e **não estão cravados**: mudam, e o que aparece
+anunciado quase sempre é promoção de primeiro ciclo, com renovação mais cara e
+cobrança adiantada de 12 a 48 meses. Conferir no site antes de fechar.
+
+### O passo a passo
+
+1. Contratar o plano no provedor escolhido, informando `arclimtec.com.br`.
+2. O provedor entrega uma lista de registros: os **MX**, um **TXT de SPF**, um
+   **TXT de DKIM** e às vezes um TXT de verificação do domínio.
+3. Entrar no Registro.br e colar esses registros no DNS do domínio.
+   **Não encostar no registro `A`.**
+4. Esperar propagar (minutos a algumas horas) e criar as caixas.
+
+Os TXT de SPF e DKIM não são opcionais: sem eles o e-mail sai, mas cai no spam
+de quem recebe.
+
+### Quem assina
+
+O domínio está na conta do **cliente** no Registro.br (DASSI1531, do Daniel), e
+a sessão cai a cada poucos minutos — quem faz login é o Caio, eu só opero a tela
+depois de logada.
+
+A assinatura do e-mail deve ficar **no nome do cliente**, não do Caio: se entrar
+na conta dele, no dia que o contrato acabar a empresa fica com o e-mail preso em
+nome de terceiro. Vale escrever isso no contrato, que era justamente o que o
+Caio estava redigindo quando perguntou.
+
 ## Pendências
 
 Do Caio, fora do código:
 
 Ver "Onde paramos" acima: o domínio já existe no Registro.br, os registros A
 já foram criados e o que falta é a publicação da zona, o SSL, o redirect do
-`www`, o Search Console, o Perfil da Empresa e o e-mail do domínio.
+`www`, o Search Console, o Perfil da Empresa e o e-mail do domínio — este
+último marcado com o Caio pra **19/09/2026**, ver a seção "E-mail do domínio".
 
 De conteúdo, com o cliente:
 
