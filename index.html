@@ -186,10 +186,13 @@
   .capa__seta--ant{left:18px}
   .capa__seta--prox{right:18px}
 
-  /* ===== CANO: mesmo desenho do cano/marquee da V6-V7, agora do lado contrário ===== */
+  /* ===== CANO: mesmo desenho do cano/marquee da V6-V7, agora do lado contrário.
+     Em 18/09/2026 o cliente tirou a cor: some o fundo ciano e ficam só os dois
+     fios em cima e embaixo, que é o formato do cano. E a faixa passou a ir de
+     ponta a ponta da tela, no PC e no celular — por isso ela saiu de dentro do
+     `.wrap` e perdeu o canto arredondado, que só apareceria fora da tela. ===== */
   .cano-band{padding:8px 0 32px}
-  .cano{overflow:hidden;border-radius:var(--r-md);
-    background:var(--frio);box-shadow:var(--shadow-1)}
+  .cano{overflow:hidden;border-block:1.5px solid rgba(11,42,82,.28)}
   .cano__in{display:flex;gap:40px;width:max-content;align-items:center;padding:15px 0;
     animation:cano-flow 26s linear infinite}
   .cano__in span{font-family:"Bebas Neue",sans-serif;font-size:25px;letter-spacing:.05em;white-space:nowrap;
@@ -670,14 +673,12 @@
   </div>
 </section>
 
-<!-- ===== cano azul — mesmo desenho do cano/marquee da V6/V7, fluxo invertido ===== -->
+<!-- ===== cano — de ponta a ponta da tela e sem cor, só o contorno; fluxo invertido ===== -->
 <div class="cano-band">
-  <div class="wrap">
-    <div class="cano">
-      <div class="cano__in" aria-hidden="true">
-        <span>Projeto</span><span>Instalação</span><span>Manutenção</span><span>PMOC</span><span>Laudo técnico</span><span>Rede dutada</span><span>Sistema VRF</span><span>Ventilação e exaustão</span>
-        <span>Projeto</span><span>Instalação</span><span>Manutenção</span><span>PMOC</span><span>Laudo técnico</span><span>Rede dutada</span><span>Sistema VRF</span><span>Ventilação e exaustão</span>
-      </div>
+  <div class="cano">
+    <div class="cano__in" aria-hidden="true">
+      <span>Projeto</span><span>Instalação</span><span>Manutenção</span><span>PMOC</span><span>Laudo técnico</span><span>Rede dutada</span><span>Sistema VRF</span><span>Ventilação e exaustão</span>
+      <span>Projeto</span><span>Instalação</span><span>Manutenção</span><span>PMOC</span><span>Laudo técnico</span><span>Rede dutada</span><span>Sistema VRF</span><span>Ventilação e exaustão</span>
     </div>
   </div>
 </div>
