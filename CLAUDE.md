@@ -231,8 +231,8 @@ Quem faz login é o Caio; o Claude só opera a tela depois que ela já está log
 ## Hero: carrossel automático (18/09/2026, pedido do Caio)
 
 O comparador de antes e depois saiu. No lugar entrou um carrossel que **troca
-sozinho de 3 em 3 segundos** e não tem controle nenhum: sem seta, sem bolinha,
-sem arrastar. São **quatro slides**, nesta ordem (ordem do cliente, 18/09/2026):
+sozinho de 3 em 3 segundos**. São **quatro slides**, nesta ordem (ordem do
+cliente, 18/09/2026):
 
 1. `p-hero-5-condensadoras-laje.jpg` — condensadoras Carrier na laje
 2. `p-hero-6-condensadoras-aquasnap.jpg` — condensadoras AquaSnap na casa de máquinas
@@ -247,6 +247,26 @@ gerando os sete — é só o HTML que serve quatro.
 
 A caixa **sangra até as duas bordas da tela**, agora também no computador
 (`width:100vw` com `margin-inline:calc(50% - 50vw)`), e é **16/9 fixa**.
+
+### Quem mexe manda na foto (18/09/2026)
+
+Tem **seta dos dois lados** (`.capa__seta`, mesmo desenho das do trilho de
+fotos, com fundo escuro pra não sumir num slide claro) e **arraste pro lado**,
+a partir de 40px. Clicar, arrastar ou usar a seta **para o carrossel por 10
+segundos** naquele slide; passados os 10s ele volta a passar sozinho. Tocar de
+novo dentro desses 10s recomeça a contagem, senão o segundo toque herdaria o
+resto da parada do primeiro.
+
+Dois detalhes que não são enfeite:
+
+- a capa é `touch-action:pan-y`. Sem isso o Chrome do celular decide no meio do
+  gesto que o arraste horizontal era rolagem, manda `pointercancel` e o swipe
+  morre.
+- o ponteiro é capturado no `pointerdown`. Sem isso, soltar o dedo fora da
+  caixa engole o `pointerup` e o carrossel volta a passar no meio do gesto.
+
+Com `prefers-reduced-motion` ele continua não passando sozinho, mas as setas
+valem: aí a troca é escolha da pessoa, não animação solta.
 
 O `<h1>` "Climatização industrial e empresarial" **fica por cima das fotos**, no
 alto da caixa, e não mais acima dela: no fluxo ele comia uma faixa da primeira
