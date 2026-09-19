@@ -352,6 +352,10 @@ estar carregada, senão entraria um quadro vazio no meio.
 O Caio perguntou quanto custa e como compra o e-mail do domínio. Isto aqui é a
 resposta, pra não refazer a pesquisa amanhã.
 
+**Ele quer fazer isso comigo na próxima sessão, sem pressa**, vendo passo a
+passo como faz e quanto custa cada coisa antes de contratar. Não sair
+contratando nem mexendo no DNS por conta própria.
+
 ### O que ele estava confundindo
 
 **Registro.br não vende e-mail.** Ele registra o domínio e dá o painel de DNS,
@@ -382,7 +386,17 @@ A versão anterior deste arquivo dizia que a zona tinha **MX nulo** e **SPF
 tem nada pra remover. Conferir de novo antes de mexer, porque a zona pode ter
 mudado entre 18/09 e o dia de fazer.
 
-### Opções
+### Decidido: Titan da Hostinger (18/09/2026)
+
+O Caio escolheu o **Titan da Hostinger**. O que pesou: no Zoho grátis o IMAP
+virou pago, então o Daniel não conseguiria usar o e-mail no Outlook nem no app
+do celular, só pelo site do Zoho. A Hostinger ele já é cliente.
+
+**Ainda falta ver com calma, no dia:** o preço real por caixa, quantas caixas o
+cliente quer, qual o ciclo de cobrança e o que renova por quanto. Nada disso
+está fechado — a tabela abaixo é só o levantamento de 18/09.
+
+### Opções levantadas
 
 | Opção | Custo | Pega bem se |
 |---|---|---|
@@ -406,6 +420,26 @@ cobrança adiantada de 12 a 48 meses. Conferir no site antes de fechar.
 
 Os TXT de SPF e DKIM não são opcionais: sem eles o e-mail sai, mas cai no spam
 de quem recebe.
+
+### Assinatura de e-mail (pedido do cliente, 18/09/2026)
+
+O cliente pediu também o **rodapé/assinatura** do e-mail dele no domínio. Entra
+depois que as caixas existirem, porque a assinatura leva o endereço.
+
+Ainda não tem nada decidido nem pronto. O que precisa ser levantado com o Caio
+no dia:
+
+- quais caixas vão existir e quem assina cada uma (o Daniel tem cargo de
+  Diretor no site; ver a seção "Quem somos")
+- quais dados entram: nome, cargo, telefone, WhatsApp, site, endereço, Instagram
+- se leva a logo — e, se levar, qual arquivo. O site tem `assets/logo.png` e
+  `assets/logo-branca.png`
+- o Titan tem editor de assinatura próprio; conferir no dia se ele aceita HTML
+  colado ou só o editor dele, porque isso muda como a peça é entregue
+
+Os dados de contato que o site já publica estão na seção "Contato (todos os
+caminhos caem no WhatsApp)" e no rodapé do `index.html` — usar aqueles, pra
+assinatura e site não divergirem.
 
 ### Quem assina
 
