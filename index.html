@@ -144,64 +144,28 @@
   .hero{position:relative;padding:0 0 44px}
   .hero__grid{display:grid;grid-template-columns:1fr;width:100%}
 
-  /* ===== CAPA: carrossel que troca de foto sozinho, de 2 em 2 segundos =====
-     A caixa sangra até as duas bordas da tela, no computador e no celular, e é
-     16/9 fixa. Os slides já saem de tools/hero_slides.py em 1600x900, ou
-     seja, todos na mesma proporção da caixa: nenhum é cortado nem esticado aqui,
-     e a página não muda de altura quando um entra no lugar do outro.
-     Foto nova aqui precisa passar pelo script, senão ela é a única que desencaixa. */
-  /* `pan-y` entrega o gesto de lado pro carrossel e deixa a rolagem vertical
-     com o navegador; sem isso o Chrome do celular decide que o arraste é
-     rolagem e cancela o ponteiro no meio. */
+  /* ===== CAPA: uma foto só, parada (pedido do cliente, 20/09/2026) =====
+     Era um carrossel de quatro fotos com seta e arraste; o cliente pediu pra
+     ficar só a primeira. A caixa sangra até as duas bordas da tela, no
+     computador e no celular, e é 16/9 fixa. A foto sai de
+     tools/hero_slides.py já em 1600x900, na mesma proporção da caixa, então
+     ela não é cortada nem esticada aqui. Foto nova precisa passar pelo script. */
   .capa{position:relative;aspect-ratio:16/9;width:100vw;margin-inline:calc(50% - 50vw);
-    overflow:hidden;background:#061B36;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-  .capa__slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s ease}
-  .capa__slide.on{opacity:1}
-  .capa__slide img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.04);
-    -webkit-user-drag:none}
-  .capa__slide::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,27,54,.55),transparent 46%)}
-  .capa__slide span{position:absolute;left:22px;bottom:18px;z-index:2;color:#fff;font-family:"Barlow Condensed",sans-serif;
+    overflow:hidden;background:#061B36}
+  .capa__foto{position:absolute;inset:0;margin:0}
+  .capa__foto img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.04)}
+  .capa__foto::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,27,54,.55),transparent 46%)}
+  .capa__foto span{position:absolute;left:22px;bottom:18px;z-index:2;color:#fff;font-family:"Barlow Condensed",sans-serif;
     font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
   /* a frase fica por cima das fotos, não acima delas: assim a capa começa logo
      abaixo da barra e ganha de volta a faixa que o título ocupava no fluxo.
-     O véu escuro atrás é o que segura a leitura, porque os dois renders do
-     prédio são quase brancos no topo e o texto é claro. */
+     O véu escuro atrás é o que segura a leitura: sem ele o texto claro some
+     no céu da foto. */
   .capa__titulo{position:absolute;top:0;left:0;right:0;z-index:3;justify-content:center;
     margin:0;padding:18px 20px 30px;color:#fff;text-align:center;
     background:linear-gradient(180deg,rgba(6,27,54,.62),transparent);
     text-shadow:0 2px 12px rgba(6,27,54,.55);pointer-events:none}
   .capa__titulo::before{background:var(--frio-2)}
-
-  /* setas nas laterais: mesmo desenho das do trilho de fotos, só que por cima
-     da foto, então ganham um fundo escuro pra não sumir num slide claro. */
-  .capa__seta{position:absolute;top:50%;z-index:4;width:46px;height:46px;
-    border-radius:50%;border:1.5px solid rgba(255,255,255,.4);
-    background:rgba(4,18,31,.42);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
-    color:#fff;display:grid;place-items:center;cursor:pointer;transform:translateY(-50%);
-    transition:background .22s,border-color .22s,color .22s,transform .22s}
-  .capa__seta svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.4;
-    stroke-linecap:round;stroke-linejoin:round}
-  .capa__seta:hover{background:var(--frio);border-color:var(--frio);color:#04121F;
-    transform:translateY(-50%) scale(1.06)}
-  .capa__seta--ant{left:18px}
-  .capa__seta--prox{right:18px}
-
-  /* ===== CANO: mesmo desenho do cano/marquee da V6-V7, agora do lado contrário.
-     Em 18/09/2026 o cliente tirou a cor: some o fundo ciano e ficam só os dois
-     fios em cima e embaixo, que é o formato do cano. E a faixa passou a ir de
-     ponta a ponta da tela, no PC e no celular — por isso ela saiu de dentro do
-     `.wrap` e perdeu o canto arredondado, que só apareceria fora da tela. ===== */
-  .cano-band{padding:8px 0 32px}
-  .cano{overflow:hidden;border-block:1.5px solid rgba(11,42,82,.28)}
-  .cano__in{display:flex;gap:40px;width:max-content;align-items:center;padding:15px 0;
-    animation:cano-flow 26s linear infinite}
-  /* letra no azul escuro do site, gelinho no azul claro (pedido do cliente,
-     18/09/2026). A faixa cai na parte clara do degradê, então o escuro é quem
-     segura a leitura e o claro fica só pro símbolo, que é enfeite. */
-  .cano__in span{font-family:"Bebas Neue",sans-serif;font-size:25px;letter-spacing:.05em;white-space:nowrap;
-    color:var(--azul-deep);display:flex;align-items:center;gap:14px}
-  .cano__in span::after{content:"❆";font-size:15px;color:var(--frio-2)}
-  @keyframes cano-flow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* ===== seções ===== */
   .sec{padding:100px 0;position:relative}
@@ -580,11 +544,7 @@
     .mvv h3{font-size:21px}
     .mvv__card p{font-size:13.5px}
     .mvv__valores li{font-size:12.5px;padding:6px 12px}
-    .capa__slide span{font-size:10.5px;letter-spacing:.09em;left:14px;bottom:14px}
-    .capa__seta{width:38px;height:38px}
-    .capa__seta svg{width:15px;height:15px}
-    .capa__seta--ant{left:10px}
-    .capa__seta--prox{right:10px}
+    .capa__foto span{font-size:10.5px;letter-spacing:.09em;left:14px;bottom:14px}
     .capa__titulo{font-size:11px;letter-spacing:.12em;padding:12px 14px 24px}
     .capa__titulo::before{width:22px}
   }
@@ -598,7 +558,6 @@
   }
   @media (prefers-reduced-motion:reduce){
     .rv{opacity:1;transform:none;transition:none}
-    .cano__in{animation:none}
     .zap-float::before{animation:none}
     html{scroll-behavior:auto}
     .gc__art{opacity:1;transform:none;transition:none}
@@ -644,47 +603,18 @@
   </nav>
 </div>
 
-<!-- ===== 1. APRESENTAÇÃO — texto e capa (obra + planta) já na primeira tela ===== -->
+<!-- ===== 1. APRESENTAÇÃO — o título por cima da foto de obra, já na primeira tela ===== -->
 <section class="hero" id="top">
   <div class="wrap hero__grid">
-    <div class="capa" id="capaSlides">
+    <div class="capa">
       <h1 class="tag capa__titulo">Climatização industrial e empresarial</h1>
-      <figure class="capa__slide on">
+      <figure class="capa__foto">
         <img fetchpriority="high" decoding="async" width="1600" height="900" src="assets/p-hero-5-condensadoras-laje.jpg" alt="Fileira de condensadoras Carrier Ecoplit sobre a cobertura metálica, alinhadas em suporte com a tubulação isolada">
         <span>Condensadoras em laje</span>
       </figure>
-      <figure class="capa__slide">
-        <img decoding="async" width="1600" height="900" src="assets/p-hero-6-condensadoras-aquasnap.jpg" alt="Seis condensadoras Carrier alinhadas sobre bases de concreto, com a tubulação isolada correndo entre elas">
-        <span>Condensadoras em laje</span>
-      </figure>
-      <figure class="capa__slide">
-        <img decoding="async" width="1600" height="900" src="assets/p-hero-7-dutos-teto.jpg" alt="Rede dutada em chapa galvanizada suspensa no teto de um galpão, ao lado das linhas vermelhas da rede de incêndio">
-        <span>Rede dutada industrial</span>
-      </figure>
-      <figure class="capa__slide">
-        <img decoding="async" width="1600" height="900" src="assets/p-hero-2-tecnico.jpg" alt="Edifício empresarial em desenho técnico isométrico, com as linhas frigorígenas e a rede dutada em azul e vermelho sobre o traçado da estrutura">
-        <span>Projeto técnico</span>
-      </figure>
-      <button class="capa__seta capa__seta--ant" type="button" data-passo="-1" aria-label="Foto anterior">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-      </button>
-      <button class="capa__seta capa__seta--prox" type="button" data-passo="1" aria-label="Próxima foto">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
-      </button>
     </div>
-
   </div>
 </section>
-
-<!-- ===== cano — de ponta a ponta da tela e sem cor, só o contorno; fluxo invertido ===== -->
-<div class="cano-band">
-  <div class="cano">
-    <div class="cano__in" aria-hidden="true">
-      <span>Projeto</span><span>Instalação</span><span>Manutenção</span><span>PMOC</span><span>Laudo técnico</span><span>Rede dutada</span><span>Sistema VRF</span><span>Ventilação e exaustão</span>
-      <span>Projeto</span><span>Instalação</span><span>Manutenção</span><span>PMOC</span><span>Laudo técnico</span><span>Rede dutada</span><span>Sistema VRF</span><span>Ventilação e exaustão</span>
-    </div>
-  </div>
-</div>
 
 <!-- ===== 2. O QUE A EMPRESA TRABALHA — industrial em destaque, doméstico reduzido abaixo ===== -->
 <section id="servicos">
@@ -903,96 +833,6 @@
 
 <script>
 (function(){
-  /* ===== capa: arrasta o divisor pra revelar a obra ou a planta por inteiro ===== */
-  /* carrossel da capa: troca sozinho de 3 em 3 segundos, e agora tem seta dos
-     dois lados e arraste (pedido do Caio em 18/09/2026). Quem mexe manda na
-     foto: clicou, arrastou ou usou a seta, o carrossel para por 10 segundos
-     naquele slide e só depois volta a passar sozinho.
-     Para quando a aba sai da frente pra não rodar à toa, e quem pediu menos
-     animação no sistema vê só a primeira foto, parada — mas as setas continuam
-     valendo, porque aí a troca é escolha da pessoa, não animação solta. */
-  const capa = document.getElementById('capaSlides');
-  if(capa){
-    const slides = [...capa.querySelectorAll('.capa__slide')];
-    const paradinho = matchMedia('(prefers-reduced-motion: reduce)');
-    const ESPERA = 10000;    // quanto o carrossel fica parado depois de um toque
-    const ARRASTO = 40;      // px de lado que contam como "passou pra outra foto"
-    let atual = 0, relogio = null, retomada = null;
-
-    function mostrar(i){
-      const prox = (i % slides.length + slides.length) % slides.length;
-      if(prox === atual) return;
-      slides[atual].classList.remove('on');
-      slides[prox].classList.add('on');
-      atual = prox;
-    }
-    function passar(){
-      const prox = (atual + 1) % slides.length;
-      // segura a troca se a próxima ainda está baixando, senão entra um quadro vazio
-      if(!slides[prox].querySelector('img').complete) return;
-      mostrar(prox);
-    }
-    function tocar(){
-      if(relogio || retomada || paradinho.matches || slides.length < 2 || document.hidden) return;
-      relogio = setInterval(passar, 3000);
-    }
-    function pausar(){
-      clearInterval(relogio);
-      relogio = null;
-    }
-    /* para onde está e marca a volta pra daqui a 10s. Chamar de novo dentro
-       desses 10s recomeça a contagem, senão dois toques seguidos encurtariam
-       a parada do segundo. */
-    function segurar(){
-      pausar();
-      clearTimeout(retomada);
-      retomada = setTimeout(()=>{ retomada = null; tocar(); }, ESPERA);
-    }
-
-    /* Seta e arraste saem os dois do mesmo 'pointerup', de propósito.
-       A primeira versão prendia o ponteiro na capa com `setPointerCapture` e
-       deixava a seta no `click` dela. No desktop ia, no celular não: com o
-       ponteiro preso, o `click` do toque é entregue à capa e não ao botão, e a
-       seta virava enfeite (Caio, 18/09/2026). Sem captura e resolvendo tudo no
-       `pointerup`, o caminho é o mesmo nos dois.
-       O `pointerup` fica na janela porque soltar o dedo fora da caixa não
-       dispararia o da capa, e o carrossel voltaria a passar no meio do gesto. */
-    let x0 = null, y0 = 0, setaInicial = null;
-    capa.addEventListener('pointerdown', e=>{
-      x0 = e.clientX; y0 = e.clientY;
-      setaInicial = e.target.closest('.capa__seta');
-    });
-    function soltou(e){
-      if(x0 === null) return;
-      const dx = e.clientX - x0, dy = e.clientY - y0;
-      const seta = setaInicial;
-      x0 = null; setaInicial = null;
-      // rolagem da página passando por cima da capa não é gesto de carrossel
-      if(Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 12) return;
-      if(Math.abs(dx) > ARRASTO)                       mostrar(atual + (dx < 0 ? 1 : -1));
-      // só vale se soltou em cima da mesma seta onde apertou
-      else if(seta && seta.contains(e.target))         mostrar(atual + Number(seta.dataset.passo));
-      segurar();
-    }
-    addEventListener('pointerup', soltou);
-    addEventListener('pointercancel', ()=>{ x0 = null; setaInicial = null; });
-
-    /* teclado: quem chega na seta de Tab não passa por ponteiro nenhum, e aí
-       o clique vem com `detail` 0. Clique de dedo ou mouse já foi tratado
-       acima, então esse aqui só atende o teclado e não conta duas vezes. */
-    capa.querySelectorAll('.capa__seta').forEach(botao=>{
-      botao.addEventListener('click', e=>{
-        if(e.detail !== 0) return;
-        mostrar(atual + Number(botao.dataset.passo));
-        segurar();
-      });
-    });
-
-    document.addEventListener('visibilitychange', ()=> document.hidden ? pausar() : tocar());
-    paradinho.addEventListener('change', ()=> paradinho.matches ? pausar() : tocar());
-    tocar();
-  }
-
   /* ===== trilho de fotos arrastável com o mouse ===== */
   let arrastou = 0;
   const trilho = document.getElementById('trilho');

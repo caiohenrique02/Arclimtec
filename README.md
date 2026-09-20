@@ -169,7 +169,7 @@ As V7 A/B foram geradas por `tools/gen_claro.py` a partir da V6 — só cores mu
 
 ## Estrutura da página
 
-Hero (texto + capa obra/planta) → cano/marquee → serviços (bloco industrial + bloco doméstico, cada um com manutenção **preventiva e corretiva**) → grade de 8 serviços → fotos dos equipamentos (carrossel automático) → quem somos → clientes → rodapé.
+Hero (título por cima de uma foto de obra) → serviços (bloco industrial + bloco doméstico, cada um com manutenção **preventiva e corretiva**) → grade de 8 serviços → fotos dos equipamentos (carrossel automático) → quem somos → clientes → rodapé.
 
 ## Assets
 
