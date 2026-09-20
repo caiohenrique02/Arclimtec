@@ -227,32 +227,94 @@ com antecedência, não no dia do lançamento.
 O painel do Registro.br é a conta do Daniel (DASSI1531) e a sessão cai rápido.
 Quem faz login é o Caio; o Claude só opera a tela depois que ela já está logada.
 
-## Hero: uma foto parada (20/09/2026, pedido do cliente)
+## Hero: carrossel automático (18/09/2026, pedido do Caio)
 
-A hero é **uma foto só**, a primeira do carrossel que existia até aqui:
-`p-hero-5-condensadoras-laje.jpg`, as condensadoras Carrier na laje. Sem troca
-automática, sem seta, sem arraste.
+O comparador de antes e depois saiu. No lugar entrou um carrossel que **troca
+sozinho de 3 em 3 segundos**. São **quatro slides**, nesta ordem (ordem do
+cliente, 18/09/2026):
 
-Em 20/09/2026 o cliente pediu duas coisas de uma vez: tirar as outras três
-fotos e as setas que passavam entre elas, e tirar o **cano** — a faixa com os
-nomes dos serviços que andava sozinha logo abaixo da hero. Saiu o HTML da
-faixa, o CSS (`.cano-band`, `.cano`, `.cano__in`, `@keyframes cano-flow`) e a
-linha dela no bloco `prefers-reduced-motion`. Saíram junto as setas
-(`.capa__seta*`) e o bloco de JS inteiro do carrossel.
+1. `p-hero-5-condensadoras-laje.jpg` — condensadoras Carrier na laje
+2. `p-hero-6-condensadoras-aquasnap.jpg` — condensadoras Carrier em bases de concreto
+3. `p-hero-7-dutos-teto.jpg` — rede dutada no teto do galpão
+4. `p-hero-2-tecnico.jpg` — o desenho técnico do prédio, o traçado transparente
 
-O que sobrou na capa: `.capa` (16/9, sangrando até as duas bordas da tela),
-`.capa__foto` com a foto e a legenda, e `.capa__titulo`, o `<h1>` por cima da
-foto com o véu escuro atrás. O `.capa__slide` virou `.capa__foto` porque não
-há mais slide nenhum.
+As duas primeiras levam a mesma legenda, "Condensadoras em laje": foi escolha
+do Caio em 18/09/2026, depois de eu ter posto "Condensadoras AquaSnap" e
+"Condensadoras Carrier" na segunda. Não "consertar" pra diferenciar.
 
-O `tools/hero_slides.py` **continua gerando os sete** slides em 1600x900 e os
-arquivos continuam em `assets/` — é só o HTML que serve uma. Trocar a foto da
-hero é trocar o `src` do `.capa__foto` por outro arquivo já gerado pelo
-script, e o `<link rel="preload">` do topo do `<head>` junto, senão o preload
-aponta pra uma foto que a página não usa mais.
+O cliente pediu o **desenho** no fim, não o render realista: são duas artes do
+mesmo prédio e é fácil trocar uma pela outra. O render (`p-hero-1`), o duto
+vertical (`p-hero-4`) e as condensadoras no piso (`p-hero-3`) ficaram fora da
+hero. Os arquivos continuam em `assets/` e o `tools/hero_slides.py` continua
+gerando os sete — é só o HTML que serve quatro.
 
-**Isso também mexe na prévia do link.** A imagem de compartilhamento sai da
-mesma foto, pelo `tools/og_image.py` — ver a seção "SEO".
+A caixa **sangra até as duas bordas da tela**, agora também no computador
+(`width:100vw` com `margin-inline:calc(50% - 50vw)`), e é **16/9 fixa**.
+
+### Quem mexe manda na foto (18/09/2026)
+
+Tem **seta dos dois lados** (`.capa__seta`, mesmo desenho das do trilho de
+fotos, com fundo escuro pra não sumir num slide claro) e **arraste pro lado**,
+a partir de 40px. Clicar, arrastar ou usar a seta **para o carrossel por 10
+segundos** naquele slide; passados os 10s ele volta a passar sozinho. Tocar de
+novo dentro desses 10s recomeça a contagem, senão o segundo toque herdaria o
+resto da parada do primeiro.
+
+Dois detalhes que não são enfeite:
+
+- a capa é `touch-action:pan-y`. Sem isso o Chrome do celular decide no meio do
+  gesto que o arraste horizontal era rolagem, manda `pointercancel` e o swipe
+  morre.
+- seta e arraste saem os dois do mesmo `pointerup`, e o `pointerup` fica na
+  **janela**, não na capa: soltar o dedo fora da caixa não dispararia o da
+  capa e o carrossel voltaria a passar no meio do gesto.
+- **não usar `setPointerCapture` aqui.** A primeira versão prendia o ponteiro
+  na capa e deixava a seta no `click` do botão. No desktop ia; no celular não,
+  porque com o ponteiro preso o `click` do toque é entregue à capa e não ao
+  botão, e a seta virava enfeite. O Caio pegou isso em produção em 18/09/2026.
+- a seta só conta se o dedo **soltar em cima da mesma seta** onde apertou.
+- o `click` do botão continua lá, mas só atende teclado (`e.detail === 0`).
+  Sem essa guarda o mouse contaria duas vezes, no `pointerup` e no `click`.
+
+Com `prefers-reduced-motion` ele continua não passando sozinho, mas as setas
+valem: aí a troca é escolha da pessoa, não animação solta.
+
+O `<h1>` "Climatização industrial e empresarial" **fica por cima das fotos**, no
+alto da caixa, e não mais acima dela: no fluxo ele comia uma faixa da primeira
+tela e empurrava a foto pra baixo. O véu escuro atrás dele não é enfeite, é o
+que segura a leitura — o desenho técnico do prédio é quase branco no topo e o
+texto é claro.
+
+O que segura tudo isso é o `tools/hero_slides.py`: ele entrega os slides
+já em 1600x900, então o HTML não corta nem estica nada e a página não muda de
+altura a cada troca. Cada foto chega nesse formato de um jeito:
+
+- os dois renders do prédio têm fundo liso, então o fundo é **esticado** pros
+  lados. Não se perde um pixel do desenho e não dá pra ver a emenda.
+- as fotos de obra são **recortadas**, com um foco vertical por foto.
+- as fotos de obra levam a marca d'água; os renders não, porque a logo branca
+  sumiria no fundo claro deles.
+
+Os arquivos que alimentam o script moram em `tools/fotos-originais/`, inclusive
+os dois renders — eles saíram de `assets/` quando deixaram de ser servidos.
+
+O carrossel para quando a aba sai da frente, e com `prefers-reduced-motion` ele
+nem começa: fica na primeira foto, parada. A troca também espera a próxima foto
+estar carregada, senão entraria um quadro vazio no meio.
+
+## O cano saiu (20/09/2026, pedido do cliente)
+
+A faixa com os nomes dos serviços que andava sozinha logo abaixo da hero — o
+**cano**, herdado da V6/V7 — não existe mais. O cliente pediu pra tirar em
+20/09/2026.
+
+Saiu o HTML da faixa, o CSS (`.cano-band`, `.cano`, `.cano__in` e o
+`@keyframes cano-flow`) e a linha dela no bloco `prefers-reduced-motion`. A
+hero continua como estava: carrossel de quatro fotos, com seta e arraste.
+
+Na mesma conversa cheguei a tirar as outras três fotos da hero junto, e o Caio
+pediu pra voltar: **era só o cano**. A hero fica como está até ele pedir outra
+coisa.
 
 ## Decisões de layout (17/09/2026, pedidos do cliente)
 
