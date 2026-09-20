@@ -34,7 +34,7 @@ entrou só em `title`, `description`, `alt` e dados estruturados.
 - `loading`, `width`, `height` e `decoding` em todas as imagens, `preload` nas
   duas que aparecem antes de rolar, e quatro fotos sem uso removidas da `main`.
 - **Open Graph e Twitter Card**: colar o link no WhatsApp agora mostra prévia
-  (`assets/og-arclimtec.jpg`). Antes não mostrava nada.
+  (`assets/og-arclimtec-condensadoras.jpg`). Antes não mostrava nada.
 - **Dados estruturados `HVACBusiness`**, `robots.txt`, `sitemap.xml`,
   `canonical`, favicon, apple-touch-icon e webmanifest.
 - Serviços viraram `h3`, que estava pulando de `h2` pra `h4`.

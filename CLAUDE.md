@@ -342,7 +342,17 @@ estar carregada, senão entraria um quadro vazio no meio.
   explicitamente pelo Dockerfile. Arquivo novo na raiz precisa entrar lá.
 - Dados estruturados `HVACBusiness` em JSON-LD no fim do `<body>`: CNPJ,
   endereço, telefone, fundação, o diretor, cidades atendidas e os 8 serviços.
-- Imagem de compartilhamento: `assets/og-arclimtec.jpg`, 1200x630.
+- Imagem de compartilhamento: `assets/og-arclimtec-condensadoras.jpg`, 1200x630,
+  gerada por **`python3 tools/og_image.py`** a partir do original da primeira
+  foto da hero. Era o render do prédio, a arte que o cliente tirou da hero em
+  18/09; em 20/09/2026 ele viu o render na prévia do link compartilhado e pediu
+  a primeira foto do carrossel no lugar.
+  **Trocar a foto do compartilhamento = trocar o nome do arquivo junto.**
+  WhatsApp, Facebook e a prévia do Google guardam a prévia pela URL da imagem,
+  e as fotos saem daqui com `max-age` de 30 dias: gravar outra foto com o mesmo
+  nome deixaria muita gente vendo a antiga por semanas. O nome aparece em
+  `index.html` (og:image, twitter:image e o `image` do JSON-LD), no
+  `tools/og_image.py` e no `README.md`.
 - **O domínio está escrito como `arclimtec.com.br`** em `index.html`,
   `robots.txt` e `sitemap.xml`. Era uma suposição. Se o domínio comprado for
   outro, trocar nos três.
