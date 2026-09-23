@@ -47,11 +47,11 @@ na sua branch, como registro. Detalhe de cada uma no `README.md`.
 
 Feito hoje:
 
-- Galeria de obras com 9 fotos. Cada card mostra a obra e a cidade que o
-  cliente informou: Ortobom (Simões Filho/BA), cinema Cinesercla (Campina
-  Grande/PB), usina termelétrica (Maracanaú/CE), usina termelétrica Borborema
-  Energética, academia Smart Fit e Sam's Club. Os cards 06, 07 e 09 não têm
-  obra porque o cliente não informou.
+- Galeria de obras com 9 fotos (depois 11, ver 23/09/2026 abaixo). Cada card
+  mostra a obra e a cidade que o cliente informou: Ortobom (Simões Filho/BA),
+  cinema Cinesercla (Campina Grande/PB), usina termelétrica (Maracanaú/CE),
+  usina termelétrica Borborema Energética, academia Smart Fit e Sam's Club. Os
+  cards 06, 07 e 09 não têm obra porque o cliente não informou.
 - Cartão do diretor em "Quem somos" e CNPJ no rodapé.
 - **Preparo de produção**: WebP, cache, dados estruturados, Open Graph,
   sitemap, robots e favicon. Ver as duas seções seguintes.
@@ -315,6 +315,48 @@ hero continua como estava: carrossel de quatro fotos, com seta e arraste.
 Na mesma conversa cheguei a tirar as outras três fotos da hero junto, e o Caio
 pediu pra voltar: **era só o cano**. A hero fica como está até ele pedir outra
 coisa.
+
+## Manutenção com medição + duas obras novas (23/09/2026)
+
+Nova seção **"Manutenção com medição"**, entre "Nossos serviços" e "Portfólio
+de clientes", `id="manutencao"`: coluna de texto à esquerda (Preventiva
+periódica, Corretiva emergencial, PMOC documentado + botão de WhatsApp) e
+mosaico 2x2 de 4 fotos à direita (`.manut__grid`, `.manut__fotos`). Layout
+decidido pelo Caio em 21/09/2026 ("Texto ao lado das fotos"), mas só
+implementado agora — na sessão de 21/09 cheguei a ler o CSS pra montar e
+pausei pro assunto do e-mail do domínio, e nunca voltei.
+
+As 4 fotos do mosaico (`p-manutencao-*.jpg`) são todas 960x1280 ou perto disso
+(quase 3/4 exato), por isso `.manut__fotos img{aspect-ratio:3/4}` não corta
+quase nada. Isto expôs uma limitação do `marca_dagua.py`: ele assumia sempre
+`CARD = 4/3` (o card da galeria) pra calcular onde a marca cabe, e carimbava
+essas fotos como se fossem cortadas em 4/3 — o que não é o caso na mosaico.
+Criei `CARD_POR_FOTO` no script pra essas 4 fotos usarem 3/4 no cálculo.
+Qualquer foto nova que não seja pro card 4/3 da galeria precisa entrar nesse
+dicionário, senão a marca sai posicionada errado (não necessariamente cortada,
+mas fora do canto onde deveria ficar).
+
+Duas fotos de obra novas na galeria (cards 10 e 11): **plenum isolado
+termicamente no cinema Cinesercla** (Campina Grande/PB) e **climatizadores com
+rede dutada externa na Thermomatic** — as duas "acrescenta na parte de
+projetos", a pedido do Caio. Thermomatic é o cliente (obra feita nas
+instalações dela, confirmado por ele em 21/09/2026), mas a cidade continua sem
+confirmar — o card ficou só com `<em>Thermomatic</em>`, sem cidade, no mesmo
+padrão que o card 04 (Borborema Energética) já usava pra empresa sem cidade
+informada.
+
+**Pendente, não decidido comigo:**
+- Se entra um link "Manutenção" no menu (cabeçalho, painel mobile e rodapé —
+  são 3 lugares, ver "Contato" acima pro mesmo tipo de duplicação). Não
+  adicionei: preferi não mexer no menu sem confirmação, já que a seção nova já
+  fica visível rolando a página logo depois de Serviços.
+- Cidade da obra na Thermomatic.
+- O degradê de fundo (`.page`, ver comentário dele) tem 4 paradas em
+  porcentagem da altura da página inteira; a seção nova empurra tudo que vem
+  depois pra baixo, o que desloca onde cada parada cai em pixel. Conferir
+  visualmente se "Portfólio de clientes" ainda troca de cor no lugar certo
+  (o comentário do `.page` explica o motivo) depois de qualquer mudança de
+  altura nas seções antes dele.
 
 ## Decisões de layout (17/09/2026, pedidos do cliente)
 

@@ -26,6 +26,16 @@ DESTINO = RAIZ / "assets"
 LOGO = RAIZ / "assets" / "logo-branca.png"
 
 CARD = 4 / 3              # .card img { aspect-ratio:4/3 }
+# Fotos que não vão pro card 4/3 da galeria: a mosaico de "Manutenção com
+# medição" é 3/4 (.manut__fotos img { aspect-ratio:3/4 }). Sem isto o script
+# calcularia a área visível como se fosse cortada em 4/3, e a marca cairia no
+# lugar errado numa foto que na verdade aparece quase inteira.
+CARD_POR_FOTO = {
+    "p-manutencao-pressao-eletrica.jpg": 3 / 4,
+    "p-manutencao-compressores.jpg": 3 / 4,
+    "p-manutencao-temperatura-duto.jpg": 3 / 4,
+    "p-manutencao-superaquecimento.jpg": 3 / 4,
+}
 ZOOM_HOVER = 1.02         # .card:hover img { transform: scale(1.02) }
 LARGURA_MARCA = 0.22      # largura da logo, em fração da largura visível
 # O respiro sai da MENOR dimensão visível, não da largura: numa foto deitada a
@@ -45,6 +55,7 @@ POSICAO = {
     "p-cassete-apartamento.jpg": (0.5, 0.30),
     "p-virotubo-loja.jpg": (0.5, 0.33),
     "p-dutos-isolamento.jpg": (0.60, 0.5),
+    "p-cinesercla-plenum.jpg": (0.5, 0.35),
 }
 
 # Rodar o script recarimba todas de uma vez, sempre a partir do original limpo
@@ -59,22 +70,29 @@ FOTOS = [
     "p-cassete-apartamento.jpg",
     "p-virotubo-loja.jpg",
     "p-dutos-isolamento.jpg",
+    "p-cinesercla-plenum.jpg",
+    "p-thermomatic-climatizadores.jpg",
+    "p-manutencao-pressao-eletrica.jpg",
+    "p-manutencao-compressores.jpg",
+    "p-manutencao-temperatura-duto.jpg",
+    "p-manutencao-superaquecimento.jpg",
 ]
 
 
-def area_visivel(largura, altura, posicao=(0.5, 0.5)):
+def area_visivel(largura, altura, posicao=(0.5, 0.5), card=CARD):
     """Retângulo da foto que de fato aparece no card.
 
-    O card é 4/3 com object-fit:cover: a foto cobre o card inteiro e o que
-    não couber é cortado. Foto mais larga que 4/3 perde as laterais, foto
-    mais alta perde topo e base, e o object-position decide de que lado sai
-    o corte. Desconta também a folga do zoom do hover, senão a marca encosta
-    na borda quando o card cresce.
+    O card é 4/3 com object-fit:cover (ou 3/4 na mosaico de manutenção,
+    via `card=`): a foto cobre o card inteiro e o que não couber é cortado.
+    Foto mais larga que o alvo perde as laterais, foto mais alta perde topo
+    e base, e o object-position decide de que lado sai o corte. Desconta
+    também a folga do zoom do hover, senão a marca encosta na borda quando o
+    card cresce.
     """
-    if largura / altura > CARD:       # deitada demais: corta as laterais
-        vis_l, vis_a = altura * CARD, altura
+    if largura / altura > card:       # deitada demais: corta as laterais
+        vis_l, vis_a = altura * card, altura
     else:                             # em pé demais: corta topo e base
-        vis_l, vis_a = largura, largura / CARD
+        vis_l, vis_a = largura, largura / card
 
     vis_l /= ZOOM_HOVER
     vis_a /= ZOOM_HOVER
@@ -123,7 +141,9 @@ def main():
         if not origem.exists():
             raise SystemExit(f"falta o original {origem}")
         foto = Image.open(origem).convert("RGB")
-        visivel = area_visivel(*foto.size, POSICAO.get(nome, (0.5, 0.5)))
+        visivel = area_visivel(
+            *foto.size, POSICAO.get(nome, (0.5, 0.5)), card=CARD_POR_FOTO.get(nome, CARD)
+        )
         carimba(foto, logo, visivel).save(
             DESTINO / nome, quality=QUALIDADE, optimize=True, progressive=True
         )
