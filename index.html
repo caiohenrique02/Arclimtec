@@ -302,6 +302,9 @@
   .manut__fotos img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:var(--r-md);
     box-shadow:var(--shadow-1);filter:saturate(.9);transition:filter .4s,transform .4s}
   .manut__fotos img:hover{filter:saturate(1.05);transform:translateY(-3px)}
+  /* botão mais discreto aqui: menor e sem o verde do zap, que ficava chamativo demais nessa seção */
+  .manut .btn{padding:11px 22px;font-size:14.5px;letter-spacing:.07em;gap:8px}
+  .manut .btn svg{width:16px;height:16px}
 
   /* ===== botão de whatsapp em cada box — pílula com o assunto por extenso, não só o ícone ===== */
   .zap-box{z-index:6;display:inline-flex;align-items:center;gap:9px;
@@ -714,7 +717,7 @@
           <li><b>Corretiva emergencial</b><span>Atendimento rápido quando o sistema já parou ou está gelando menos do que deveria.</span></li>
           <li><b>PMOC documentado</b><span>Plano de manutenção, operação e controle com registro de cada visita.</span></li>
         </ul>
-        <a class="btn btn--zap" href="https://wa.me/558330998606?text=Ol%C3%A1!%20Vi%20no%20site%20a%20manuten%C3%A7%C3%A3o%20com%20medi%C3%A7%C3%A3o.%20Queria%20saber%20mais%20sobre%20o%20contrato%20pro%20meu%20equipamento." target="_blank" rel="noopener">
+        <a class="btn btn--out-light" href="https://wa.me/558330998606?text=Ol%C3%A1!%20Vi%20no%20site%20a%20manuten%C3%A7%C3%A3o%20com%20medi%C3%A7%C3%A3o.%20Queria%20saber%20mais%20sobre%20o%20contrato%20pro%20meu%20equipamento." target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.5 0-1.1 0-3.3-1.1s-3.6-3.6-3.7-3.8c-.2-.3-.9-1.3-.9-2.4s.6-1.7.8-1.9c.2-.2.4-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.1.3.6 1.1 1.3 1.7.9.8 1.6 1.1 1.9 1.2.2.1.4 0 .5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.4.5s0 .8-.1 1.1z"/></svg>
           Falar no WhatsApp
         </a>
