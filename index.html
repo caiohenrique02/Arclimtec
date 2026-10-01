@@ -480,6 +480,8 @@
   .foot__list{list-style:none;display:flex;flex-direction:column;gap:11px;font-size:15.5px;color:rgba(255,255,255,.88)}
   .foot__list a:hover{color:var(--frio-2)}
   .foot__cta{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+  /* mapa do rodapé: só existe no PC */
+  .foot__mapa{display:none}
   .foot__bottom{display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:13.5px;
     color:rgba(255,255,255,.55);margin-top:30px}
   .foot__bottom .sp{margin-left:auto}
@@ -722,6 +724,16 @@
     .manut__fotos{gap:10px}
     .manut .btn{padding:8px 16px;font-size:12.5px}
     .manut .btn svg{width:14px;height:14px}
+    /* rodapé com o mapa como quarta coluna, ao lado do contato */
+    .foot__top{grid-template-columns:1.1fr .8fr 1fr 1.3fr;gap:40px}
+    .foot__mapa{display:block}
+    .mapa{position:relative;display:block;height:190px;border-radius:var(--r-md);overflow:hidden;
+      border:1px solid rgba(255,255,255,.18);box-shadow:0 14px 30px -18px rgba(0,0,0,.6)}
+    .mapa iframe{width:100%;height:100%;border:0;display:block;pointer-events:none}
+    .mapa__dica{position:absolute;left:10px;bottom:10px;padding:6px 11px;border-radius:999px;
+      background:var(--azul-deep);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;
+      font-size:12px;letter-spacing:.1em;text-transform:uppercase;transition:background .22s,color .22s}
+    .mapa:hover .mapa__dica{background:var(--frio);color:#04121F}
     .card__b i,.card__b b{display:none}
     .card__pc{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
       line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin-bottom:6px}
@@ -1037,6 +1049,15 @@
           <a class="btn btn--out-light" href="tel:+5583998253434">83 99825-3434</a>
           <span class="foot__list"><a href="https://instagram.com/arclimtec" target="_blank" rel="noopener">@arclimtec no Instagram</a></span>
         </div>
+      </div>
+      <!-- mapa só no PC (ver bloco V18). O iframe não recebe clique: quem clica
+           é o link por cima, que abre o endereço no Google Maps. -->
+      <div class="foot__mapa">
+        <h5>Onde estamos</h5>
+        <a class="mapa" href="https://www.google.com/maps/search/?api=1&amp;query=Rua%20Ladislau%20Rodrigues%20de%20Souza%2C%20323%2C%20Centen%C3%A1rio%2C%20Campina%20Grande%20-%20PB%2C%2058107-074" target="_blank" rel="noopener" aria-label="Abrir a localização da Arclimtec no Google Maps">
+          <iframe src="https://maps.google.com/maps?q=Rua%20Ladislau%20Rodrigues%20de%20Souza%2C%20323%2C%20Centen%C3%A1rio%2C%20Campina%20Grande%20-%20PB%2C%2058107-074&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa com a localização da Arclimtec" tabindex="-1" aria-hidden="true"></iframe>
+          <span class="mapa__dica">Abrir no Google Maps</span>
+        </a>
       </div>
     </div>
     <div class="foot__bottom">
