@@ -677,8 +677,10 @@
        volta a ser 16/9 e a largura sai da altura que sobra na tela (barra de
        54px, respiro de 14px e a faixa de ~110px da próxima seção). Em tela
        larga ela fica mais estreita que a janela, centralizada e com canto
-       arredondado, em vez de sangrar até as bordas. */
-    .capa{--capa-w:min(100vw - 48px, (100svh - 54px - 14px - 110px) * 16 / 9);
+       arredondado, em vez de sangrar até as bordas. O `* 1.2` deixa a capa 20%
+       maior que a altura livre (pedido de 01/10/2026): a próxima seção desce um
+       pouco, e em tela 16:10 a largura bate antes no limite de 16px por lado. */
+    .capa{--capa-w:min(100vw - 32px, (100svh - 54px - 14px - 110px) * 16 / 9 * 1.2);
       aspect-ratio:16/9;height:auto;min-height:0;width:var(--capa-w);
       margin:14px calc(50% - var(--capa-w) / 2) 0;border-radius:var(--r-md)}
     .card__b i,.card__b b{display:none}
