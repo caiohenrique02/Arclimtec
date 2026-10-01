@@ -764,7 +764,10 @@
        a cada passo */
     .obras{--foto-w:min(460px, (100svh - 360px) * 4 / 3)}
     .obras .wrap--obras{width:calc(var(--foto-w) * 2 + 20px);max-width:100%;padding:0}
-    .obras .card{flex:0 0 var(--foto-w)}
+    /* todos os cards com a mesma altura: o trilho já estica os cards até o
+       mais alto, e a faixa azul do texto cresce pra preencher o que sobra */
+    .obras .card{flex:0 0 var(--foto-w);display:flex;flex-direction:column}
+    .obras .card__b{flex:1}
     /* número de cada foto: de 32px para 14px */
     .card__n{font-size:14px;left:10px;top:8px}
     .card__b i,.card__b b{display:none}
