@@ -663,25 +663,25 @@
     .foot__list{font-size:14.5px;gap:9px}
   }
   /* ===== V18 — ajustes SÓ PC (>=981px), pedido do Caio em 01/10/2026 =====
-     Barra branca, 20% mais alta que a da V17 (77px, logo de 48px), sem a faixa escura ao lado da logo e com o Orçamento só
+     Barra branca e alta (92px, logo de 58px, a mesma medida de antes da V17), sem a faixa escura ao lado da logo e com o Orçamento só
      em negrito, sem o fundo azul. Nos cards das obras sai o par
      categoria + nome grande: fica um título só (.card__pc), no tamanho que o
      nome grande tinha. No celular o card continua com <i> e <b>. */
   @media (min-width:981px){
     header.nav{background:#fff}
-    .nav__in{height:77px}
-    .nav__in img{height:48px}
+    .nav__in{height:92px}
+    .nav__in img{height:58px}
     .brand__chip{display:none}
     .nav .btn--frio{background:none;color:var(--ink);font-weight:800;padding:8px 6px}
     .nav .btn--frio:hover{background:none;color:var(--azul-deep);box-shadow:none;transform:none}
     /* a capa não corta mais as fotos no PC: os slides são 16/9, então a caixa
        volta a ser 16/9 e a largura sai da altura que sobra na tela (barra de
-       77px e a faixa de ~110px da próxima seção). Em tela
+       92px e a faixa de ~110px da próxima seção). Em tela
        larga ela fica mais estreita que a janela, centralizada, encostada na
        barra e com os cantos de baixo arredondados, em vez de sangrar até as bordas. O `* 1.2` deixa a capa 20%
        maior que a altura livre (pedido de 01/10/2026): a próxima seção desce um
        pouco, e em tela 16:10 a largura bate antes no limite de 16px por lado. */
-    .capa{--capa-w:min(100vw - 32px, (100svh - 77px - 110px) * 16 / 9 * 1.2);
+    .capa{--capa-w:min(100vw - 32px, (100svh - 92px - 110px) * 16 / 9 * 1.2);
       aspect-ratio:16/9;height:auto;min-height:0;width:var(--capa-w);
       margin:0 calc(50% - var(--capa-w) / 2);border-radius:0 0 var(--r-md) var(--r-md)}
     .card__b i,.card__b b{display:none}
