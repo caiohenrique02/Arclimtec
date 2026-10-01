@@ -768,6 +768,9 @@
        mais alto, e a faixa azul do texto cresce pra preencher o que sobra */
     .obras .card{flex:0 0 var(--foto-w);display:flex;flex-direction:column}
     .obras .card__b{flex:1}
+    /* obra 04 (VRF Hitachi) é foto em pé: no 4/3 o cover cortava o equipamento
+       em cima e embaixo. Aqui ela entra inteira, com faixa escura dos lados */
+    .obras .card img[src*="p-vrf-hitachi"]{object-fit:contain;object-position:center;background:#061B36}
     /* número de cada foto: de 32px para 14px */
     .card__n{font-size:14px;left:10px;top:8px}
     /* rodapé sem o bloco chapado: deixa o degradê da página passar por cima e
