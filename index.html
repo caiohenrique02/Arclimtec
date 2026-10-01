@@ -753,10 +753,13 @@
       background:var(--azul-deep);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;
       font-size:12px;letter-spacing:.1em;text-transform:uppercase;transition:background .22s,color .22s}
     .mapa:hover .mapa__dica{background:var(--frio);color:#04121F}
-    /* prévia das obras com a altura presa à tela: título, foto e o botão
-       "Ver obras" cabem juntos sem rolar (barra 92px + respiro, título e botão
-       somam ~360px; a foto é 4/3, daí o * 4 / 3 pra virar largura) */
-    .obras__previa{max-width:min(460px, (100svh - 360px) * 4 / 3)}
+    /* obras: no PC não tem prévia nem galeria por cima. O JS traz o carrossel
+       da galeria pra dentro da seção e cada foto fica do tamanho que a prévia
+       tinha: largura presa à altura da tela (barra 92px + respiro, título e
+       controles somam ~360px; a foto é 4/3, daí o * 4 / 3), no máximo 460px */
+    .obras__previa,.obras__btn{display:none}
+    .obras .wrap--obras{width:100%;padding:0}
+    .obras .card{flex:0 0 min(460px, (100svh - 360px) * 4 / 3)}
     .card__b i,.card__b b{display:none}
     .card__pc{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
       line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin-bottom:6px}
@@ -1375,6 +1378,29 @@
     fechar.addEventListener('click', fecharGaleria);
     galeria.addEventListener('click', e=>{ if(e.target === galeria) fecharGaleria(); });
     addEventListener('keydown', e=>{ if(e.key === 'Escape' && !galeria.hidden) fecharGaleria(); });
+  })();
+
+  /* ===== obras no PC: o carrossel sai da galeria e fica direto na seção =====
+     No celular continua a prévia com o botão que abre a galeria por cima.
+     Se a janela cruzar os 981px, o carrossel volta pro lugar certo. */
+  (function(){
+    const conteudo = document.querySelector('#galeria > .wrap');
+    const obras = document.querySelector('#fotos .obras');
+    const galeria = document.getElementById('galeria');
+    if(!conteudo || !obras) return;
+    const noPC = matchMedia('(min-width:981px)');
+    function posicionar(){
+      if(noPC.matches && conteudo.parentNode !== obras){
+        conteudo.classList.add('wrap--obras');
+        obras.appendChild(conteudo);
+      } else if(!noPC.matches && conteudo.parentNode !== galeria){
+        conteudo.classList.remove('wrap--obras');
+        galeria.appendChild(conteudo);
+      } else return;
+      dispatchEvent(new Event('resize'));
+    }
+    noPC.addEventListener('change', posicionar);
+    posicionar();
   })();
 
   /* ===== botão de WhatsApp em cada box, com a frase do que a pessoa abriu ===== */
