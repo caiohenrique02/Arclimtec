@@ -669,7 +669,8 @@
      nome grande tinha. No celular o card continua com <i> e <b>. */
   @media (min-width:981px){
     header.nav{background:#fff}
-    .nav__in{height:92px}
+    /* a barra sai do .wrap de 1120px: logo e Orçamento vão quase até as bordas */
+    .nav__in{height:92px;max-width:none;padding:0 22px}
     .nav__in img{height:58px}
     .brand__chip{display:none}
     .nav .btn--frio{background:none;color:var(--ink);font-weight:800;padding:8px 6px}
