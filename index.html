@@ -396,6 +396,8 @@
   .card__b em{font-style:normal;display:block;font-family:"Barlow Condensed",sans-serif;font-weight:600;
     font-size:12.5px;letter-spacing:.05em;color:#8FB9DE;margin:-2px 0 6px}
   .card__b p{font-size:12.5px;color:#C6DAEE;font-weight:300;line-height:1.4}
+  /* título único dos cards, só no PC (ver bloco V18) */
+  .card__pc{display:none}
 
   /* ===== carrossel: passa 2 fotos por vez ===== */
   .rail-controls{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:30px}
@@ -660,6 +662,22 @@
     .foot__brand p{font-size:14px}
     .foot__list{font-size:14.5px;gap:9px}
   }
+  /* ===== V18 — ajustes SÓ PC (>=981px), pedido do Caio em 01/10/2026 =====
+     Barra mais fina, sem a faixa escura ao lado da logo e com o Orçamento só
+     em negrito, sem o fundo azul. Nos cards das obras sai o par
+     categoria + nome grande: fica um título só (.card__pc), no tamanho que o
+     nome grande tinha. No celular o card continua com <i> e <b>. */
+  @media (min-width:981px){
+    .nav__in{height:54px}
+    .nav__in img{height:34px}
+    .brand__chip{display:none}
+    .nav .btn--frio{background:none;color:var(--ink);font-weight:800;padding:8px 6px}
+    .nav .btn--frio:hover{background:none;color:var(--azul-deep);box-shadow:none;transform:none}
+    .capa{height:calc(100svh - 54px - 110px)}
+    .card__b i,.card__b b{display:none}
+    .card__pc{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
+      line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin-bottom:6px}
+  }
   @media (prefers-reduced-motion:reduce){
     .rv{opacity:1;transform:none;transition:none}
     .zap-float::before{animation:none}
@@ -852,37 +870,37 @@
     <div class="rail" id="trilho">
       <article class="card" data-zap="Olá! Vi no site a obra de rede dutada de grande área. Preciso de algo parecido, podem me orçar?"><span class="card__n">01</span>
         <img loading="lazy" decoding="async" width="1090" height="974" src="assets/p-dutos-galpao-2.jpg" alt="Rede de dutos de ar condicionado suspensa na estrutura metálica de galpão industrial da Ortobom, em Simões Filho (BA)">
-        <div class="card__b"><i>Industrial</i><b>Dutos em galpão</b><em>Ortobom · Simões Filho (BA)</em><p>Rede suspensa na estrutura metálica, integrada à iluminação e ao sistema de combate a incêndio.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Sistema dutado</strong><i>Industrial</i><b>Dutos em galpão</b><em>Ortobom · Simões Filho (BA)</em><p>Rede suspensa na estrutura metálica, integrada à iluminação e ao sistema de combate a incêndio.</p></div></article>
       <article class="card" data-zap="Olá! Preciso de um sistema de grande capacidade, tipo a bateria de condensadoras que vi no site."><span class="card__n">02</span>
         <img loading="lazy" decoding="async" width="1280" height="720" src="assets/p-carrier-laje.jpg" alt="Bateria de condensadoras de ar condicionado em laje técnica do cinema Cinesercla, em Campina Grande (PB)">
-        <div class="card__b"><i>Grande capacidade</i><b>Bateria de condensadoras</b><em>Cinema Cinesercla · Campina Grande (PB)</em><p>Seis unidades em laje técnica, cada uma em base própria, com interligação e drenagem dedicadas.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Bateria de condensadoras</strong><i>Grande capacidade</i><b>Bateria de condensadoras</b><em>Cinema Cinesercla · Campina Grande (PB)</em><p>Seis unidades em laje técnica, cada uma em base própria, com interligação e drenagem dedicadas.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site a instalação de sistema VRF. Queria falar sobre VRF para o meu prédio."><span class="card__n">03</span>
         <img loading="lazy" decoding="async" width="960" height="1280" src="assets/p-vrf-hitachi.jpg" alt="Unidade externa de sistema VRF de ar condicionado em passarela técnica de usina termelétrica em Maracanaú (CE)">
-        <div class="card__b"><i>Sistema VRF</i><b>Passarela técnica</b><em>Usina termelétrica · Maracanaú (CE)</em><p>Unidade externa instalada em passarela com grade de piso e guarda-corpo.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Sistema VRF</strong><i>Sistema VRF</i><b>Passarela técnica</b><em>Usina termelétrica · Maracanaú (CE)</em><p>Unidade externa instalada em passarela com grade de piso e guarda-corpo.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site o rooftop em cobertura industrial. Queria um orçamento parecido."><span class="card__n">04</span>
         <img loading="lazy" decoding="async" width="1280" height="720" src="assets/p-selfcontained.jpg" alt="Rooftop de ar condicionado em cobertura industrial da usina termelétrica Borborema Energética">
-        <div class="card__b"><i>Rooftop</i><b>Cobertura industrial</b><em>Usina termelétrica Borborema Energética</em><p>Conjunto com plenum de insuflamento e condensadoras dedicadas.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Rooftop</strong><i>Rooftop</i><b>Cobertura industrial</b><em>Usina termelétrica Borborema Energética</em><p>Conjunto com plenum de insuflamento e condensadoras dedicadas.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site a montagem de casa de máquinas. Queria falar sobre um projeto assim."><span class="card__n">05</span>
         <img loading="lazy" decoding="async" width="1280" height="960" src="assets/p-casa-de-maquinas.jpg" alt="Fancoils de ar condicionado em série na casa de máquinas de uma academia Smart Fit">
-        <div class="card__b"><i>Casa de máquinas</i><b>Fancoils em série</b><em>Academia Smart Fit</em><p>Montagem alinhada, com filtro e dutos flexíveis prontos para interligação da rede.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Fancoils em série</strong><i>Casa de máquinas</i><b>Fancoils em série</b><em>Academia Smart Fit</em><p>Montagem alinhada, com filtro e dutos flexíveis prontos para interligação da rede.</p></div></article>
       <article class="card" data-zap="Olá! Tenho um parque de condensadoras e queria contratar a manutenção preventiva."><span class="card__n">06</span>
         <img loading="lazy" decoding="async" width="1280" height="720" src="assets/p-condensadoras-laje.jpg" alt="Parque de condensadoras de ar condicionado em laje, em manutenção preventiva">
-        <div class="card__b"><i>Manutenção</i><b>Parque de condensadoras</b><p>Preventiva em parque sobre laje impermeabilizada com argila expandida.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Parque de condensadoras</strong><i>Manutenção</i><b>Parque de condensadoras</b><p>Preventiva em parque sobre laje impermeabilizada com argila expandida.</p></div></article>
       <article class="card" data-zap="Olá! Queria instalar ar-condicionado cassete embutido no forro do meu apartamento."><span class="card__n">07</span>
         <img loading="lazy" decoding="async" width="960" height="1280" src="assets/p-cassete-apartamento.jpg" alt="Ar condicionado cassete embutido no forro de um apartamento">
-        <div class="card__b"><i>Residencial</i><b>Cassete em apartamento</b><p>Instalação embutida no forro, acabamento alinhado ao projeto de interiores.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Residencial</strong><i>Residencial</i><b>Cassete em apartamento</b><p>Instalação embutida no forro, acabamento alinhado ao projeto de interiores.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site a rede de duto Girotubo. Queria um orçamento para a minha loja."><span class="card__n">08</span>
         <img loading="lazy" decoding="async" width="576" height="1280" src="assets/p-virotubo-loja.jpg" alt="Rede de duto Girotubo de ar condicionado suspensa sobre a área de vendas do Sam's Club">
-        <div class="card__b"><i>Comercial</i><b>Rede de duto Girotubo</b><em>Sam's Club</em><p>Duto redondo pré-isolado suspenso na estrutura metálica, com as saídas de ar ao longo do trecho.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Rede de duto Girotubo</strong><i>Comercial</i><b>Rede de duto Girotubo</b><em>Sam's Club</em><p>Duto redondo pré-isolado suspenso na estrutura metálica, com as saídas de ar ao longo do trecho.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site os dutos com isolamento em manta de lã de vidro. Preciso de algo parecido."><span class="card__n">09</span>
         <img loading="lazy" decoding="async" width="1280" height="719" src="assets/p-dutos-isolamento.jpg" alt="Dutos de ar condicionado com isolamento externo em manta de lã de vidro com face aluminizada">
-        <div class="card__b"><i>Rede dutada</i><b>Dutos com isolamento</b><p>Duto convencional isolado com manta de lã de vidro de face aluminizada, montado ainda na fase de obra.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Dutos com isolamento</strong><i>Rede dutada</i><b>Dutos com isolamento</b><p>Duto convencional isolado com manta de lã de vidro de face aluminizada, montado ainda na fase de obra.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site o plenum isolado termicamente. Preciso de algo parecido, podem me orçar?"><span class="card__n">10</span>
         <img loading="lazy" decoding="async" width="773" height="1280" src="assets/p-cinesercla-plenum.jpg" alt="Plenum de insuflamento isolado termicamente, obra da Arclimtec no cinema Cinesercla, em Campina Grande (PB)">
-        <div class="card__b"><i>Isolamento térmico</i><b>Plenum de insuflamento</b><em>Cinema Cinesercla · Campina Grande (PB)</em><p>Plenum isolado com manta térmica e acabamento em fita aluminizada, ligado à casa de máquinas.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Dutos em MPU</strong><i>Isolamento térmico</i><b>Plenum de insuflamento</b><em>Cinema Cinesercla · Campina Grande (PB)</em><p>Plenum isolado com manta térmica e acabamento em fita aluminizada, ligado à casa de máquinas.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site a instalação de climatizadores com rede dutada externa. Podem me orçar algo parecido?"><span class="card__n">11</span>
         <img loading="lazy" decoding="async" width="1448" height="1086" src="assets/p-thermomatic-climatizadores.jpg" alt="Climatizadores e rede dutada externa instalados na Thermomatic">
-        <div class="card__b"><i>Industrial</i><b>Climatizadores e rede dutada</b><em>Thermomatic</em><p>Conjunto de climatizadores com rede dutada externa interligando as unidades à fachada industrial.</p></div></article>
+        <div class="card__b"><strong class="card__pc">Sistema de controle de umidade</strong><i>Industrial</i><b>Climatizadores e rede dutada</b><em>Thermomatic</em><p>Conjunto de climatizadores com rede dutada externa interligando as unidades à fachada industrial.</p></div></article>
     </div>
     <div class="rail-controls">
       <button class="rail-btn" id="trilhoPrev" aria-label="Fotos anteriores" type="button">
@@ -1199,13 +1217,25 @@
     let auto;
     function iniciarAuto(){ if(semMovimento) return; pararAuto(); auto = setInterval(proximo, 4200); }
     function pararAuto(){ clearInterval(auto); }
-    trilho.addEventListener('pointerenter', pararAuto);
-    trilho.addEventListener('pointerdown', pararAuto);
-    trilho.addEventListener('pointerleave', iniciarAuto);
+    // depois que a pessoa mexe, espera um tempo antes de voltar a andar:
+    // 30 s no PC, 2,6 s no celular. Um timer só, pra não empilhar retomadas.
+    const noPC = matchMedia('(min-width:981px)');
+    let retomar, mexeu = false;
+    function retomarDepois(){
+      clearTimeout(retomar);
+      retomar = setTimeout(iniciarAuto, noPC.matches ? 30000 : 2600);
+    }
+    function interagiu(){ mexeu = true; clearTimeout(retomar); pararAuto(); }
+    trilho.addEventListener('pointerenter', ()=>{ mexeu = false; clearTimeout(retomar); pararAuto(); });
+    trilho.addEventListener('pointerdown', interagiu);
+    trilho.addEventListener('wheel', interagiu, {passive:true});
+    // no PC, só passar o mouse por cima e sair volta a andar na hora;
+    // se clicou ou rolou, espera os 30 s
+    trilho.addEventListener('pointerleave', ()=>{ if(noPC.matches && mexeu) retomarDepois(); else iniciarAuto(); });
     // no toque o gesto que vira rolagem termina em pointercancel, e não em
     // pointerup: sem ouvir os dois, o carrossel parava de vez no celular
-    addEventListener('pointerup', ()=> setTimeout(iniciarAuto, 2600));
-    addEventListener('pointercancel', ()=> setTimeout(iniciarAuto, 2600));
+    addEventListener('pointerup', retomarDepois);
+    addEventListener('pointercancel', retomarDepois);
     iniciarAuto();
   })();
 
