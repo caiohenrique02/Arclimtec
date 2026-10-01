@@ -770,6 +770,14 @@
     .card__b i,.card__b b{display:none}
     .card__pc{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
       line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin-bottom:6px}
+    /* quando o card tem o nome da obra (<em>), ele vira o destaque e o tipo de
+       serviço (.card__pc) desce, menor; sem nome da obra, o .card__pc segue grande */
+    .card__b{display:flex;flex-direction:column}
+    .card__b em{order:1;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
+      line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin:0 0 4px}
+    .card__b:has(em) .card__pc{order:2;font-size:12.5px;font-weight:600;letter-spacing:.05em;
+      color:#8FB9DE;margin-bottom:6px}
+    .card__b p{order:3}
   }
   @media (prefers-reduced-motion:reduce){
     .rv{opacity:1;transform:none;transition:none}
