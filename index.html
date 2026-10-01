@@ -687,6 +687,17 @@
     .capa{--capa-w:min(100vw - 32px, (100svh - 92px - 110px) * 16 / 9 * 1.2);
       aspect-ratio:16/9;height:auto;min-height:0;width:var(--capa-w);
       margin:0 calc(50% - var(--capa-w) / 2);border-radius:0 0 var(--r-md) var(--r-md)}
+    /* serviços: sem a caixa branca, 30% menores (grade de 1120 para 784px,
+       ícone de 52 para 36px) e tudo num azul bem escuro, pra ler no fundo azul */
+    .grid-cap{max-width:784px;margin-inline:auto;gap:8px}
+    .gc{background:none;border:none;box-shadow:none;padding:12px 10px}
+    .gc:hover{box-shadow:none;transform:translateY(-4px)}
+    .gc__art{height:36px;margin-bottom:7px;background:none}
+    .gc__art svg{stroke:var(--azul-night)}
+    .gc .ic-fill{fill:var(--azul-night)}
+    .gc .ic-accent,.gc .ic-flange{stroke:var(--azul-night)}
+    .gc h3{font-size:16px;color:var(--azul-night)}
+    .gc p{font-size:11.5px;color:var(--azul-night)}
     .card__b i,.card__b b{display:none}
     .card__pc{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
       line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin-bottom:6px}
