@@ -672,10 +672,11 @@
     /* a barra sai do .wrap de 1120px: logo e Orçamento vão quase até as bordas */
     .nav__in{height:92px;max-width:none;padding:0 22px}
     .nav__in img{height:58px}
-    /* links 60% maiores que os 14,5px da V17 e mais espaçados */
-    .nav__links{font-size:23px;gap:56px}
+    /* links bem maiores que os 14,5px da V17 e espaçados; eram 23px com gap de
+       56px, desceram pra caber o quinto link (Manutenção) */
+    .nav__links{font-size:20px;gap:40px}
     .brand__chip{display:none}
-    .nav .btn--frio{background:none;color:var(--ink);font-weight:800;padding:8px 6px;font-size:23px;letter-spacing:.12em}
+    .nav .btn--frio{background:none;color:var(--ink);font-weight:800;padding:8px 6px;font-size:20px;letter-spacing:.12em}
     .nav .btn--frio:hover{background:none;color:var(--azul-deep);box-shadow:none;transform:none}
     /* a capa não corta mais as fotos no PC: os slides são 16/9, então a caixa
        volta a ser 16/9 e a largura sai da altura que sobra na tela (barra de
@@ -731,6 +732,7 @@
     <a href="#top" class="brand"><span class="brand__chip"></span><img decoding="async" width="1196" height="366" src="assets/logo.png" alt="Arclimtec Soluções em Climatização, empresa de ar condicionado em Campina Grande"></a>
     <nav class="nav__links">
       <a href="#servicos">Serviços</a>
+      <a href="#manutencao">Manutenção</a>
       <a href="#clientes">Clientes</a>
       <a href="#fotos">Obras</a>
       <a href="#empresa">Empresa</a>
