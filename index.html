@@ -676,7 +676,7 @@
        56px, desceram pra caber o quinto link (Manutenção) */
     .nav__links{font-size:20px;gap:40px}
     .brand__chip{display:none}
-    .nav .btn--frio{background:none;color:var(--ink);font-weight:800;padding:8px 6px;font-size:20px;letter-spacing:.12em}
+    .nav .btn--frio{background:none;color:var(--ink);font-weight:700;padding:8px 6px;font-size:20px;letter-spacing:.12em;line-height:1}
     .nav .btn--frio:hover{background:none;color:var(--azul-deep);box-shadow:none;transform:none}
     /* a capa não corta mais as fotos no PC: os slides são 16/9, então a caixa
        volta a ser 16/9 e a largura sai da altura que sobra na tela (barra de
@@ -710,6 +710,18 @@
     .sec__head h2{font-size:clamp(26px,3vw,42px)}
     .manut h2{font-size:clamp(24px,2.7vw,37px)}
     .about h2{font-size:clamp(28px,3.2vw,46px)}
+    /* manutenção na mesma escala dos serviços: bloco de 784px, textos e
+       fotos menores */
+    .manut{padding:48px 0}
+    .manut__grid{max-width:784px;margin-inline:auto;gap:36px}
+    .manut__lead{font-size:13px;margin-bottom:16px}
+    .manut__lista{gap:10px;margin-bottom:18px}
+    .manut__lista li{padding-left:12px}
+    .manut__lista b{font-size:16px}
+    .manut__lista span{font-size:11.5px}
+    .manut__fotos{gap:10px}
+    .manut .btn{padding:8px 16px;font-size:12.5px}
+    .manut .btn svg{width:14px;height:14px}
     .card__b i,.card__b b{display:none}
     .card__pc{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
       line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin-bottom:6px}
@@ -735,11 +747,11 @@
   <div class="wrap nav__in">
     <a href="#top" class="brand"><span class="brand__chip"></span><img decoding="async" width="1196" height="366" src="assets/logo.png" alt="Arclimtec Soluções em Climatização, empresa de ar condicionado em Campina Grande"></a>
     <nav class="nav__links">
-      <a href="#servicos">Serviços</a>
+      <a href="#empresa">Empresa</a>
+      <a href="#fotos">Obras</a>
       <a href="#manutencao">Manutenção</a>
       <a href="#clientes">Clientes</a>
-      <a href="#fotos">Obras</a>
-      <a href="#empresa">Empresa</a>
+      <a href="#servicos">Projetos</a>
     </nav>
     <a class="btn btn--frio" href="https://wa.me/558330998606?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20quero%20um%20or%C3%A7amento%20de%20climatiza%C3%A7%C3%A3o." target="_blank" rel="noopener">Orçamento</a>
     <button class="nav__menu" id="menuBtn" type="button" aria-label="Abrir menu"
