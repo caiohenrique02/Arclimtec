@@ -714,12 +714,19 @@
     /* serviços: sem a caixa branca, 30% menores (grade de 1120 para 784px,
        ícone de 52 para 36px) e tudo num azul bem escuro, pra ler no fundo azul */
     /* fundo bem clarinho só atrás dos serviços: um véu quase branco por cima do
-       degradê da página, que some nos últimos 110px (o respiro de baixo da seção, abaixo dos ícones) pra não marcar emenda
+       degradê da página, que some aos poucos nos últimos 300px, em várias paradas, pra a passagem pro azul ser longa e suave pra não marcar emenda
        com a seção de manutenção logo abaixo */
     .hero{background:linear-gradient(180deg,rgba(244,249,254,0) 40%,rgba(244,249,254,.93) 100%)}
     #servicos{background:linear-gradient(180deg,rgba(244,249,254,.93) 0,
-      rgba(238,246,253,.93) calc(100% - 110px),rgba(238,246,253,0) 100%);
-      padding-bottom:110px}
+      rgba(238,246,253,.93) calc(100% - 300px),
+      rgba(238,246,253,.86) calc(100% - 255px),
+      rgba(238,246,253,.72) calc(100% - 205px),
+      rgba(238,246,253,.54) calc(100% - 155px),
+      rgba(238,246,253,.36) calc(100% - 110px),
+      rgba(238,246,253,.2) calc(100% - 68px),
+      rgba(238,246,253,.08) calc(100% - 30px),
+      rgba(238,246,253,0) 100%);
+      padding-bottom:150px}
     .grid-cap{max-width:784px;margin-inline:auto;gap:8px}
     .gc{background:none;border:none;box-shadow:none;padding:12px 10px}
     .gc:hover{box-shadow:none;transform:translateY(-4px)}
