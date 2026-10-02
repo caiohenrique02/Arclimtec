@@ -3,28 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ar Condicionado Industrial em Campina Grande | Arclimtec</title>
-<meta name="description" content="Ar condicionado industrial, empresarial e residencial em Campina Grande/PB: projeto, instalação, rede dutada, sistema VRF, ventilação e exaustão, manutenção e PMOC.">
+<title>Ar Condicionado Industrial e Empresarial | Arclimtec</title>
+<meta name="description" content="Ar condicionado industrial, empresarial e residencial: projeto, instalação, rede dutada, sistema VRF, ventilação e exaustão, manutenção e PMOC.">
 <link rel="canonical" href="https://arclimtec.com.br/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="google-site-verification" content="1GRLbCV-gNUD8-9binnWm3LHPv4DUlhb52NXRvwIpYs" />
 <meta name="author" content="Arclimtec Soluções em Climatização">
 <meta name="geo.region" content="BR-PB">
 <meta name="geo.placename" content="Campina Grande">
+<!-- a cidade fica de fora do title, da description e da prévia de compartilhamento
+     (pedido do Caio em 01/10/2026: o resultado mostra só os serviços). A busca
+     local continua vindo daqui (geo), do JSON-LD (endereço e areaServed) e do texto
+     da página e do rodapé, que seguem citando Campina Grande -->
 
 <!-- prévia ao colar o link no WhatsApp, Instagram, Facebook e LinkedIn -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Arclimtec">
 <meta property="og:url" content="https://arclimtec.com.br/">
-<meta property="og:title" content="Arclimtec | Ar Condicionado Industrial em Campina Grande">
+<meta property="og:title" content="Arclimtec | Ar Condicionado Industrial e Empresarial">
 <meta property="og:description" content="Projeto, instalação, rede dutada, sistema VRF, ventilação e exaustão, manutenção e PMOC. Equipe própria, com 15 anos de experiência no mercado.">
 <meta property="og:image" content="https://arclimtec.com.br/assets/og-arclimtec-condensadoras.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Sete condensadoras Carrier instaladas na laje de um galpão, com a marca Arclimtec">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Arclimtec | Ar Condicionado Industrial em Campina Grande">
+<meta name="twitter:title" content="Arclimtec | Ar Condicionado Industrial e Empresarial">
 <meta name="twitter:description" content="Projeto, instalação, rede dutada, sistema VRF, ventilação e exaustão, manutenção e PMOC. Equipe própria, com 15 anos de experiência no mercado.">
 <meta name="twitter:image" content="https://arclimtec.com.br/assets/og-arclimtec-condensadoras.jpg">
 
@@ -759,6 +763,14 @@
   /* obra 04 (VRF Hitachi) é foto em pé: entra inteira, com faixa escura dos lados */
   .obras .card img[src*="p-vrf-hitachi"]{object-fit:contain;object-position:center;background:#061B36}
   .card__n{font-size:14px;left:10px;top:8px}
+  /* setas das obras nas laterais, uma de cada lado, e sem as bolinhas. Os
+     controles viram uma camada por cima do trilho com a altura da foto (4/3
+     de um card no celular), então as setas ficam no meio da foto */
+  .obras .wrap--obras{position:relative}
+  .obras .rail-controls{position:absolute;left:0;right:0;top:0;z-index:3;margin:0;padding:0 8px;
+    aspect-ratio:4/3;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+  .obras .rail-dots{display:none}
+  .obras .rail-btn{pointer-events:auto;background:rgba(6,27,54,.6);border-color:rgba(255,255,255,.45)}
   /* cores: o ciano dos destaques fica mais claro na empresa e no rodapé, e as
      seções em fundo claro usam texto azul-escuro */
   #empresa,footer{--frio:#7ED6FF;--frio-2:#A6E4FF}
@@ -815,6 +827,8 @@
     #fotos{padding-top:42px;padding-bottom:8px}
   }
   @media (max-width:420px){ .nav__in img{height:34px} }
+  /* tablet: dois cards por vez, então a faixa das setas tem a altura de duas fotos lado a lado */
+  @media (min-width:761px) and (max-width:980px){ .obras .rail-controls{aspect-ratio:8/3} }
 
   /* ===== V18 — medidas do PC (>=981px) ===== */
   @media (min-width:981px){
@@ -871,6 +885,11 @@
     .obras{--foto-w:min(460px, (100svh - 360px) * 4 / 3)}
     .obras .wrap--obras{width:calc(var(--foto-w) * 2 + 20px);max-width:100%}
     .obras .card{flex:0 0 var(--foto-w)}
+    /* setas fora do trilho, uma de cada lado; o trilho deixa 140px pra elas */
+    .obras .wrap--obras{max-width:calc(100% - 140px)}
+    .obras .rail-controls{aspect-ratio:8/3;padding:0}
+    .obras .rail-btn:first-child{margin-left:-66px}
+    .obras .rail-btn:last-child{margin-right:-66px}
   }
   /* PC estreito (981 a 1199px): com a logo de 72px os cinco links e o
      Orçamento não cabem no tamanho cheio, então encolhem um pouco */
