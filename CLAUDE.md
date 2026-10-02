@@ -365,6 +365,47 @@ informada.
   (o comentário do `.page` explica o motivo) depois de qualquer mudança de
   altura nas seções antes dele.
 
+## V18: redesenho de 01/10/2026 (pedidos do Caio, sessão longa)
+
+Começou "só no PC" e no fim da sessão ele pediu **tudo no celular também,
+menos as bordas da hero** (no celular a capa segue de borda a borda). O CSS
+está em dois blocos no fim do `<style>`:
+
+- **"V18 — visual (PC e celular)"**: cores, fundos e formatos. Vem depois dos
+  media queries de celular, então manda neles.
+- **"V18 — medidas do PC" (>=981px)**: vem depois do visual e só guarda
+  medida de tela grande (barra de 92px, logo 72px, capa 16/9 que não corta,
+  grade de 784px, três itens da manutenção lado a lado, duas fotos por vez
+  nas obras). Mexeu numa medida do PC, é ali.
+
+O que mudou, em resumo:
+
+- Barra branca, sem a faixa escura ao lado da logo; "Orçamento" é texto em
+  negrito, do tamanho dos links. Links no PC e no menu do celular: Empresa,
+  Obras, Manutenção, Clientes, **Projetos** (que leva a `#servicos`).
+- Degradê da página: uma mudança só, longa, do quase branco ao azul médio
+  (paradas de 8 em 8%). O Caio pediu várias vezes "mais longo e sutil" e
+  recusou abrir espaço vazio entre as seções pra isso. Por causa do fundo
+  claro, manutenção, clientes e o título das obras usam texto azul-escuro.
+- Serviços sem caixa branca, ícones e texto em azul-escuro, sobre véu claro.
+- Manutenção: título só "Manutenção", texto em cima centralizado, 5 fotos numa
+  faixa corrida (JS cria `.manut__faixa` e clona as fotos). Clientes: faixa
+  corrida das logos (`.cli__faixa`), mesmo esquema.
+- Obras: **não tem mais prévia nem galeria por cima**. O JS move o
+  `#galeria > .wrap` pra dentro de `#fotos .obras`; o HTML da galeria ficou
+  como fonte. Pausa de 30 s depois de mexer no carrossel.
+- Cards de obra: um título só (`.card__pc`); quando tem `<em>` (nome da obra),
+  ele vira o destaque e o serviço desce, menor. `<i>`/`<b>` continuam no HTML
+  (o botão do WhatsApp pega o título do `<b>`), mas não aparecem.
+- **Card com mais de uma foto** (`.card--grupo`): obras da mesma obra e
+  cidade num card só. Fotos em `.card__fotos`, um `.card__b` por foto, clicar
+  na foto mostra a próxima e troca o texto; "1/2", bolinhas e seta no hover
+  avisam. Hoje: Cinesercla Campina Grande (condensadoras + plenum), Protecta
+  (climatizadores + difusores) e Hospital HU Petrolina (duas fotos).
+  As duas fotos do HU vieram com nome "ChatGPT Image": confirmar com o cliente
+  que são fotos reais da obra, só tratadas.
+- Rodapé em degradê e com mapa do Google clicável (abre o endereço).
+
 ## Decisões de layout (17/09/2026, pedidos do cliente)
 
 - **Fotos da galeria**: todo card é 4/3 e a foto preenche ele por inteiro

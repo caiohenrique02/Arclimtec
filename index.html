@@ -305,8 +305,6 @@
   /* botão mais discreto aqui: menor e sem o verde do zap, que ficava chamativo demais nessa seção */
   .manut .btn{padding:11px 22px;font-size:14.5px;letter-spacing:.07em;gap:8px}
   .manut .btn svg{width:16px;height:16px}
-  /* cópias das fotos que o JS cria pra faixa corrida do PC; fora dele não aparecem */
-  .manut__foto--copia{display:none}
 
   /* ===== botão de whatsapp em cada box — pílula com o assunto por extenso, não só o ícone ===== */
   .zap-box{z-index:6;display:inline-flex;align-items:center;gap:9px;
@@ -419,8 +417,6 @@
   .card__pontos{position:absolute;left:0;right:0;bottom:9px;z-index:2;display:flex;justify-content:center;gap:5px;pointer-events:none}
   .card__pontos i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);transition:background .25s,transform .25s}
   .card__pontos i.on{background:#fff;transform:scale(1.2)}
-  /* título único dos cards, só no PC (ver bloco V18) */
-  .card__pc{display:none}
 
   /* ===== carrossel: passa 2 fotos por vez ===== */
   .rail-controls{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:30px}
@@ -515,8 +511,6 @@
   .foot__list{list-style:none;display:flex;flex-direction:column;gap:11px;font-size:15.5px;color:rgba(255,255,255,.88)}
   .foot__list a:hover{color:var(--frio-2)}
   .foot__cta{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
-  /* mapa do rodapé: só existe no PC */
-  .foot__mapa{display:none}
   .foot__bottom{display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:13.5px;
     color:rgba(255,255,255,.55);margin-top:30px}
   .foot__bottom .sp{margin-left:auto}
@@ -706,158 +700,155 @@
     .foot__brand p{font-size:14px}
     .foot__list{font-size:14.5px;gap:9px}
   }
-  /* ===== V18 — ajustes SÓ PC (>=981px), pedido do Caio em 01/10/2026 =====
-     Barra branca e alta (92px, logo de 58px, a mesma medida de antes da V17), sem a faixa escura ao lado da logo e com o Orçamento só
-     em negrito, sem o fundo azul. Nos cards das obras sai o par
-     categoria + nome grande: fica um título só (.card__pc), no tamanho que o
-     nome grande tinha. No celular o card continua com <i> e <b>. */
+  /* ===== V18 — visual (PC e celular), pedidos do Caio em 01/10/2026 =====
+     Começou só no PC e em 01/10/2026 ele pediu tudo no celular também, menos
+     as bordas da hero (no celular a capa segue de borda a borda). Aqui ficam
+     cores, fundos e formatos; as medidas de tela grande ficam no bloco
+     "V18 — medidas do PC" logo abaixo, que vem depois e manda no PC. */
+  header.nav{background:#fff}
+  .brand__chip{display:none}
+  .nav .btn--frio{background:none;color:var(--ink);font-weight:600;padding:8px 6px;letter-spacing:.12em;line-height:1}
+  .nav .btn--frio:hover{background:none;color:var(--azul-deep);box-shadow:none;transform:none}
+  /* fundo bem clarinho atrás dos serviços: um véu quase branco por cima do
+     degradê da página, que some no fim da seção. Ali embaixo o degradê da
+     página ainda é claro, então não marca emenda */
+  .hero{background:linear-gradient(180deg,rgba(244,249,254,0) 40%,rgba(244,249,254,.93) 100%)}
+  #servicos{padding-bottom:110px;background:linear-gradient(180deg,rgba(244,249,254,.93) 0,
+    rgba(238,246,253,.9) 55%,rgba(238,246,253,.6) 75%,rgba(238,246,253,.3) 88%,rgba(238,246,253,0) 100%)}
+  /* serviços: sem a caixa branca e tudo num azul bem escuro */
+  .gc{background:none;border:none;box-shadow:none}
+  .gc:hover{box-shadow:none;transform:translateY(-4px)}
+  .gc__art{background:none}
+  .gc__art svg{stroke:var(--azul-night)}
+  .gc .ic-fill{fill:var(--azul-night)}
+  .gc .ic-accent,.gc .ic-flange{stroke:var(--azul-night)}
+  .gc h3,.gc p{color:var(--azul-night)}
+  /* manutenção: texto em cima e centralizado, fotos numa faixa corrida embaixo */
+  .manut__grid{display:flex;flex-direction:column;gap:30px}
+  .manut__texto{margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .manut__lead{max-width:none}
+  .manut__lista{text-align:left;width:100%}
+  .manut__faixa{width:100%;max-width:1120px;margin:0 auto;overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .manut__faixa .manut__fotos{display:flex;width:max-content;gap:0;padding:6px 0;
+    animation:cliAnda 30s linear infinite}
+  .manut__faixa:hover .manut__fotos{animation-play-state:paused}
+  .manut__faixa .manut__fotos img{width:150px;margin-right:10px;flex:none}
+  .manut__foto--copia{display:block}
+  /* rodapé: mapa clicável e fundo em degradê que só aprofunda um pouco no fim */
+  .foot__mapa{display:block}
+  .mapa{position:relative;display:block;height:170px;border-radius:var(--r-md);overflow:hidden;
+    border:1px solid rgba(255,255,255,.18);box-shadow:0 14px 30px -18px rgba(0,0,0,.6)}
+  .mapa iframe{width:100%;height:100%;border:0;display:block;pointer-events:none}
+  .mapa__dica{position:absolute;left:10px;bottom:10px;padding:6px 11px;border-radius:999px;
+    background:var(--azul-deep);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;
+    font-size:12px;letter-spacing:.1em;text-transform:uppercase;transition:background .22s,color .22s}
+  .mapa:hover .mapa__dica{background:var(--frio);color:#04121F}
+  footer{background:linear-gradient(180deg,rgba(20,56,108,0) 0,rgba(20,56,108,.35) 50%,
+    rgba(18,50,98,.6) 100%)}
+  /* obras: sem prévia nem galeria por cima. O JS traz o carrossel da galeria
+     pra dentro da seção; todos os cards com a mesma altura */
+  .obras__previa,.obras__btn{display:none}
+  .obras .wrap--obras{width:100%;padding:0}
+  .obras .card{display:flex;flex-direction:column}
+  .obras .card__b{flex:1}
+  /* obra 04 (VRF Hitachi) é foto em pé: entra inteira, com faixa escura dos lados */
+  .obras .card img[src*="p-vrf-hitachi"]{object-fit:contain;object-position:center;background:#061B36}
+  .card__n{font-size:14px;left:10px;top:8px}
+  /* cores: o ciano dos destaques fica mais claro na empresa e no rodapé, e as
+     seções em fundo claro usam texto azul-escuro */
+  #empresa,footer{--frio:#7ED6FF;--frio-2:#A6E4FF}
+  #empresa p{color:rgba(255,255,255,.9)}
+  #manutencao,#clientes,#fotos .sec__head{--frio:#1F6FC0;--frio-2:#1F6FC0}
+  .manut h2{color:var(--azul-deep)}
+  .manut__lead{color:var(--ink-soft)}
+  .manut__lista b{color:var(--frio)}  /* o mesmo azul do título "Manutenção" */
+  .manut__lista span{color:var(--ink-soft)}
+  .manut .btn--out-light{border-color:rgba(11,42,82,.35);color:var(--azul-deep)}
+  .manut .btn--out-light:hover{background:var(--azul-deep);color:#fff}
+  #clientes .sec__head h2,#fotos .sec__head h2{color:var(--azul-deep)}
+  #clientes .sec__head p,#fotos .sec__head p{color:var(--ink-soft)}
+  /* degradê da página: uma mudança só, bem longa e lenta, do quase branco do
+     topo ao azul médio do fim, em paradas de 8 em 8%. Por isso manutenção,
+     clientes e o título das obras usam texto azul-escuro; da empresa pra
+     baixo o fundo já é azul o bastante pro texto branco */
+  .page{background:linear-gradient(180deg,
+    rgba(232,236,241,.72) 0%,
+    rgba(229,236,244,.78) 9%,
+    rgba(220,238,252,.8) 14%,
+    rgba(205,229,248,.8) 26%,
+    rgba(186,216,242,.8) 34%,
+    rgba(166,202,236,.8) 42%,
+    rgba(144,188,230,.8) 50%,
+    rgba(122,172,222,.8) 58%,
+    rgba(102,156,212,.8) 66%,
+    rgba(84,140,202,.82) 74%,
+    rgba(68,124,190,.84) 82%,
+    rgba(56,110,178,.86) 90%,
+    rgba(46,98,166,.88) 100%)}
+  /* cards das obras: um título só (.card__pc) no lugar do par categoria +
+     nome grande; quando tem o nome da obra (<em>), ele vira o destaque e o
+     tipo de serviço desce, menor */
+  .card__b i,.card__b b{display:none}
+  .card__pc{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
+    line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin-bottom:6px}
+  .card__b{display:flex;flex-direction:column}
+  .card__b em{order:1;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
+    line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin:0 0 4px}
+  .card__b:has(em) .card__pc{order:2;font-size:12.5px;font-weight:600;letter-spacing:.05em;
+    color:#8FB9DE;margin-bottom:6px}
+  .card__b p{order:3}
+  /* logo do celular um pouco maior, sem mexer na altura da barra */
+  @media (max-width:980px){ .nav__in img{height:42px} }
+  @media (max-width:420px){ .nav__in img{height:38px} }
+
+  /* ===== V18 — medidas do PC (>=981px) ===== */
   @media (min-width:981px){
-    header.nav{background:#fff}
-    /* a barra sai do .wrap de 1120px: logo e Orçamento vão quase até as bordas */
+    /* barra alta e branca; logo e Orçamento quase nas bordas */
     .nav__in{height:92px;max-width:none;padding:0 22px}
-    /* logo maior (58 para 72px) sem mexer na altura da barra, e afastada da borda */
     .nav__in img{height:72px}
     .brand{margin-left:56px}
-    /* links bem maiores que os 14,5px da V17 e espaçados; eram 23px com gap de
-       56px, desceram pra caber o quinto link (Manutenção) */
     .nav__links{font-size:20px;gap:40px}
-    .brand__chip{display:none}
-    .nav .btn--frio{background:none;color:var(--ink);font-weight:600;padding:8px 6px;font-size:20px;letter-spacing:.12em;line-height:1}
-    .nav .btn--frio:hover{background:none;color:var(--azul-deep);box-shadow:none;transform:none}
-    /* a capa não corta mais as fotos no PC: os slides são 16/9, então a caixa
-       volta a ser 16/9 e a largura sai da altura que sobra na tela (barra de
-       92px e a faixa de ~110px da próxima seção). Em tela
-       larga ela fica mais estreita que a janela, centralizada, encostada na
-       barra e com os cantos de baixo arredondados, em vez de sangrar até as bordas. O `* 1.2` deixa a capa 20%
-       maior que a altura livre (pedido de 01/10/2026): a próxima seção desce um
-       pouco, e em tela 16:10 a largura bate antes no limite de 16px por lado. */
+    .nav .btn--frio{font-size:20px}
+    /* a capa não corta as fotos: 16/9, com a largura saindo da altura que
+       sobra na tela (barra de 92px e a faixa de ~110px da próxima seção), 20%
+       maior que isso e no máximo a janela menos 16px por lado. Centralizada,
+       encostada na barra e com os cantos de baixo arredondados */
     .capa{--capa-w:min(100vw - 32px, (100svh - 92px - 110px) * 16 / 9 * 1.2);
       aspect-ratio:16/9;height:auto;min-height:0;width:var(--capa-w);
       margin:0 calc(50% - var(--capa-w) / 2);border-radius:0 0 var(--r-md) var(--r-md)}
-    /* serviços: sem a caixa branca, 30% menores (grade de 1120 para 784px,
-       ícone de 52 para 36px) e tudo num azul bem escuro, pra ler no fundo azul */
-    /* fundo bem clarinho atrás dos serviços: um véu quase branco por cima do
-       degradê da página, que some no fim da seção. Ali embaixo o degradê da
-       página ainda é claro, então não marca emenda */
-    .hero{background:linear-gradient(180deg,rgba(244,249,254,0) 40%,rgba(244,249,254,.93) 100%)}
-    #servicos{padding-bottom:110px;background:linear-gradient(180deg,rgba(244,249,254,.93) 0,
-      rgba(238,246,253,.9) 55%,rgba(238,246,253,.6) 75%,rgba(238,246,253,.3) 88%,rgba(238,246,253,0) 100%)}
+    /* serviços 30% menores: grade de 1120 para 784px, ícone de 52 para 36px */
     .grid-cap{max-width:784px;margin-inline:auto;gap:8px}
-    .gc{background:none;border:none;box-shadow:none;padding:12px 10px}
-    .gc:hover{box-shadow:none;transform:translateY(-4px)}
-    .gc__art{height:36px;margin-bottom:7px;background:none}
-    .gc__art svg{stroke:var(--azul-night)}
-    .gc .ic-fill{fill:var(--azul-night)}
-    .gc .ic-accent,.gc .ic-flange{stroke:var(--azul-night)}
-    .gc h3{font-size:16px;color:var(--azul-night)}
-    .gc p{font-size:11.5px;color:var(--azul-night)}
-    /* títulos das seções ~28% menores que na V17 (50/44/54px no máximo) */
+    .gc{padding:12px 10px}
+    .gc__art{height:36px;margin-bottom:7px}
+    .gc h3{font-size:16px}
+    .gc p{font-size:11.5px}
+    /* títulos das seções ~28% menores que na V17 */
     .sec__head h2{font-size:clamp(24px,2.6vw,36px)}
     .manut h2{font-size:clamp(22px,2.3vw,32px)}
     .about h2{font-size:clamp(25px,2.8vw,40px)}
-    /* manutenção na mesma escala dos serviços: bloco de 784px, textos e
-       fotos menores */
+    /* manutenção na escala dos serviços: bloco de 784px e os três itens lado a lado */
     .manut{padding:48px 0}
-    /* no PC o texto vem em cima, centralizado como nas outras seções, e as
-       fotos viram uma faixa corrida embaixo (mesmo esquema dos clientes) */
-    .manut__grid{display:flex;flex-direction:column;gap:30px}
-    .manut__texto{max-width:784px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
-    .manut__lead{max-width:none}
-    .manut__lista{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:left;width:100%}
-    .manut__faixa{width:100%;max-width:1120px;margin:0 auto;overflow:hidden;
-      -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-      mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-    .manut__faixa .manut__fotos{display:flex;width:max-content;gap:0;padding:6px 0;
-      animation:cliAnda 30s linear infinite}
-    .manut__faixa:hover .manut__fotos{animation-play-state:paused}
-    .manut__faixa .manut__fotos img{width:230px;margin-right:16px;flex:none}
-    .manut__foto--copia{display:block}
+    .manut__texto{max-width:784px}
+    .manut__lista{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .manut__faixa .manut__fotos img{width:230px;margin-right:16px}
     .manut__lead{font-size:13px;margin-bottom:16px}
-    .manut__lista{gap:10px;margin-bottom:18px}
+    .manut__lista{margin-bottom:18px}
     .manut__lista li{padding-left:12px}
     .manut__lista b{font-size:16px}
     .manut__lista span{font-size:11.5px}
-    .manut__fotos{gap:10px}
     .manut .btn{padding:8px 16px;font-size:12.5px}
     .manut .btn svg{width:14px;height:14px}
     /* rodapé com o mapa como quarta coluna, ao lado do contato */
     .foot__top{grid-template-columns:1.1fr .8fr 1fr 1.3fr;gap:40px}
-    .foot__mapa{display:block}
-    .mapa{position:relative;display:block;height:190px;border-radius:var(--r-md);overflow:hidden;
-      border:1px solid rgba(255,255,255,.18);box-shadow:0 14px 30px -18px rgba(0,0,0,.6)}
-    .mapa iframe{width:100%;height:100%;border:0;display:block;pointer-events:none}
-    .mapa__dica{position:absolute;left:10px;bottom:10px;padding:6px 11px;border-radius:999px;
-      background:var(--azul-deep);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;
-      font-size:12px;letter-spacing:.1em;text-transform:uppercase;transition:background .22s,color .22s}
-    .mapa:hover .mapa__dica{background:var(--frio);color:#04121F}
-    /* obras: no PC não tem prévia nem galeria por cima. O JS traz o carrossel
-       da galeria pra dentro da seção e cada foto fica do tamanho que a prévia
-       tinha: largura presa à altura da tela (barra 92px + respiro, título e
-       controles somam ~360px; a foto é 4/3, daí o * 4 / 3), no máximo 460px */
-    .obras__previa,.obras__btn{display:none}
-    /* o trilho tem a largura exata de duas fotos e o espaço entre elas
-       (gap de 20px do .rail): nenhuma foto aparece cortada na lateral, e como
-       o carrossel para sempre com uma foto encostada na borda, continua assim
-       a cada passo */
+    .mapa{height:190px}
+    /* obras: cada foto do tamanho que a prévia tinha (largura presa à altura
+       da tela, no máximo 460px) e o trilho com a largura exata de duas fotos
+       mais o gap de 20px, pra nenhuma aparecer cortada na lateral */
     .obras{--foto-w:min(460px, (100svh - 360px) * 4 / 3)}
-    .obras .wrap--obras{width:calc(var(--foto-w) * 2 + 20px);max-width:100%;padding:0}
-    /* todos os cards com a mesma altura: o trilho já estica os cards até o
-       mais alto, e a faixa azul do texto cresce pra preencher o que sobra */
-    .obras .card{flex:0 0 var(--foto-w);display:flex;flex-direction:column}
-    .obras .card__b{flex:1}
-    /* obra 04 (VRF Hitachi) é foto em pé: no 4/3 o cover cortava o equipamento
-       em cima e embaixo. Aqui ela entra inteira, com faixa escura dos lados */
-    .obras .card img[src*="p-vrf-hitachi"]{object-fit:contain;object-position:center;background:#061B36}
-    /* número de cada foto: de 32px para 14px */
-    .card__n{font-size:14px;left:10px;top:8px}
-    /* rodapé sem o bloco chapado: o degradê da página passa por ele e só
-       aprofunda um pouco no fim, sem ficar escuro demais */
-    footer{background:linear-gradient(180deg,rgba(20,56,108,0) 0,rgba(20,56,108,.35) 50%,
-      rgba(18,50,98,.6) 100%)}
-    /* com o fundo mais claro, o ciano dos destaques perdia contraste: na
-       empresa e no rodapé ele fica num ciano mais claro */
-    #empresa,footer{--frio:#7ED6FF;--frio-2:#A6E4FF}
-    #empresa p{color:rgba(255,255,255,.9)}
-    /* seções em fundo claro: texto azul-escuro e destaque num azul firme */
-    #manutencao,#clientes,#fotos .sec__head{--frio:#1F6FC0;--frio-2:#1F6FC0}
-    .manut h2{color:var(--azul-deep)}
-    .manut__lead{color:var(--ink-soft)}
-    .manut__lista b{color:var(--frio)}  /* o mesmo azul do título "Manutenção" */
-    .manut__lista span{color:var(--ink-soft)}
-    .manut .btn--out-light{border-color:rgba(11,42,82,.35);color:var(--azul-deep)}
-    .manut .btn--out-light:hover{background:var(--azul-deep);color:#fff}
-    #clientes .sec__head h2,#fotos .sec__head h2{color:var(--azul-deep)}
-    #clientes .sec__head p,#fotos .sec__head p{color:var(--ink-soft)}
-    /* degradê da página no PC: uma mudança só, bem longa e lenta, do quase
-       branco do topo ao azul médio do fim, em paradas de 8 em 8%. Por isso
-       manutenção, clientes e o título das obras ficam em fundo claro e usam
-       texto azul-escuro (regras logo abaixo); da empresa pra baixo o fundo
-       já é azul o bastante pro texto branco */
-    .page{background:linear-gradient(180deg,
-      rgba(232,236,241,.72) 0%,
-      rgba(229,236,244,.78) 9%,
-      rgba(220,238,252,.8) 14%,
-      rgba(205,229,248,.8) 26%,
-      rgba(186,216,242,.8) 34%,
-      rgba(166,202,236,.8) 42%,
-      rgba(144,188,230,.8) 50%,
-      rgba(122,172,222,.8) 58%,
-      rgba(102,156,212,.8) 66%,
-      rgba(84,140,202,.82) 74%,
-      rgba(68,124,190,.84) 82%,
-      rgba(56,110,178,.86) 90%,
-      rgba(46,98,166,.88) 100%)}
-    .card__b i,.card__b b{display:none}
-    .card__pc{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
-      line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin-bottom:6px}
-    /* quando o card tem o nome da obra (<em>), ele vira o destaque e o tipo de
-       serviço (.card__pc) desce, menor; sem nome da obra, o .card__pc segue grande */
-    .card__b{display:flex;flex-direction:column}
-    .card__b em{order:1;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:19px;
-      line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:var(--frio);margin:0 0 4px}
-    .card__b:has(em) .card__pc{order:2;font-size:12.5px;font-weight:600;letter-spacing:.05em;
-      color:#8FB9DE;margin-bottom:6px}
-    .card__b p{order:3}
+    .obras .wrap--obras{width:calc(var(--foto-w) * 2 + 20px);max-width:100%}
+    .obras .card{flex:0 0 var(--foto-w)}
   }
   /* PC estreito (981 a 1199px): com a logo de 72px os cinco links e o
      Orçamento não cabem no tamanho cheio, então encolhem um pouco */
@@ -910,10 +901,11 @@
 <div class="menu" id="menuLateral">
   <div class="menu__fundo" id="menuFundo"></div>
   <nav class="menu__painel" id="menuLinks" aria-label="Menu do site">
-    <a href="#servicos">Serviços</a>
-    <a href="#clientes">Clientes</a>
-    <a href="#fotos">Obras</a>
     <a href="#empresa">Empresa</a>
+    <a href="#fotos">Obras</a>
+    <a href="#manutencao">Manutenção</a>
+    <a href="#clientes">Clientes</a>
+    <a href="#servicos">Projetos</a>
   </nav>
 </div>
 
@@ -1206,7 +1198,7 @@
           <span class="foot__list"><a href="https://instagram.com/arclimtec" target="_blank" rel="noopener">@arclimtec no Instagram</a></span>
         </div>
       </div>
-      <!-- mapa só no PC (ver bloco V18). O iframe não recebe clique: quem clica
+      <!-- mapa do rodapé. O iframe não recebe clique: quem clica
            é o link por cima, que abre o endereço no Google Maps. -->
       <div class="foot__mapa">
         <h5>Onde estamos</h5>
@@ -1443,21 +1435,20 @@
     let auto;
     function iniciarAuto(){ if(semMovimento) return; pararAuto(); auto = setInterval(proximo, 4200); }
     function pararAuto(){ clearInterval(auto); }
-    // depois que a pessoa mexe, espera um tempo antes de voltar a andar:
-    // 30 s no PC, 2,6 s no celular. Um timer só, pra não empilhar retomadas.
-    const noPC = matchMedia('(min-width:981px)');
+    // depois que a pessoa mexe, espera 30 s antes de voltar a andar (no PC e
+    // no celular). Um timer só, pra não empilhar retomadas.
     let retomar, mexeu = false;
     function retomarDepois(){
       clearTimeout(retomar);
-      retomar = setTimeout(iniciarAuto, noPC.matches ? 30000 : 2600);
+      retomar = setTimeout(iniciarAuto, 30000);
     }
     function interagiu(){ mexeu = true; clearTimeout(retomar); pararAuto(); }
     trilho.addEventListener('pointerenter', ()=>{ mexeu = false; clearTimeout(retomar); pararAuto(); });
     trilho.addEventListener('pointerdown', interagiu);
     trilho.addEventListener('wheel', interagiu, {passive:true});
-    // no PC, só passar o mouse por cima e sair volta a andar na hora;
-    // se clicou ou rolou, espera os 30 s
-    trilho.addEventListener('pointerleave', ()=>{ if(noPC.matches && mexeu) retomarDepois(); else iniciarAuto(); });
+    // só passar o mouse por cima e sair volta a andar na hora; se clicou,
+    // tocou ou rolou, espera os 30 s
+    trilho.addEventListener('pointerleave', ()=>{ if(mexeu) retomarDepois(); else iniciarAuto(); });
     // no toque o gesto que vira rolagem termina em pointercancel, e não em
     // pointerup: sem ouvir os dois, o carrossel parava de vez no celular
     addEventListener('pointerup', retomarDepois);
@@ -1465,7 +1456,7 @@
     iniciarAuto();
   })();
 
-  /* ===== manutenção: prepara a faixa corrida das fotos (o CSS só liga ela no PC) ===== */
+  /* ===== manutenção: prepara a faixa corrida das fotos ===== */
   (function(){
     const fotos = document.querySelector('.manut__fotos');
     if(!fotos) return;
@@ -1526,27 +1517,15 @@
     addEventListener('keydown', e=>{ if(e.key === 'Escape' && !galeria.hidden) fecharGaleria(); });
   })();
 
-  /* ===== obras no PC: o carrossel sai da galeria e fica direto na seção =====
-     No celular continua a prévia com o botão que abre a galeria por cima.
-     Se a janela cruzar os 981px, o carrossel volta pro lugar certo. */
+  /* ===== obras: o carrossel sai da galeria e fica direto na seção =====
+     (PC e celular). A prévia e o botão "Ver obras" somem pelo CSS. */
   (function(){
     const conteudo = document.querySelector('#galeria > .wrap');
     const obras = document.querySelector('#fotos .obras');
-    const galeria = document.getElementById('galeria');
     if(!conteudo || !obras) return;
-    const noPC = matchMedia('(min-width:981px)');
-    function posicionar(){
-      if(noPC.matches && conteudo.parentNode !== obras){
-        conteudo.classList.add('wrap--obras');
-        obras.appendChild(conteudo);
-      } else if(!noPC.matches && conteudo.parentNode !== galeria){
-        conteudo.classList.remove('wrap--obras');
-        galeria.appendChild(conteudo);
-      } else return;
-      dispatchEvent(new Event('resize'));
-    }
-    noPC.addEventListener('change', posicionar);
-    posicionar();
+    conteudo.classList.add('wrap--obras');
+    obras.appendChild(conteudo);
+    dispatchEvent(new Event('resize'));
   })();
 
   /* ===== obra com mais de uma foto: clicar na foto mostra a próxima =====
