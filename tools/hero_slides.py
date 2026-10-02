@@ -56,6 +56,10 @@ SLIDES = [
     # quase quadrada, com o duto encostando no topo: foco 0 nao tira nada de
     # cima (pedido do Caio em 18/09/2026), o recorte todo sai do piso vazio
     (ORIGINAIS / "p-hero-7-dutos-teto.jpg", "p-hero-7-dutos-teto.jpg", "corta", 0.0),
+    # a foto da primeira obra (Ortobom), pedida pelo Caio em 01/10/2026 pra
+    # entrar antes do slide dos dutos no teto; foco 0.3 igual ao card dela,
+    # que guarda os dutos no alto
+    (ORIGINAIS / "p-dutos-galpao-2.jpg", "p-hero-8-dutos-galpao.jpg", "corta", 0.3),
 ]
 
 

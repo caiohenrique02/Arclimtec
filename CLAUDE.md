@@ -230,13 +230,14 @@ Quem faz login é o Caio; o Claude só opera a tela depois que ela já está log
 ## Hero: carrossel automático (18/09/2026, pedido do Caio)
 
 O comparador de antes e depois saiu. No lugar entrou um carrossel que **troca
-sozinho de 3 em 3 segundos**. São **quatro slides**, nesta ordem (ordem do
-cliente, 18/09/2026):
+sozinho de 3 em 3 segundos**. São **cinco slides**, nesta ordem (ordem do
+cliente, 18/09/2026; o 3 entrou em 01/10/2026):
 
 1. `p-hero-5-condensadoras-laje.jpg` — condensadoras Carrier na laje
 2. `p-hero-6-condensadoras-aquasnap.jpg` — condensadoras Carrier em bases de concreto
-3. `p-hero-7-dutos-teto.jpg` — rede dutada no teto do galpão
-4. `p-hero-2-tecnico.jpg` — o desenho técnico do prédio, o traçado transparente
+3. `p-hero-8-dutos-galpao.jpg` — dutos no galpão da Ortobom, a mesma foto da obra 01
+4. `p-hero-7-dutos-teto.jpg` — rede dutada no teto do galpão
+5. `p-hero-2-tecnico.jpg` — o desenho técnico do prédio, o traçado transparente
 
 As duas primeiras levam a mesma legenda, "Condensadoras em laje": foi escolha
 do Caio em 18/09/2026, depois de eu ter posto "Condensadoras AquaSnap" e
