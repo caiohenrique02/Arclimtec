@@ -60,6 +60,9 @@ POSICAO = {
     "p-protecta-difusores.jpg": (0.5, 0.12),
     "p-hu-petrolina-dutos-isolados.jpg": (0.5, 0.15),
     "p-hu-petrolina-dutos-montagem.jpg": (0.5, 0.30),
+    "p-protecta-tubulacao-lateral.jpg": (0.5, 0.50),
+    "p-protecta-unidade-ar.jpg": (0.5, 0.60),
+    "p-protecta-dutos-prumadas.jpg": (0.5, 0.40),
 }
 
 # Rodar o script recarimba todas de uma vez, sempre a partir do original limpo
@@ -88,6 +91,12 @@ FOTOS = [
     "p-protecta-difusores.jpg",
     "p-hu-petrolina-dutos-isolados.jpg",
     "p-hu-petrolina-dutos-montagem.jpg",
+    # mais cinco da Protecta (card 11), 01/10/2026
+    "p-protecta-tubulacao.jpg",
+    "p-protecta-tubulacao-lateral.jpg",
+    "p-protecta-unidade-ar.jpg",
+    "p-protecta-paineis-mpu.jpg",
+    "p-protecta-dutos-prumadas.jpg",
 ]
 
 
