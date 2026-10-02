@@ -63,6 +63,8 @@ POSICAO = {
 FOTOS = [
     "p-dutos-galpao-2.jpg",
     "p-carrier-laje.jpg",
+    # a mesma foto do 2º slide da hero, na obra 02 desde 01/10/2026
+    "p-cinesercla-condensadoras-bases.jpg",
     "p-vrf-hitachi.jpg",
     "p-selfcontained.jpg",
     "p-casa-de-maquinas.jpg",

@@ -239,9 +239,15 @@ cliente, 18/09/2026; o 3 entrou em 01/10/2026):
 4. `p-hero-7-dutos-teto.jpg` — rede dutada no teto do galpão
 5. `p-hero-2-tecnico.jpg` — o desenho técnico do prédio, o traçado transparente
 
-As duas primeiras levam a mesma legenda, "Condensadoras em laje": foi escolha
-do Caio em 18/09/2026, depois de eu ter posto "Condensadoras AquaSnap" e
-"Condensadoras Carrier" na segunda. Não "consertar" pra diferenciar.
+A segunda leva a legenda "Condensadoras em laje": foi escolha do Caio em
+18/09/2026, depois de eu ter posto "Condensadoras AquaSnap" e "Condensadoras
+Carrier". A primeira também era "em laje" e virou **"Condensadoras em
+telhado"** a pedido dele em 01/10/2026. Não mexer nas legendas sem ele pedir.
+
+A foto do 2º slide também é a foto da **obra 02** (Cinesercla, Campina Grande)
+desde 01/10/2026, no lugar da `p-carrier-laje.jpg`. No card ela é
+`p-cinesercla-condensadoras-bases.jpg`, carimbada pelo `marca_dagua.py` a
+partir de uma cópia do original da hero.
 
 O cliente pediu o **desenho** no fim, não o render realista: são duas artes do
 mesmo prédio e é fácil trocar uma pela outra. O render (`p-hero-1`), o duto
