@@ -72,6 +72,9 @@ FOTOS = [
     "p-carrier-laje.jpg",
     # a mesma foto do 2º slide da hero, na obra 02 desde 01/10/2026
     "p-cinesercla-condensadoras-bases.jpg",
+    # a foto do 1º slide da hero, na obra 03 (Feira de Santana): no card ela
+    # precisa da marca no canto do recorte 4/3, não no da hero
+    "p-cinesercla-feira-condensadoras.jpg",
     "p-vrf-hitachi.jpg",
     "p-selfcontained.jpg",
     "p-casa-de-maquinas.jpg",
