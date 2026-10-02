@@ -714,19 +714,14 @@
     /* serviços: sem a caixa branca, 30% menores (grade de 1120 para 784px,
        ícone de 52 para 36px) e tudo num azul bem escuro, pra ler no fundo azul */
     /* fundo bem clarinho só atrás dos serviços: um véu quase branco por cima do
-       degradê da página, que some aos poucos nos últimos 300px, em várias paradas, pra a passagem pro azul ser longa e suave pra não marcar emenda
+       degradê da página, que vai sumindo desde o primeiro quarto da seção, em várias paradas: junto com o degradê da página, a passagem do claro pro azul ocupa os serviços inteiros (~700px) pra não marcar emenda
        com a seção de manutenção logo abaixo */
     .hero{background:linear-gradient(180deg,rgba(244,249,254,0) 40%,rgba(244,249,254,.93) 100%)}
     #servicos{background:linear-gradient(180deg,rgba(244,249,254,.93) 0,
-      rgba(238,246,253,.93) calc(100% - 300px),
-      rgba(238,246,253,.86) calc(100% - 255px),
-      rgba(238,246,253,.72) calc(100% - 205px),
-      rgba(238,246,253,.54) calc(100% - 155px),
-      rgba(238,246,253,.36) calc(100% - 110px),
-      rgba(238,246,253,.2) calc(100% - 68px),
-      rgba(238,246,253,.08) calc(100% - 30px),
-      rgba(238,246,253,0) 100%);
-      padding-bottom:150px}
+      rgba(240,247,254,.9) 25%,rgba(238,246,253,.76) 42%,rgba(238,246,253,.6) 56%,
+      rgba(238,246,253,.44) 68%,rgba(238,246,253,.3) 78%,rgba(238,246,253,.18) 87%,
+      rgba(238,246,253,.08) 94%,rgba(238,246,253,0) 100%);
+      padding-bottom:110px}
     .grid-cap{max-width:784px;margin-inline:auto;gap:8px}
     .gc{background:none;border:none;box-shadow:none;padding:12px 10px}
     .gc:hover{box-shadow:none;transform:translateY(-4px)}
@@ -797,11 +792,15 @@
     .page{background:linear-gradient(180deg,
       rgba(232,236,241,.72) 0%,
       rgba(229,236,244,.78) 9%,
-      rgba(210,238,255,.82) 13%,
-      rgba(120,186,232,.78) 19%,
-      rgba(70,142,204,.8) 25%,
-      rgba(56,124,192,.8) 35%,
-      rgba(50,112,182,.8) 48%,
+      rgba(214,236,252,.8) 14%,
+      rgba(184,220,245,.79) 17%,
+      rgba(152,202,238,.79) 20%,
+      rgba(124,182,226,.79) 23%,
+      rgba(100,164,214,.8) 26%,
+      rgba(84,150,206,.8) 29%,
+      rgba(70,138,200,.8) 33%,
+      rgba(60,126,194,.8) 39%,
+      rgba(52,114,184,.8) 48%,
       rgba(44,102,172,.82) 62%,
       rgba(40,94,162,.84) 76%,
       rgba(36,86,152,.86) 88%,
