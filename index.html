@@ -384,6 +384,9 @@
   .card img[src*="p-cassete-apartamento"]{object-position:center 30%} /* o cassete no forro */
   .card img[src*="p-virotubo-loja"]{object-position:center 33%}    /* o duto redondo */
   .card img[src*="p-cinesercla-plenum"]{object-position:center 35%} /* o plenum isolado, não o forro acima */
+  .card img[src*="p-protecta-difusores"]{object-position:center 12%} /* o difusor grande do forro */
+  .card img[src*="p-hu-petrolina-dutos-isolados"]{object-position:center 15%} /* os dutos no alto */
+  .card img[src*="p-hu-petrolina-dutos-montagem"]{object-position:center 30%} /* as bocas dos dutos */
   /* fotos deitadas: o corte tira das laterais */
   .card img[src*="p-dutos-isolamento"]{object-position:60% center} /* a manta fica à direita */
   .card:hover img{filter:saturate(1.05)}
@@ -398,6 +401,24 @@
   .card__b em{font-style:normal;display:block;font-family:"Barlow Condensed",sans-serif;font-weight:600;
     font-size:12.5px;letter-spacing:.05em;color:#8FB9DE;margin:-2px 0 6px}
   .card__b p{font-size:12.5px;color:#C6DAEE;font-weight:300;line-height:1.4}
+  /* obra com mais de uma foto: as fotos ficam empilhadas e clicar na foto
+     mostra a próxima (o texto troca junto). O aviso é discreto: um "1/2" no
+     canto, bolinhas embaixo e uma seta que só aparece com o mouse em cima */
+  .card__fotos{position:relative;display:grid}
+  .card__fotos img{grid-area:1/1;opacity:0;transition:opacity .45s,filter .4s}
+  .card__fotos img.on{opacity:1}
+  .card--grupo .card__b:not(.on){display:none}
+  .card__mais{position:absolute;inset:0;z-index:1;border:0;padding:0;background:none;cursor:pointer}
+  .card__mais::after{content:"";position:absolute;right:12px;top:50%;width:30px;height:30px;margin-top:-15px;
+    border-radius:50%;background:rgba(6,27,54,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/14px no-repeat;
+    opacity:0;transition:opacity .25s}
+  .card:hover .card__mais::after,.card__mais:focus-visible::after{opacity:1}
+  .card__cont{position:absolute;right:10px;top:8px;padding:3px 8px;border-radius:999px;
+    background:rgba(6,27,54,.6);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;
+    font-size:11px;letter-spacing:.08em}
+  .card__pontos{position:absolute;left:0;right:0;bottom:9px;z-index:2;display:flex;justify-content:center;gap:5px;pointer-events:none}
+  .card__pontos i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);transition:background .25s,transform .25s}
+  .card__pontos i.on{background:#fff;transform:scale(1.2)}
   /* título único dos cards, só no PC (ver bloco V18) */
   .card__pc{display:none}
 
@@ -975,6 +996,7 @@
         <img loading="lazy" decoding="async" width="960" height="1280" src="assets/p-manutencao-compressores.jpg" alt="Painel elétrico e compressores de sistema de climatização abertos para manutenção">
         <img loading="lazy" decoding="async" width="960" height="1280" src="assets/p-manutencao-temperatura-duto.jpg" alt="Medição de temperatura de insuflamento com termômetro infravermelho em rede de dutos de galpão">
         <img loading="lazy" decoding="async" width="960" height="1280" src="assets/p-manutencao-superaquecimento.jpg" alt="Medição de pressão e superaquecimento com manifold digital em unidade condensadora">
+        <img loading="lazy" decoding="async" width="540" height="720" src="assets/p-manutencao-quadro-eletrico.jpg" alt="Técnico conferindo o quadro elétrico com o esquema na mão, ao lado dos compressores">
       </div>
     </div>
   </div>
@@ -1045,9 +1067,15 @@
       <article class="card" data-zap="Olá! Vi no site a obra de rede dutada de grande área. Preciso de algo parecido, podem me orçar?"><span class="card__n">01</span>
         <img loading="lazy" decoding="async" width="1090" height="974" src="assets/p-dutos-galpao-2.jpg" alt="Rede de dutos de ar condicionado suspensa na estrutura metálica de galpão industrial da Ortobom, em Simões Filho (BA)">
         <div class="card__b"><strong class="card__pc">Sistema dutado</strong><i>Industrial</i><b>Dutos em galpão</b><em>Ortobom · Simões Filho (BA)</em><p>Rede suspensa na estrutura metálica, integrada à iluminação e ao sistema de combate a incêndio.</p></div></article>
-      <article class="card" data-zap="Olá! Preciso de um sistema de grande capacidade, tipo a bateria de condensadoras que vi no site."><span class="card__n">02</span>
-        <img loading="lazy" decoding="async" width="1280" height="720" src="assets/p-cinesercla-condensadoras-bases.jpg" alt="Seis condensadoras Carrier alinhadas sobre bases de concreto na laje técnica do cinema Cinesercla, em Campina Grande (PB)">
-        <div class="card__b"><strong class="card__pc">Bateria de condensadoras</strong><i>Grande capacidade</i><b>Bateria de condensadoras</b><em>Cinema Cinesercla · Campina Grande (PB)</em><p>Seis unidades em laje técnica, cada uma em base própria, com interligação e drenagem dedicadas.</p></div></article>
+      <article class="card card--grupo" data-zap="Olá! Preciso de um sistema de grande capacidade, tipo a bateria de condensadoras que vi no site."><span class="card__n">02</span>
+        <div class="card__fotos">
+          <img class="on" loading="lazy" decoding="async" width="1280" height="720" src="assets/p-cinesercla-condensadoras-bases.jpg" alt="Seis condensadoras Carrier alinhadas sobre bases de concreto na laje técnica do cinema Cinesercla, em Campina Grande (PB)">
+          <img loading="lazy" decoding="async" width="773" height="1280" src="assets/p-cinesercla-plenum.jpg" alt="Plenum de insuflamento isolado termicamente, obra da Arclimtec no cinema Cinesercla, em Campina Grande (PB)">
+          <button class="card__mais" type="button" aria-label="Ver a próxima foto desta obra"><span class="card__cont">1/2</span></button>
+          <span class="card__pontos" aria-hidden="true"><i class="on"></i><i></i></span>
+        </div>
+        <div class="card__b on"><strong class="card__pc">Bateria de condensadoras</strong><i>Grande capacidade</i><b>Bateria de condensadoras</b><em>Cinema Cinesercla · Campina Grande (PB)</em><p>Seis unidades em laje técnica, cada uma em base própria, com interligação e drenagem dedicadas.</p></div>
+        <div class="card__b"><strong class="card__pc">Dutos em MPU</strong><i>Isolamento térmico</i><b>Plenum de insuflamento</b><em>Cinema Cinesercla · Campina Grande (PB)</em><p>Plenum isolado com manta térmica e acabamento em fita aluminizada, ligado à casa de máquinas.</p></div></article>
       <article class="card" data-zap="Olá! Vi no site as condensadoras do cinema Cinesercla em Feira de Santana. Queria um orçamento parecido."><span class="card__n">03</span>
         <img loading="lazy" decoding="async" width="1600" height="900" src="assets/p-hero-5-condensadoras-laje.jpg" alt="Fileira de condensadoras Carrier Ecoplit na cobertura do cinema Cinesercla, em Feira de Santana (BA)">
         <div class="card__b"><strong class="card__pc">Bateria de condensadoras</strong><i>Grande capacidade</i><b>Bateria de condensadoras</b><em>Cinema Cinesercla · Feira de Santana (BA)</em><p>Condensadoras do mesmo modelo alinhadas na cobertura metálica, sobre suporte próprio e com a tubulação isolada.</p></div></article>
@@ -1072,12 +1100,24 @@
       <article class="card" data-zap="Olá! Vi no site os dutos com isolamento em manta de lã de vidro. Preciso de algo parecido."><span class="card__n">10</span>
         <img loading="lazy" decoding="async" width="1280" height="719" src="assets/p-dutos-isolamento.jpg" alt="Dutos de ar condicionado com isolamento externo em manta de lã de vidro com face aluminizada">
         <div class="card__b"><strong class="card__pc">Dutos com isolamento</strong><i>Rede dutada</i><b>Dutos com isolamento</b><p>Duto convencional isolado com manta de lã de vidro de face aluminizada, montado ainda na fase de obra.</p></div></article>
-      <article class="card" data-zap="Olá! Vi no site o plenum isolado termicamente. Preciso de algo parecido, podem me orçar?"><span class="card__n">11</span>
-        <img loading="lazy" decoding="async" width="773" height="1280" src="assets/p-cinesercla-plenum.jpg" alt="Plenum de insuflamento isolado termicamente, obra da Arclimtec no cinema Cinesercla, em Campina Grande (PB)">
-        <div class="card__b"><strong class="card__pc">Dutos em MPU</strong><i>Isolamento térmico</i><b>Plenum de insuflamento</b><em>Cinema Cinesercla · Campina Grande (PB)</em><p>Plenum isolado com manta térmica e acabamento em fita aluminizada, ligado à casa de máquinas.</p></div></article>
-      <article class="card" data-zap="Olá! Vi no site a instalação de climatizadores com rede dutada externa. Podem me orçar algo parecido?"><span class="card__n">12</span>
-        <img loading="lazy" decoding="async" width="1448" height="1086" src="assets/p-thermomatic-climatizadores.jpg" alt="Climatizadores e rede dutada externa instalados na Protecta, em São Paulo">
-        <div class="card__b"><strong class="card__pc">Sistema de controle de umidade</strong><i>Industrial</i><b>Climatizadores e rede dutada</b><em>Protecta · São Paulo (SP)</em><p>Conjunto de climatizadores com rede dutada externa interligando as unidades à fachada industrial.</p></div></article>
+      <article class="card card--grupo" data-zap="Olá! Vi no site a instalação de climatizadores com rede dutada externa. Podem me orçar algo parecido?"><span class="card__n">11</span>
+        <div class="card__fotos">
+          <img class="on" loading="lazy" decoding="async" width="1448" height="1086" src="assets/p-thermomatic-climatizadores.jpg" alt="Climatizadores e rede dutada externa instalados na Protecta, em São Paulo">
+          <img loading="lazy" decoding="async" width="720" height="1280" src="assets/p-protecta-difusores.jpg" alt="Forro com difusores de insuflamento instalados na obra da Protecta, em São Paulo">
+          <button class="card__mais" type="button" aria-label="Ver a próxima foto desta obra"><span class="card__cont">1/2</span></button>
+          <span class="card__pontos" aria-hidden="true"><i class="on"></i><i></i></span>
+        </div>
+        <div class="card__b on"><strong class="card__pc">Sistema de controle de umidade</strong><i>Industrial</i><b>Climatizadores e rede dutada</b><em>Protecta · São Paulo (SP)</em><p>Conjunto de climatizadores com rede dutada externa interligando as unidades à fachada industrial.</p></div>
+        <div class="card__b"><strong class="card__pc">Difusores no forro</strong><i>Industrial</i><b>Difusores de insuflamento</b><em>Protecta · São Paulo (SP)</em><p>Forro com difusores de insuflamento distribuídos pelo ambiente, instalados antes da ocupação.</p></div></article>
+      <article class="card card--grupo" data-zap="Olá! Vi no site a rede de dutos do Hospital HU em Petrolina. Queria um orçamento parecido."><span class="card__n">12</span>
+        <div class="card__fotos">
+          <img class="on" loading="lazy" decoding="async" width="1086" height="1448" src="assets/p-hu-petrolina-dutos-isolados.jpg" alt="Rede de dutos com isolamento térmico de face aluminizada no forro do corredor do Hospital HU, em Petrolina (PE)">
+          <img loading="lazy" decoding="async" width="1086" height="1448" src="assets/p-hu-petrolina-dutos-montagem.jpg" alt="Montagem da rede de dutos com isolamento em lã de vidro acima do forro do Hospital HU, em Petrolina (PE)">
+          <button class="card__mais" type="button" aria-label="Ver a próxima foto desta obra"><span class="card__cont">1/2</span></button>
+          <span class="card__pontos" aria-hidden="true"><i class="on"></i><i></i></span>
+        </div>
+        <div class="card__b on"><strong class="card__pc">Rede de dutos isolada</strong><i>Hospitalar</i><b>Dutos isolados no corredor</b><em>Hospital HU · Petrolina (PE)</em><p>Rede de dutos com isolamento térmico de face aluminizada, suspensa em perfilado no forro do corredor.</p></div>
+        <div class="card__b"><strong class="card__pc">Montagem da rede de dutos</strong><i>Hospitalar</i><b>Montagem dos dutos</b><em>Hospital HU · Petrolina (PE)</em><p>Trechos de duto com isolamento em lã de vidro, montados em perfilado acima do forro antes do fechamento.</p></div></article>
     </div>
     <div class="rail-controls">
       <button class="rail-btn" id="trilhoPrev" aria-label="Fotos anteriores" type="button">
@@ -1508,6 +1548,24 @@
     noPC.addEventListener('change', posicionar);
     posicionar();
   })();
+
+  /* ===== obra com mais de uma foto: clicar na foto mostra a próxima =====
+     O clique na foto não abre o botão do WhatsApp (esse fica no texto), e um
+     arraste do trilho não conta como clique. */
+  document.querySelectorAll('.card--grupo').forEach(card=>{
+    const fotos = [...card.querySelectorAll('.card__fotos img')];
+    const textos = [...card.querySelectorAll('.card__b')];
+    const pontos = [...card.querySelectorAll('.card__pontos i')];
+    const cont = card.querySelector('.card__cont');
+    let i = 0;
+    card.querySelector('.card__mais').addEventListener('click', e=>{
+      e.stopPropagation();
+      if(performance.now() - arrastou < 250) return;
+      i = (i + 1) % fotos.length;
+      [fotos, textos, pontos].forEach(lista=> lista.forEach((el, k)=> el.classList.toggle('on', k === i)));
+      cont.textContent = (i + 1) + '/' + fotos.length;
+    });
+  });
 
   /* ===== botão de WhatsApp em cada box, com a frase do que a pessoa abriu ===== */
   const ZAP = '558330998606';

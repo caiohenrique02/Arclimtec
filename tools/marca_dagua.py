@@ -35,6 +35,7 @@ CARD_POR_FOTO = {
     "p-manutencao-compressores.jpg": 3 / 4,
     "p-manutencao-temperatura-duto.jpg": 3 / 4,
     "p-manutencao-superaquecimento.jpg": 3 / 4,
+    "p-manutencao-quadro-eletrico.jpg": 3 / 4,
 }
 ZOOM_HOVER = 1.02         # .card:hover img { transform: scale(1.02) }
 LARGURA_MARCA = 0.22      # largura da logo, em fração da largura visível
@@ -56,6 +57,9 @@ POSICAO = {
     "p-virotubo-loja.jpg": (0.5, 0.33),
     "p-dutos-isolamento.jpg": (0.60, 0.5),
     "p-cinesercla-plenum.jpg": (0.5, 0.35),
+    "p-protecta-difusores.jpg": (0.5, 0.12),
+    "p-hu-petrolina-dutos-isolados.jpg": (0.5, 0.15),
+    "p-hu-petrolina-dutos-montagem.jpg": (0.5, 0.30),
 }
 
 # Rodar o script recarimba todas de uma vez, sempre a partir do original limpo
@@ -78,6 +82,12 @@ FOTOS = [
     "p-manutencao-compressores.jpg",
     "p-manutencao-temperatura-duto.jpg",
     "p-manutencao-superaquecimento.jpg",
+    # 01/10/2026: quinta foto da manutenção, segunda foto da Protecta e as
+    # duas do Hospital HU (Petrolina)
+    "p-manutencao-quadro-eletrico.jpg",
+    "p-protecta-difusores.jpg",
+    "p-hu-petrolina-dutos-isolados.jpg",
+    "p-hu-petrolina-dutos-montagem.jpg",
 ]
 
 
