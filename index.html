@@ -714,14 +714,23 @@
     /* serviços: sem a caixa branca, 30% menores (grade de 1120 para 784px,
        ícone de 52 para 36px) e tudo num azul bem escuro, pra ler no fundo azul */
     /* fundo bem clarinho só atrás dos serviços: um véu quase branco por cima do
-       degradê da página, que vai sumindo desde o primeiro quarto da seção, em várias paradas: junto com o degradê da página, a passagem do claro pro azul ocupa os serviços inteiros (~700px) pra não marcar emenda
+       degradê da página, firme até os ícones; abaixo deles a seção ganha 520px vazios e o véu some ao longo desse espaço todo, em 12 paradas numa curva suave (smoothstep): a passagem do claro pro azul é longa de propósito pra não marcar emenda
        com a seção de manutenção logo abaixo */
     .hero{background:linear-gradient(180deg,rgba(244,249,254,0) 40%,rgba(244,249,254,.93) 100%)}
-    #servicos{background:linear-gradient(180deg,rgba(244,249,254,.93) 0,
-      rgba(240,247,254,.9) 25%,rgba(238,246,253,.76) 42%,rgba(238,246,253,.6) 56%,
-      rgba(238,246,253,.44) 68%,rgba(238,246,253,.3) 78%,rgba(238,246,253,.18) 87%,
-      rgba(238,246,253,.08) 94%,rgba(238,246,253,0) 100%);
-      padding-bottom:110px}
+    #servicos{padding-bottom:520px;background:linear-gradient(180deg,rgba(244,249,254,.93) 0,
+      rgba(238,246,253,0.930) calc(100% - 520px),
+      rgba(238,246,253,0.912) calc(100% - 477px),
+      rgba(238,246,253,0.861) calc(100% - 433px),
+      rgba(238,246,253,0.785) calc(100% - 390px),
+      rgba(238,246,253,0.689) calc(100% - 347px),
+      rgba(238,246,253,0.580) calc(100% - 303px),
+      rgba(238,246,253,0.465) calc(100% - 260px),
+      rgba(238,246,253,0.350) calc(100% - 217px),
+      rgba(238,246,253,0.241) calc(100% - 173px),
+      rgba(238,246,253,0.145) calc(100% - 130px),
+      rgba(238,246,253,0.069) calc(100% - 87px),
+      rgba(238,246,253,0.018) calc(100% - 43px),
+      rgba(238,246,253,0.000) calc(100% - 0px))}
     .grid-cap{max-width:784px;margin-inline:auto;gap:8px}
     .gc{background:none;border:none;box-shadow:none;padding:12px 10px}
     .gc:hover{box-shadow:none;transform:translateY(-4px)}
