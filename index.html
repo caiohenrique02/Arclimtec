@@ -305,6 +305,8 @@
   /* botão mais discreto aqui: menor e sem o verde do zap, que ficava chamativo demais nessa seção */
   .manut .btn{padding:11px 22px;font-size:14.5px;letter-spacing:.07em;gap:8px}
   .manut .btn svg{width:16px;height:16px}
+  /* cópias das fotos que o JS cria pra faixa corrida do PC; fora dele não aparecem */
+  .manut__foto--copia{display:none}
 
   /* ===== botão de whatsapp em cada box — pílula com o assunto por extenso, não só o ícone ===== */
   .zap-box{z-index:6;display:inline-flex;align-items:center;gap:9px;
@@ -735,7 +737,20 @@
     /* manutenção na mesma escala dos serviços: bloco de 784px, textos e
        fotos menores */
     .manut{padding:48px 0}
-    .manut__grid{max-width:784px;margin-inline:auto;gap:36px}
+    /* no PC o texto vem em cima, centralizado como nas outras seções, e as
+       fotos viram uma faixa corrida embaixo (mesmo esquema dos clientes) */
+    .manut__grid{display:flex;flex-direction:column;gap:30px}
+    .manut__texto{max-width:784px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
+    .manut__lead{max-width:none}
+    .manut__lista{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:left;width:100%}
+    .manut__faixa{width:100%;max-width:1120px;margin:0 auto;overflow:hidden;
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+    .manut__faixa .manut__fotos{display:flex;width:max-content;gap:0;padding:6px 0;
+      animation:cliAnda 30s linear infinite}
+    .manut__faixa:hover .manut__fotos{animation-play-state:paused}
+    .manut__faixa .manut__fotos img{width:230px;margin-right:16px;flex:none}
+    .manut__foto--copia{display:block}
     .manut__lead{font-size:13px;margin-bottom:16px}
     .manut__lista{gap:10px;margin-bottom:18px}
     .manut__lista li{padding-left:12px}
@@ -837,6 +852,7 @@
     html{scroll-behavior:auto}
     .gc__art{opacity:1;transform:none;transition:none}
     .cli__faixa .cli__grid{animation:none}
+    .manut__faixa .manut__fotos{animation:none}
     .ic-scan,.ic-drop,.ic-flow,.ic-gearA,.ic-gearB,.ic-check,.ic-badge,.ic-line,.ic-seal,.ic-seal .ic-check,
     .ic-needle,.ic-digits rect,.ic-ping,.ic-fan,.ic-air,.ic-graph,.ic-bolt2{animation:none}
     .ic-check,.ic-seal .ic-check{stroke-dashoffset:0}
@@ -1403,6 +1419,23 @@
     addEventListener('pointerup', retomarDepois);
     addEventListener('pointercancel', retomarDepois);
     iniciarAuto();
+  })();
+
+  /* ===== manutenção: prepara a faixa corrida das fotos (o CSS só liga ela no PC) ===== */
+  (function(){
+    const fotos = document.querySelector('.manut__fotos');
+    if(!fotos) return;
+    const faixa = document.createElement('div');
+    faixa.className = 'manut__faixa';
+    fotos.parentNode.insertBefore(faixa, fotos);
+    faixa.appendChild(fotos);
+    [...fotos.children].forEach(img=>{
+      const copia = img.cloneNode(true);
+      copia.classList.add('manut__foto--copia');
+      copia.setAttribute('aria-hidden', 'true');
+      copia.alt = '';
+      fotos.appendChild(copia);
+    });
   })();
 
   /* ===== clientes: prepara a faixa corrida das logos ===== */
