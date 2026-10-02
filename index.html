@@ -707,8 +707,11 @@
      "V18 — medidas do PC" logo abaixo, que vem depois e manda no PC. */
   header.nav{background:#fff}
   .brand__chip{display:none}
-  .nav .btn--frio{background:none;color:var(--ink);font-weight:600;padding:8px 6px;letter-spacing:.12em;line-height:1}
+  .nav .btn--frio{background:none;color:var(--ink);font-weight:600;padding:3px 6px 10px;letter-spacing:.12em;line-height:1}  /* mais padding embaixo que em cima, pra o texto alinhar com os links (que têm o sublinhado embaixo) */
   .nav .btn--frio:hover{background:none;color:var(--azul-deep);box-shadow:none;transform:none}
+  /* nomes da barra no azul do "Ar" da logo (#00A8F0); no hover, azul-escuro */
+  .nav__links a,.nav .btn--frio{color:#00A8F0}
+  .nav__links a:hover{color:var(--azul-deep)}
   /* fundo bem clarinho atrás dos serviços: um véu quase branco por cima do
      degradê da página, que some no fim da seção. Ali embaixo o degradê da
      página ainda é claro, então não marca emenda */
@@ -811,6 +814,10 @@
     .brand{margin-left:56px}
     .nav__links{font-size:20px;gap:40px}
     .nav .btn--frio{font-size:20px}
+    /* o Orçamento encosta nos links, com o mesmo espaço que tem entre eles
+       (40px): os links deixam de ficar no meio e vão pra direita junto dele.
+       30px do gap da barra + 4px de margem + 6px do padding do botão = 40px */
+    .nav .btn--frio{margin-left:4px}
     /* a capa não corta as fotos: 16/9, com a largura saindo da altura que
        sobra na tela (barra de 92px e a faixa de ~110px da próxima seção), 20%
        maior que isso e no máximo a janela menos 16px por lado. Centralizada,
@@ -854,7 +861,7 @@
      Orçamento não cabem no tamanho cheio, então encolhem um pouco */
   @media (min-width:981px) and (max-width:1199px){
     .nav__links{font-size:17px;gap:22px}
-    .nav .btn--frio{font-size:17px}
+    .nav .btn--frio{font-size:17px;margin-left:-14px}  /* 30 - 14 + 6 = 22px, o gap dos links aqui */
     .brand{margin-left:20px}
     .nav__in img{height:56px}
   }
